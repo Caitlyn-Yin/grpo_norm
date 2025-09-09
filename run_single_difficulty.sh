@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # configuration
-MODEL="Qwen/Qwen2.5-Math-1.5B"
+MODEL="Qwen/Qwen2.5-Math-7B"
 FORMAT="qa"
 NUM_SHOTS=2
 NUM_GENERATIONS=8

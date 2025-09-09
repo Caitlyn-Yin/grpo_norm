@@ -1,3 +1,4 @@
+# download the preprocessed dataset (judge the difficulty by 7B model)
 import os
 import re
 import random

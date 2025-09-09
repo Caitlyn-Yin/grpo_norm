@@ -251,7 +251,7 @@ def parse_args():
     parser = argparse.ArgumentParser(description="Fine-tune a model with GRPO on GSM8K")
     parser.add_argument('--format', type=str, default='qa', choices=['qa', 'code'])
     parser.add_argument('--num_shots', type=int, default=2)
-    parser.add_argument('--model_name', type=str, default='Qwen/Qwen2.5-Math-1.5B')
+    parser.add_argument('--model_name', type=str, default='Qwen/Qwen2.5-Math-7B')
     parser.add_argument("--num_generations", type=int, default=8, help="K: candidates per prompt")
     parser.add_argument("--learning_rate", type=float, default=1e-5)
     parser.add_argument("--kl_beta", type=float, default=0.02, help="KL coefficient")

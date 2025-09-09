@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # complete_std_analysis.py - Analyze and plot two key metrics from checkpoints
+# Analyze and plot two key metrics from checkpoints
 
 import torch
 import numpy as np
@@ -23,8 +24,6 @@ class PolicyStdAnalyzer:
         self.tokenizer = None
         
     def load_checkpoint(self, checkpoint_path):
-        """Load checkpoint (supports LoRA and full model)"""
-        # Check if it's a LoRA adapter
         if os.path.exists(os.path.join(checkpoint_path, "adapter_model.bin")):
             print(f"Loading LoRA adapter from {checkpoint_path}")
             base_model = AutoModelForCausalLM.from_pretrained(
@@ -91,7 +90,6 @@ class PolicyStdAnalyzer:
         
         selected = questions.get(difficulty, questions["easy"])[:num_questions]
         
-        # Format as prompts
         formatted = []
         for q in selected:
             prompt = f"Question: {q}\nSolution: Let's think step by step."
@@ -113,55 +111,43 @@ class PolicyStdAnalyzer:
                 inputs = self.tokenizer(prompt, return_tensors="pt", padding=True)
                 inputs = {k: v.to(model.device) for k, v in inputs.items()}
                 
-                # Generate and get logits
                 outputs = model.generate(
                     **inputs,
                     max_new_tokens=max_new_tokens,
                     return_dict_in_generate=True,
                     output_scores=True,
-                    do_sample=False  # greedy decoding for consistency
+                    do_sample=False 
                 )
                 
-                # Calculate std for each generation step
                 step_stds = []
                 if outputs.scores:
-                    for score in outputs.scores:
-                        # score shape: [batch_size, vocab_size]
+                    for score in outputs.scores:        
                         probs = torch.softmax(score, dim=-1)
-                        # Get highest probability
                         top_probs, _ = torch.max(probs, dim=-1)
-                        # Calculate standard deviation sqrt(p(1-p))
                         std = torch.sqrt(top_probs * (1 - top_probs))
                         step_stds.append(std.mean().item())
                 
-                # Average std for this question
                 if step_stds:
                     question_avg_std = np.mean(step_stds)
                 else:
-                    question_avg_std = 0.5  # Default value
+                    question_avg_std = 0.5  
                 
                 per_question_stds.append(question_avg_std)
                 all_stds.extend(step_stds)
         
-        # Calculate overall average (for metric 1)
         overall_mean = np.mean(all_stds) if all_stds else 0.5
         
         return overall_mean, per_question_stds
     
     def analyze_all_checkpoints(self, output_dir, difficulty="easy", num_questions=10):
-        """Analyze all checkpoints"""
-        
-        # Get test questions
+    
         test_prompts = self.get_test_questions(difficulty, num_questions)
         
-        # Find all checkpoints
         checkpoint_dirs = []
         
-        # Look for checkpoint-* directories
         pattern = os.path.join(output_dir, "checkpoint-*")
         checkpoint_dirs.extend(glob.glob(pattern))
         
-        # Add final model
         if os.path.exists(os.path.join(output_dir, "adapter_model.bin")) or \
            os.path.exists(os.path.join(output_dir, "pytorch_model.bin")):
             checkpoint_dirs.append(output_dir)
@@ -177,20 +163,16 @@ class PolicyStdAnalyzer:
         results = []
         
         for checkpoint_path in tqdm(checkpoint_dirs, desc="Analyzing checkpoints"):
-            # Extract step number
             if "checkpoint-" in checkpoint_path:
                 step = int(checkpoint_path.split("-")[-1])
             else:
-                step = 9999  # Final model uses large number
+                step = 9999  
             
-            # Load model
             try:
                 model = self.load_checkpoint(checkpoint_path)
                 
-                # Calculate std
                 overall_std, question_stds = self.compute_policy_std(model, test_prompts)
                 
-                # Save results
                 results.append({
                     'step': step,
                     'overall_std': overall_std,
@@ -198,7 +180,6 @@ class PolicyStdAnalyzer:
                     'checkpoint': checkpoint_path
                 })
                 
-                # Release GPU memory
                 del model
                 torch.cuda.empty_cache()
                 
@@ -209,30 +190,24 @@ class PolicyStdAnalyzer:
         return results
 
 def plot_metrics(results, difficulty, normalization, save_dir="plots"):
-    """Plot two key metrics"""
     
     os.makedirs(save_dir, exist_ok=True)
     
-    # Prepare data
     steps = [r['step'] for r in results]
     overall_stds = [r['overall_std'] for r in results]
     
-    # Sort
     sorted_indices = np.argsort(steps)
     steps = [steps[i] for i in sorted_indices]
     overall_stds = [overall_stds[i] for i in sorted_indices]
     results = [results[i] for i in sorted_indices]
     
-    # Create figure
     fig, axes = plt.subplots(2, 2, figsize=(15, 12))
     
-    # ========== Plot 1: Overall Policy Std (Metric 1) ==========
     ax = axes[0, 0]
     ax.plot(steps, overall_stds, 'b-', linewidth=2, marker='o', markersize=5)
     ax.axhline(y=0.5, color='r', linestyle='--', alpha=0.5, label='Maximum (0.5)')
     ax.axhline(y=0.25, color='g', linestyle='--', alpha=0.5, label='Target (<<0.5)')
     
-    # Calculate cumulative average
     cumulative_avg = np.mean(overall_stds)
     ax.axhline(y=cumulative_avg, color='purple', linestyle=':', 
                label=f'Average: {cumulative_avg:.4f}')
@@ -243,16 +218,13 @@ def plot_metrics(results, difficulty, normalization, save_dir="plots"):
     ax.grid(True, alpha=0.3)
     ax.legend()
     
-    # Add text description
     condition_met = "✓ Satisfied" if cumulative_avg < 0.25 else "✗ Not Satisfied"
     ax.text(0.02, 0.98, f'Condition (<<0.5): {condition_met}',
             transform=ax.transAxes, va='top',
             bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5))
     
-    # ========== Plot 2: Statistics for Metric 1 ==========
     ax = axes[0, 1]
     
-    # Calculate statistics
     stats_text = f"""Statistics for $\\frac{{1}}{{T}}\\sum_{{t=0}}^{{T-1}} \\sqrt{{\\pi_t(1)(1-\\pi_t(1))}}$:
 
     Mean: {np.mean(overall_stds):.4f}
@@ -270,10 +242,8 @@ def plot_metrics(results, difficulty, normalization, save_dir="plots"):
             bbox=dict(boxstyle='round', facecolor='lightblue', alpha=0.3))
     ax.axis('off')
     
-    # ========== Plot 3: Per-question std evolution (Metric 2) ==========
     ax = axes[1, 0]
     
-    # Extract std trajectory for each question
     num_questions = len(results[0]['question_stds'])
     for q_idx in range(num_questions):
         q_stds = [r['question_stds'][q_idx] for r in results]
@@ -286,10 +256,8 @@ def plot_metrics(results, difficulty, normalization, save_dir="plots"):
     ax.grid(True, alpha=0.3)
     ax.legend(bbox_to_anchor=(1.05, 1), loc='upper left', fontsize=8)
     
-    # ========== Plot 4: Distribution changes of question stds ==========
     ax = axes[1, 1]
     
-    # Select several key steps
     key_steps = [0, len(results)//2, -1]  # Start, middle, end
     colors = ['red', 'orange', 'green']
     
@@ -298,7 +266,6 @@ def plot_metrics(results, difficulty, normalization, save_dir="plots"):
             step = steps[step_idx]
             q_stds = results[step_idx]['question_stds']
             
-            # Plot distribution
             ax.hist(q_stds, bins=15, alpha=0.5, color=colors[idx], 
                    label=f'Step {step}', density=True)
     
@@ -312,7 +279,6 @@ def plot_metrics(results, difficulty, normalization, save_dir="plots"):
                  fontsize=14, y=1.02)
     plt.tight_layout()
     
-    # Save image
     filename = f"{save_dir}/std_analysis_{difficulty}_{normalization}.png"
     plt.savefig(filename, dpi=150, bbox_inches='tight')
     print(f"Plot saved to {filename}")
@@ -333,10 +299,8 @@ def main():
     
     args = parser.parse_args()
     
-    # Create analyzer
     analyzer = PolicyStdAnalyzer()
     
-    # Analyze all checkpoints
     print(f"Analyzing {args.difficulty}-{args.normalization} experiment...")
     results = analyzer.analyze_all_checkpoints(
         args.output_dir, 
@@ -345,10 +309,8 @@ def main():
     )
     
     if results:
-        # Plot charts
         plot_metrics(results, args.difficulty, args.normalization, args.save_dir)
         
-        # Save data to CSV
         df_data = []
         for r in results:
             for q_idx, q_std in enumerate(r['question_stds']):
@@ -364,7 +326,6 @@ def main():
         df.to_csv(csv_file, index=False)
         print(f"Data saved to {csv_file}")
         
-        # Print final summary
         print("\n" + "="*60)
         print("FINAL SUMMARY")
         print("="*60)

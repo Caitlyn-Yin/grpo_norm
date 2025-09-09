@@ -1,5 +1,5 @@
 #!/bin/bash
-MODEL="Qwen/Qwen2.5-Math-1.5B"
+MODEL="Qwen/Qwen2.5-Math-7B"
 MAX_STEPS=400
 WANDB_PROJECT="grpo-final3-difficulty"
 DATA_DIR="data/gsm8k_difficulty_subsets"
@@ -10,7 +10,6 @@ mkdir -p logs/final3_difficulty
 mkdir -p outputs/GRPO_final3_difficulty
 
 echo "Starting 9 experiments with auto GPU allocation"
-echo "==========================="
 
 experiments=(
     "easy standard"
@@ -93,4 +92,3 @@ done
 echo ""
 echo "Check WandB project: $WANDB_PROJECT"
 echo "Logs saved in: logs/final3_difficulty/"
-echo "==========================="
