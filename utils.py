@@ -92,14 +92,13 @@ def correctness_reward_func_qa(completions, final_answer=None, **kwargs):
         pass_at_k_history.append(pass_at_k)
         accuracy_history.append(accuracy)
         
-        # Print current batch Pass@K
-        print(f"\n📊 Current batch - Pass@{k}: {pass_at_k:.2f}, Accuracy: {accuracy:.2%}")
+        print(f"\n Current batch - Pass@{k}: {pass_at_k:.2f}, Accuracy: {accuracy:.2%}")
         
         # Print cumulative statistics
         if len(pass_at_k_history) > 0:
             cumulative_pass = np.mean(pass_at_k_history)
             cumulative_acc = np.mean(accuracy_history)
-            print(f"📈 Cumulative - Pass@{k}: {cumulative_pass:.4f}, Accuracy: {cumulative_acc:.4f}")
+            print(f"Cumulative - Pass@{k}: {cumulative_pass:.4f}, Accuracy: {cumulative_acc:.4f}")
             print(f"   Total questions seen: {len(pass_at_k_history)}")
         
         # If wandb is available, log to wandb

@@ -80,8 +80,9 @@ import wandb
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from peft import LoraConfig, get_peft_model
 from trl import GRPOConfig, GRPOTrainer
-from typing import Dict, List, Union
+from typing import Dict, List, Union, Any
 import logging
+import uuid
 
 from gsm8k_difficulty import GSM8KDifficulty
 from utils import (
@@ -90,16 +91,27 @@ from utils import (
     print_trainable_parameters,
     print_final_stats, get_pass_at_k_stats
 )
+from variance_analysis import VarianceAnalyzer
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 class DifficultyGRPOTrainer(GRPOTrainer):
     
-    def __init__(self, *args, difficulty="easy", **kwargs):
+    def __init__(self, *args, difficulty="easy", analyze_variance=True, **kwargs):
         super().__init__(*args, **kwargs)
         self.difficulty = difficulty
         self.step_count = 0
+        
+        # Variance analysis
+        self.analyze_variance = analyze_variance
+        if analyze_variance:
+            self.variance_analyzer = VarianceAnalyzer(save_dir=f"variance_analysis_results_{difficulty}")
+        
+        # Keep track of gradients and score functions for Fisher information
+        self.current_score_functions = {}  # {question_id: [score_functions]}
+        self.current_question_ids = {}  # Maps batch indices to question IDs
+        self.current_token_counts = {}  # {question_id: token_count}
     
     def log(self, logs: Dict[str, float], start_time: float = None) -> None:
         self.step_count += 1
@@ -114,7 +126,218 @@ class DifficultyGRPOTrainer(GRPOTrainer):
             elif self.args.scale_rewards == "batch":
                 logs["normalization"] = "batch_std"
         
+        # Run variance analysis every 20 steps and only after step 50
+        # This gives time for data to accumulate and reduces computational overhead
+        if self.analyze_variance and self.step_count > 50 and self.step_count % 20 == 0:
+            try:
+                logger.info(f"Running variance analysis at step {self.step_count}")
+                analysis_results = self.variance_analyzer.run_full_analysis()
+                
+                # Log cosine similarity analysis if available
+                if 'cosine_variance_df' in analysis_results and not analysis_results['cosine_variance_df'].empty:
+                    df_cos = analysis_results['cosine_variance_df']
+                    
+                    # Log cosine similarity statistics
+                    if wandb.run is not None:
+                        logs["analysis/avg_cosine_similarity"] = df_cos['cosine_similarity'].mean()
+                        logs["analysis/positive_cosine_ratio"] = (df_cos['cosine_similarity'] > 0).mean()
+                        logs["analysis/avg_variance_diff"] = df_cos['variance_diff'].mean()
+                        
+                        # Correlation between cosine similarity and variance difference
+                        if len(df_cos) > 1:
+                            from scipy.stats import pearsonr
+                            corr, _ = pearsonr(df_cos['cosine_similarity'], df_cos['variance_diff'])
+                            logs["analysis/cosine_variance_corr"] = corr
+                    
+                    logger.info(f"Cosine analysis: {len(df_cos)} pairs, {(df_cos['cosine_similarity'] > 0).mean():.1%} positive")
+                
+                # Log variance differences
+                if 'question_variance_diff' in analysis_results:
+                    q_var_diff = analysis_results['question_variance_diff']
+                    if wandb.run is not None and q_var_diff:
+                        logs["analysis/avg_question_variance_diff"] = np.mean(list(q_var_diff.values()))
+                
+                if 'iteration_variance_diff' in analysis_results:
+                    iter_var_diff = analysis_results['iteration_variance_diff']
+                    if wandb.run is not None and iter_var_diff:
+                        logs["analysis/avg_iteration_variance_diff"] = np.mean(list(iter_var_diff.values()))
+                
+                logs["analysis/difficulty"] = self.difficulty
+                    
+            except Exception as e:
+                logger.warning(f"Variance analysis failed: {e}")
+        
         super().log(logs, start_time)
+    
+    def compute_rewards(self, completions: List[str], prompts: List[str], **kwargs):
+        """
+        Compute rewards and track reward std for variance analysis
+        """
+        # Call parent method to get rewards
+        rewards = super().compute_rewards(completions, prompts, **kwargs)
+        
+        # Calculate reward standard deviation for each question
+        if self.analyze_variance:
+            self._calculate_reward_std(rewards, prompts)
+        
+        return rewards
+    
+    def _calculate_reward_std(self, rewards: List[float], prompts: List[str]):
+        """
+        Calculate and record reward standard deviation for each question
+        """
+        if not self.analyze_variance or not self.current_question_ids:
+            return
+        
+        # Group rewards by question
+        question_rewards = {}
+        for i, reward in enumerate(rewards):
+            if i in self.current_question_ids:
+                question_id = self.current_question_ids[i]
+                if question_id not in question_rewards:
+                    question_rewards[question_id] = []
+                question_rewards[question_id].append(reward)
+        
+        # Calculate standard deviation for each question
+        for question_id, q_rewards in question_rewards.items():
+            if len(q_rewards) > 1:  # Need at least 2 samples for std
+                reward_std = np.std(q_rewards)
+                self.variance_analyzer.record_reward_std(question_id, self.step_count, reward_std)
+                
+                # Record variance for variance difference analysis
+                variance = reward_std ** 2
+                self.variance_analyzer.record_variance(question_id, self.step_count, variance)
+    
+    def compute_loss(self, model, inputs: Dict[str, Any], return_outputs=False, **kwargs):
+        """
+        Override compute_loss to capture gradients for Fisher information calculation
+        """
+        # Call parent method to compute loss
+        # GRPOTrainer doesn't support return_outputs, so we just get the loss
+        loss = super().compute_loss(model, inputs, **kwargs)
+        
+        # For Fisher information calculation, we would need the model outputs
+        # Since GRPO doesn't return outputs, we'll skip Fisher information calculation for now
+        # The variance analysis will still work with reward variance tracking
+        
+        if return_outputs:
+            # If outputs are requested, we need to return a simple object with loss
+            # This is for compatibility with the Trainer class
+            from types import SimpleNamespace
+            return SimpleNamespace(loss=loss)
+        return loss
+    
+    def _capture_score_functions_disabled(self, model_inputs, outputs):
+        """
+        Capture score functions (gradients of log probabilities) for Fisher information calculation
+        """
+        try:
+            # Skip if loss is None or not a tensor
+            if not hasattr(outputs, "loss") or outputs.loss is None or not isinstance(outputs.loss, torch.Tensor):
+                logger.warning("Skipping Fisher information calculation: loss is None or not a tensor")
+                return
+                
+            # Reset score functions for this batch
+            self.current_score_functions = {}
+            self.current_token_counts = {}
+            
+            # Generate question IDs if needed
+            if not self.current_question_ids:
+                batch_size = model_inputs["input_ids"].size(0) if "input_ids" in model_inputs else 1
+                for batch_idx in range(batch_size):
+                    self.current_question_ids[batch_idx] = f"q_{self.difficulty}_{self.step_count}_{batch_idx}"
+            
+            # Register hooks to capture gradients
+            hooks = []
+            score_functions = {}
+            
+            # Only track LoRA parameters to keep computational cost manageable
+            lora_params = []
+            for name, param in self.model.named_parameters():
+                if "lora" in name.lower() and param.requires_grad:
+                    lora_params.append(param)
+                    
+                    # Create a placeholder for this parameter's gradients
+                    score_functions[name] = []
+                    
+                    # Register hook to capture gradients
+                    def hook_factory(name):
+                        def hook(grad):
+                            if grad is not None:
+                                score_functions[name].append(grad.detach().clone())
+                        return hook
+                    
+                    hooks.append(param.register_hook(hook_factory(name)))
+            
+            # Skip if no LoRA parameters found
+            if not lora_params:
+                logger.warning("No LoRA parameters found for Fisher information calculation")
+                return
+                
+            # Do a backward pass to compute gradients
+            try:
+                outputs.loss.backward(retain_graph=True)
+            except RuntimeError as e:
+                logger.warning(f"Error in backward pass: {e}")
+                # Remove hooks before returning
+                for hook in hooks:
+                    hook.remove()
+                return
+            
+            # Aggregate score functions by question
+            batch_size = model_inputs["input_ids"].size(0) if "input_ids" in model_inputs else 1
+            for batch_idx in range(batch_size):
+                if batch_idx in self.current_question_ids:
+                    question_id = self.current_question_ids[batch_idx]
+                    
+                    # Count tokens for this question
+                    if "attention_mask" in model_inputs:
+                        token_count = model_inputs["attention_mask"][batch_idx].sum().item()
+                        self.current_token_counts[question_id] = token_count
+                    
+                    # Compute squared norm of score function (for Fisher information)
+                    param_grads = []
+                    for name in score_functions:
+                        if score_functions[name] and len(score_functions[name]) > 0:
+                            # Check if batch_idx is valid
+                            if batch_idx < score_functions[name][0].size(0):
+                                param_grads.append(score_functions[name][0][batch_idx].flatten())
+                    
+                    if param_grads:
+                        try:
+                            # Concatenate all parameter gradients
+                            all_grads = torch.cat(param_grads)
+                            
+                            # Store for cosine similarity calculation
+                            self.variance_analyzer.record_gradient(question_id, self.step_count, all_grads)
+                            
+                            # Calculate Fisher information (squared norm of score function)
+                            fisher_info = torch.norm(all_grads) ** 2
+                            
+                            # Normalize by sequence length
+                            if question_id in self.current_token_counts and self.current_token_counts[question_id] > 0:
+                                fisher_info = fisher_info / self.current_token_counts[question_id]
+                            
+                            # Record Fisher information
+                            self.variance_analyzer.record_fisher_info(
+                                question_id, 
+                                self.step_count, 
+                                fisher_info.item()
+                            )
+                        except Exception as e:
+                            logger.warning(f"Error processing gradients: {e}")
+            
+            # Remove hooks
+            for hook in hooks:
+                hook.remove()
+                
+            # Zero gradients after capturing
+            self.model.zero_grad()
+            
+        except Exception as e:
+            logger.warning(f"Error capturing score functions: {e}")
+            # Zero gradients in case of error
+            self.model.zero_grad()
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Train GRPO on difficulty-graded GSM8K")
@@ -139,7 +362,7 @@ def parse_args():
                        choices=['standard', 'no_std', 'batch_std'])
     
     parser.add_argument('--use_wandb', action='store_true')
-    parser.add_argument('--wandb_project', type=str, default='grpo-final3-difficulty')
+    parser.add_argument('--wandb_project', type=str, default='iclr1_easy')
     parser.add_argument('--wandb_run_name', type=str, default=None)
     parser.add_argument('--exp_name', type=str, default='default')
     
@@ -214,8 +437,8 @@ def main():
         max_completion_length=1024,
         max_steps=args.max_steps,   
         save_strategy="steps",
-        save_steps=10,
-        save_total_limit=200,
+        save_steps=10,  # Save every 10 steps for analysis
+        save_total_limit=20,  # Keep last 20 checkpoints to save disk space
         max_grad_norm=0.1,
         report_to=report_to,
         log_on_each_node=False,
@@ -256,6 +479,7 @@ def main():
         args=training_args,
         train_dataset=dataset,
         difficulty=args.difficulty,
+        analyze_variance=True,
     )
     
     print(f"\nStarting training:")
