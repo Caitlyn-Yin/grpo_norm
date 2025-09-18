@@ -1,0 +1,58 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Outputs and logs
+outputs/
+logs/
+*.log
+
+# Wandb
+wandb/
+
+# Model checkpoints
+models/
+checkpoints/
+*.pt
+*.pth
+*.safetensors
+
+# Environment
+.env
+.venv
+env/
+venv/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Data files (if large)
+data/
+*.csv
+*.json
+*.jsonl
+*.txt
+
+# Keep specific important files
+!requirements.txt
+!setup_environment.sh
+!*.py
+!*.sh
+!*.md
