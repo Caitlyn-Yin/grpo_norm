@@ -16,16 +16,10 @@ class VarianceAnalyzer:
         """Initialize the analyzer with a directory to save results"""
         self.save_dir = save_dir
         os.makedirs(save_dir, exist_ok=True)
-        
-        # Storage for variance data
         self.question_variances = {}  # {question_id: [variance_iter1, variance_iter2, ...]}
         self.iteration_variances = {}  # {iteration: [variance_q1, variance_q2, ...]}
-        
-        # Storage for cosine similarity data
         self.question_gradients = {}  # {question_id: {iteration: gradient_vector}}
         self.cosine_similarities = {}  # {(q1, q2): [cos_sim_iter1, cos_sim_iter2, ...]}
-        
-        # Storage for Fisher information
         self.question_fisher = {}  # {question_id: {iteration: fisher_value}}
         self.question_reward_std = {}  # {question_id: {iteration: reward_std}}
         
@@ -43,8 +37,7 @@ class VarianceAnalyzer:
         """Record gradient vector for a specific question and iteration"""
         if question_id not in self.question_gradients:
             self.question_gradients[question_id] = {}
-        
-        # Store as numpy array to save memory
+              
         self.question_gradients[question_id][iteration] = gradient_vector.detach().cpu().numpy()
     
     def record_fisher_info(self, question_id: str, iteration: int, fisher_value: float):
@@ -162,13 +155,11 @@ class VarianceAnalyzer:
         """Plot how cosine similarity changes over iterations"""
         plt.figure(figsize=(12, 8))
         
-        # Get all iterations
         all_iterations = set()
         for _, cos_sims in self.cosine_similarities.items():
             all_iterations.update(cos_sims.keys())
         iterations = sorted(list(all_iterations))
         
-        # Calculate average cosine similarity per iteration
         avg_cos_sims = []
         pos_cos_sims_ratio = []
         
@@ -184,8 +175,7 @@ class VarianceAnalyzer:
                 
                 avg_cos_sims.append(avg_cos_sim)
                 pos_cos_sims_ratio.append(pos_ratio)
-        
-        # Plot average cosine similarity
+                
         plt.subplot(2, 1, 1)
         plt.plot(iterations, avg_cos_sims, 'b-', marker='o')
         plt.axhline(y=0, color='r', linestyle='--')
@@ -210,7 +200,6 @@ class VarianceAnalyzer:
         """Plot variance difference vs cosine similarity"""
         plt.figure(figsize=(10, 8))
         
-        # Filter for cosine > 0 and cosine < 0
         df_pos = df[df['cosine_similarity'] > 0]
         df_neg = df[df['cosine_similarity'] <= 0]
         
@@ -219,14 +208,12 @@ class VarianceAnalyzer:
         plt.scatter(df_neg['cosine_similarity'], df_neg['variance_diff'], 
                    alpha=0.5, label='Cosine <= 0', color='red')
         
-        # Add trend line
         if len(df) > 1:
             z = np.polyfit(df['cosine_similarity'], df['variance_diff'], 1)
             p = np.poly1d(z)
             plt.plot(sorted(df['cosine_similarity']), p(sorted(df['cosine_similarity'])), 
                     "r--", alpha=0.8)
             
-            # Calculate correlation
             corr, p_value = pearsonr(df['cosine_similarity'], df['variance_diff'])
             plt.title(f'Variance Difference vs Cosine Similarity\nCorrelation: {corr:.3f} (p={p_value:.3f})')
         
@@ -235,7 +222,6 @@ class VarianceAnalyzer:
         plt.legend()
         plt.grid(True, alpha=0.3)
         
-        # Add statistics
         pos_count = len(df_pos)
         neg_count = len(df_neg)
         total = pos_count + neg_count
@@ -257,14 +243,12 @@ class VarianceAnalyzer:
         
         plt.scatter(df['fisher_info'], df['reward_var'], alpha=0.5)
         
-        # Add trend line
         if len(df) > 1:
             z = np.polyfit(df['fisher_info'], df['reward_var'], 1)
             p = np.poly1d(z)
             plt.plot(sorted(df['fisher_info']), p(sorted(df['fisher_info'])), 
                     "r--", alpha=0.8)
             
-            # Calculate correlation
             corr, p_value = pearsonr(df['fisher_info'], df['reward_var'])
             plt.title(f'Reward Variance vs Fisher Information\nCorrelation: {corr:.3f} (p={p_value:.3f})')
         

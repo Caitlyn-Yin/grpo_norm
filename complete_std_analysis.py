@@ -293,7 +293,7 @@ def main():
     parser.add_argument("--difficulty", type=str, default="easy",
                        choices=["easy", "medium", "hard"])
     parser.add_argument("--normalization", type=str, default="standard",
-                       choices=["standard", "no_std", "batch_std"])
+                       choices=["standard", "no_std"])
     parser.add_argument("--num_questions", type=int, default=10)
     parser.add_argument("--save_dir", type=str, default="std_analysis_plots")
     

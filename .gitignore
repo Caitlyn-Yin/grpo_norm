@@ -1,58 +1,49 @@
+# Large output directories
+outputs/
+logs/
+wandb/
+analysis_outputs/
+individual_plots/
+comparison_plots/
+models/
+data/
+
 # Python cache
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 .Python
-*.so
 
-# Outputs and logs
-outputs/
-logs/
-*.log
+# Jupyter Notebook
+.ipynb_checkpoints
 
-# Wandb
-wandb/
-
-# Model checkpoints
-models/
-checkpoints/
-*.pt
-*.pth
-*.safetensors
-
-# Environment
+# Environment variables
 .env
 .venv
 env/
 venv/
-ENV/
 
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
-*~
 
 # OS
 .DS_Store
 Thumbs.db
 
-# Jupyter
-.ipynb_checkpoints/
-*.ipynb_checkpoints
-
-# Data files (if large)
-data/
+# Large files
+*.log
+*.png
+*.jpg
+*.jpeg
 *.csv
-*.json
-*.jsonl
-*.txt
+*.parquet
+*.pkl
+*.pickle
 
-# Keep specific important files
-!requirements.txt
-!setup_environment.sh
-!*.py
-!*.sh
-!*.md
+# Temporary files
+*.tmp
+*.temp

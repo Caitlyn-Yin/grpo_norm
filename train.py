@@ -209,8 +209,6 @@ class CustomGRPOTrainer(GRPOTrainer):
                 logs["normalization"] = "standard"
             elif self.args.scale_rewards == False:
                 logs["normalization"] = "no_std"
-            elif self.args.scale_rewards == "batch":
-                logs["normalization"] = "batch_std"
         
         # Run variance analysis every 20 steps and only after step 50
         # This gives time for data to accumulate and reduces computational overhead
@@ -323,12 +321,12 @@ def parse_args():
     
     # Normalization methods
     parser.add_argument('--normalization', type=str, default='standard',
-                       choices=['standard', 'no_std', 'batch_std'],
-                       help='Advantage normalization: standard=(r-mean)/std, no_std=(r-mean), batch_std=local_mean/global_std')
+                       choices=['standard', 'no_std'],
+                       help='Advantage normalization: standard=(r-mean)/std, no_std=(r-mean)')
     
     # WandB configuration
     parser.add_argument('--use_wandb', action='store_true', help='Use wandb for logging')
-    parser.add_argument('--wandb_project', type=str, default='iclr1_easy', help='Wandb project name')
+    parser.add_argument('--wandb_project', type=str, default='iclr01_easy', help='Wandb project name')
     parser.add_argument('--wandb_run_name', type=str, default=None, help='Wandb run name')
     parser.add_argument('--exp_name', type=str, default='default', help='Experiment name')
     
@@ -389,24 +387,19 @@ def parse_args():
                 logger.warning("Skipping Fisher information calculation: loss is None or not a tensor")
                 return
                 
-            # Reset score functions for this batch
             self.current_score_functions = {}
             self.current_token_counts = {}
             
-            # Register hooks to capture gradients
             hooks = []
             score_functions = {}
             
-            # Only track LoRA parameters to keep computational cost manageable
             lora_params = []
             for name, param in self.model.named_parameters():
                 if "lora" in name.lower() and param.requires_grad:
                     lora_params.append(param)
                     
-                    # Create a placeholder for this parameter's gradients
                     score_functions[name] = []
                     
-                    # Register hook to capture gradients
                     def hook_factory(name):
                         def hook(grad):
                             if grad is not None:
@@ -415,56 +408,44 @@ def parse_args():
                     
                     hooks.append(param.register_hook(hook_factory(name)))
             
-            # Skip if no LoRA parameters found
             if not lora_params:
                 logger.warning("No LoRA parameters found for Fisher information calculation")
                 return
                 
-            # Do a backward pass to compute gradients
             try:
                 outputs.loss.backward(retain_graph=True)
             except RuntimeError as e:
                 logger.warning(f"Error in backward pass: {e}")
-                # Remove hooks before returning
                 for hook in hooks:
                     hook.remove()
                 return
             
-            # Aggregate score functions by question
             batch_size = model_inputs["input_ids"].size(0) if "input_ids" in model_inputs else 1
             for batch_idx in range(batch_size):
                 if batch_idx in self.current_question_ids:
                     question_id = self.current_question_ids[batch_idx]
                     
-                    # Count tokens for this question
                     if "attention_mask" in model_inputs:
                         token_count = model_inputs["attention_mask"][batch_idx].sum().item()
                         self.current_token_counts[question_id] = token_count
                     
-                    # Compute squared norm of score function (for Fisher information)
                     param_grads = []
                     for name in score_functions:
                         if score_functions[name] and len(score_functions[name]) > 0:
-                            # Check if batch_idx is valid
                             if batch_idx < score_functions[name][0].size(0):
                                 param_grads.append(score_functions[name][0][batch_idx].flatten())
                     
                     if param_grads:
                         try:
-                            # Concatenate all parameter gradients
                             all_grads = torch.cat(param_grads)
                             
-                            # Store for cosine similarity calculation
                             self.variance_analyzer.record_gradient(question_id, self.step_count, all_grads)
                             
-                            # Calculate Fisher information (squared norm of score function)
                             fisher_info = torch.norm(all_grads) ** 2
                             
-                            # Normalize by sequence length
                             if question_id in self.current_token_counts and self.current_token_counts[question_id] > 0:
                                 fisher_info = fisher_info / self.current_token_counts[question_id]
                             
-                            # Record Fisher information
                             self.variance_analyzer.record_fisher_info(
                                 question_id, 
                                 self.step_count, 
@@ -473,16 +454,13 @@ def parse_args():
                         except Exception as e:
                             logger.warning(f"Error processing gradients: {e}")
             
-            # Remove hooks
             for hook in hooks:
                 hook.remove()
                 
-            # Zero gradients after capturing
             self.model.zero_grad()
             
         except Exception as e:
             logger.warning(f"Error capturing score functions: {e}")
-            # Zero gradients in case of error
             self.model.zero_grad()
 
 
@@ -490,7 +468,7 @@ def main():
     args = parse_args()
     print(f"Arguments: {args}")
     
-    # Setup WandB
+    # Setup WandB   
     if args.use_wandb:
         run_name = args.wandb_run_name or f"grpo-{args.normalization}-{args.format}-{args.exp_name}"
         wandb.init(
@@ -504,7 +482,6 @@ def main():
         os.environ["WANDB_DISABLED"] = "true"
         report_to = None
     
-    # Load dataset
     dataset = GSM8K(
         split='train',
         include_answer=False,
@@ -516,21 +493,16 @@ def main():
         template=args.format
     ).dataset.shuffle(seed=42)
     
-    # Set paths
     model_name = args.model_name
     output_dir = f'outputs/GRPO_final2_difficulty/{args.normalization}/{args.format}/{model_name.split("/")[-1]}/{args.exp_name}'
     
-    # Set scale_rewards based on normalization method
     if args.normalization == 'standard':
         scale_rewards = True  
     elif args.normalization == 'no_std':
         scale_rewards = False
-    elif args.normalization == 'batch_std':
-        scale_rewards = "batch"
     else:
         raise ValueError(f"Unknown normalization: {args.normalization}")
     
-    # Training configuration
     training_args = GRPOConfig(
         output_dir=output_dir,
         run_name=f'GRPO_final2_difficulty-{args.normalization}-{args.exp_name}',
@@ -553,7 +525,6 @@ def main():
         seed=42,
     )
     
-    # LoRA configuration
     peft_config = LoraConfig(
         r=16,
         lora_alpha=32,
@@ -563,7 +534,6 @@ def main():
         lora_dropout=0.05,
     )
     
-    # Load model
     model = AutoModelForCausalLM.from_pretrained(
         model_name,
         torch_dtype=torch.bfloat16,
@@ -583,7 +553,6 @@ def main():
     elif args.format == 'code':
         reward_funcs = [format_reward_func_code, correctness_reward_func_code]
     
-    # Create trainer
     trainer = CustomGRPOTrainer(
         model=model,
         reward_funcs=reward_funcs,

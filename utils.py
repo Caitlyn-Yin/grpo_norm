@@ -3,7 +3,6 @@ import re
 import numpy as np
 import logging
 
-# Global variables to store Pass@K history
 pass_at_k_history = []
 accuracy_history = []
 
@@ -15,13 +14,11 @@ def print_trainable_parameters(model):
     print(f"All parameters: {all_params}")
     print(f"Percentage trainable: {100 * trainable_params / all_params:.2f}%")
 
-# ========= QA Format Reward Functions with Pass@K tracking =========
-
 def format_reward_func_qa(completions, **kwargs):
     """Check if completion text contains correct answer format"""
     patterns = [
-        r"####\s*The final answer is\s*[\-]?\d+",  # Full format
-        r"####\s*[\-]?\d+",  # Short format
+        r"####\s*The final answer is\s*[\-]?\d+",
+        r"####\s*[\-]?\d+",
     ]
     
     rewards = []
@@ -45,7 +42,6 @@ def correctness_reward_func_qa(completions, final_answer=None, **kwargs):
         logging.warning("No final_answer provided")
         return [0.0] * len(completions)
     
-    # Handle final_answer format
     if not isinstance(final_answer, list):
         final_answers = [final_answer] * len(completions)
     elif len(final_answer) == 1:
@@ -60,7 +56,6 @@ def correctness_reward_func_qa(completions, final_answer=None, **kwargs):
         r'answer[is:：:\s]*([\-]?\d+(?:,\d{3})*(?:\.\d+)?)',
     ]
     
-    # Calculate correctness for each completion
     for completion, ground_truth in zip(completions, final_answers):
         reward = 0.0
         
@@ -82,10 +77,8 @@ def correctness_reward_func_qa(completions, final_answer=None, **kwargs):
         
         rewards.append(reward)
     
-    # Calculate Pass@K (assuming every 8 completions is a group)
-    k = 8  # Default K value
-    if len(completions) == k:  # If exactly K samples, it means K generations for one question
-        # Pass@K: at least one is correct
+    k = 8
+    if len(completions) == k:
         pass_at_k = 1.0 if any(r > 0 for r in rewards) else 0.0
         accuracy = sum(rewards) / len(rewards)
         
@@ -94,14 +87,12 @@ def correctness_reward_func_qa(completions, final_answer=None, **kwargs):
         
         print(f"\n Current batch - Pass@{k}: {pass_at_k:.2f}, Accuracy: {accuracy:.2%}")
         
-        # Print cumulative statistics
         if len(pass_at_k_history) > 0:
             cumulative_pass = np.mean(pass_at_k_history)
             cumulative_acc = np.mean(accuracy_history)
             print(f"Cumulative - Pass@{k}: {cumulative_pass:.4f}, Accuracy: {cumulative_acc:.4f}")
             print(f"   Total questions seen: {len(pass_at_k_history)}")
         
-        # If wandb is available, log to wandb
         try:
             import wandb
             if wandb.run is not None:
@@ -115,14 +106,11 @@ def correctness_reward_func_qa(completions, final_answer=None, **kwargs):
         except:
             pass
     
-    # Record detailed accuracy
     correct_count = sum(1 for r in rewards if r > 0)
     if correct_count > 0 or len(rewards) > 0:
         logging.info(f"Batch accuracy: {correct_count}/{len(rewards)} = {100*correct_count/len(rewards):.1f}%")
     
     return rewards
-
-# ========= Code Format Reward Functions =========
 
 def format_reward_func_code(completions, **kwargs):
     """Check if code contains return statement"""
@@ -162,8 +150,6 @@ def correctness_reward_func_code(completions, final_answer=None, **kwargs):
         rewards.append(reward)
     
     return rewards
-
-# ========= Helper Functions =========
 
 def get_pass_at_k_stats():
     """Get Pass@K statistics"""
