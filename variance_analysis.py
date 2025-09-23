@@ -22,6 +22,7 @@ class VarianceAnalyzer:
         self.cosine_similarities = {}  # {(q1, q2): [cos_sim_iter1, cos_sim_iter2, ...]}
         self.question_fisher = {}  # {question_id: {iteration: fisher_value}}
         self.question_reward_std = {}  # {question_id: {iteration: reward_std}}
+        self.question_accuracy = {}  # {question_id: {iteration: accuracy}}
         
     def record_variance(self, question_id: str, iteration: int, variance: float):
         """Record variance for a specific question and iteration"""
@@ -51,7 +52,13 @@ class VarianceAnalyzer:
         if question_id not in self.question_reward_std:
             self.question_reward_std[question_id] = {}
         self.question_reward_std[question_id][iteration] = reward_std
-    
+
+    def record_accuracy(self, question_id: str, iteration: int, accuracy: float):
+        """Record accuracy for a specific question and iteration"""
+        if question_id not in self.question_accuracy:
+            self.question_accuracy[question_id] = {}
+        self.question_accuracy[question_id][iteration] = accuracy
+
     def compute_cosine_similarities(self):
         """Compute cosine similarities between all pairs of questions for each iteration"""
         question_ids = list(self.question_gradients.keys())
@@ -149,6 +156,20 @@ class VarianceAnalyzer:
                     'reward_var': reward_std**2
                 })
         
+        return pd.DataFrame(data)
+
+    def get_accuracy_dataframe(self) -> pd.DataFrame:
+        """Return accuracy measurements as a DataFrame"""
+        data = []
+
+        for question_id, iter_accs in self.question_accuracy.items():
+            for iteration, accuracy in iter_accs.items():
+                data.append({
+                    'question_id': question_id,
+                    'iteration': iteration,
+                    'accuracy': accuracy
+                })
+
         return pd.DataFrame(data)
     
     def plot_cosine_similarity_over_iterations(self):
@@ -270,13 +291,15 @@ class VarianceAnalyzer:
         
         print("Analyzing cosine similarity vs variance...")
         cos_var_df = self.analyze_cosine_similarity_vs_variance()
-        
+
         print("Analyzing Fisher information vs reward std...")
         fisher_reward_df = self.analyze_fisher_vs_reward_std()
-        
+
+        accuracy_df = self.get_accuracy_dataframe()
+
         print("Generating plots...")
         self.plot_cosine_similarity_over_iterations()
-        
+
         if not cos_var_df.empty:
             self.plot_variance_vs_cosine(cos_var_df)
             cos_var_df.to_csv(os.path.join(self.save_dir, 'cosine_variance_data.csv'), index=False)
@@ -284,7 +307,10 @@ class VarianceAnalyzer:
         if not fisher_reward_df.empty:
             self.plot_fisher_vs_reward_std(fisher_reward_df)
             fisher_reward_df.to_csv(os.path.join(self.save_dir, 'fisher_reward_data.csv'), index=False)
-        
+
+        if not accuracy_df.empty:
+            accuracy_df.to_csv(os.path.join(self.save_dir, 'accuracy_data.csv'), index=False)
+
         # Save summary statistics
         with open(os.path.join(self.save_dir, 'variance_analysis_summary.txt'), 'w') as f:
             f.write("VARIANCE ANALYSIS SUMMARY\n")
@@ -321,19 +347,29 @@ class VarianceAnalyzer:
             if not fisher_reward_df.empty:
                 f.write("Fisher Information vs Reward Variance Analysis:\n")
                 f.write(f"  Total data points: {len(fisher_reward_df)}\n")
-                
+
                 if len(fisher_reward_df) > 1:
                     corr, p_value = pearsonr(fisher_reward_df['fisher_info'], fisher_reward_df['reward_var'])
                     f.write(f"  Correlation between Fisher and reward variance: {corr:.3f} (p={p_value:.3f})\n")
-                    
+
                     # Linear regression coefficients
                     z = np.polyfit(fisher_reward_df['fisher_info'], fisher_reward_df['reward_var'], 1)
                     f.write(f"  Linear fit: σ² = {z[0]:.4f} * κ + {z[1]:.4f}\n")
-        
+
+            if not accuracy_df.empty:
+                f.write("\nAccuracy Analysis:\n")
+                avg_accuracy = accuracy_df['accuracy'].mean()
+                f.write(f"  Overall average accuracy: {avg_accuracy:.3f}\n")
+
+                iter_group = accuracy_df.groupby('iteration')['accuracy'].mean().to_dict()
+                for iteration, acc in sorted(iter_group.items()):
+                    f.write(f"  Iteration {iteration} average accuracy: {acc:.3f}\n")
+
         print(f"Analysis complete. Results saved to {self.save_dir}/")
         return {
             'question_variance_diff': iter_var_diff,
             'iteration_variance_diff': q_var_diff,
             'cosine_variance_df': cos_var_df,
-            'fisher_reward_df': fisher_reward_df
+            'fisher_reward_df': fisher_reward_df,
+            'accuracy_df': accuracy_df
         }
