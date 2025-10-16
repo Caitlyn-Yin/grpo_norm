@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-# Activate conda environment
+# ======== Environment ========
 source /home/heqiy/miniconda3/etc/profile.d/conda.sh
 conda activate grpo_env
 
@@ -9,13 +9,17 @@ echo "=========================================="
 echo "MATH Dataset Experiments with Dual Normalization"
 echo "=========================================="
 
-# ---------------- Configuration ----------------
+# ======== Configuration ========
 MODEL="Qwen/Qwen2.5-Math-1.5B"
 MAX_STEPS=500
 WANDB_PROJECT="grpo-math-levels_01"
 
-# Toggle: use ALL GPUs per run (DDP). If 1, runs are sequential per level.
-USE_ALL_GPUS=1
+# Modes (pick ONE behavior):
+# - USE_ALL_GPUS=1  -> DDP via torchrun (remove device_map='auto' in Python)
+# - SINGLE_PROCESS_ALL_GPUS=1 -> one python spanning all GPUs (OK with device_map='auto')
+# - else -> per-GPU single-process runs in background (no DDP)
+USE_ALL_GPUS=0
+SINGLE_PROCESS_ALL_GPUS=1
 
 # Toggle: enable theory-analysis logging in training.
 ENABLE_ANALYSIS=1
@@ -25,16 +29,23 @@ ANALYSIS_FLAGS="--analyze_variance \
 
 LOG_DIR="logs/math_levels_01"
 OUT_DIR="outputs/math_levels_01"
-
 mkdir -p "$LOG_DIR" "$OUT_DIR"
 
-# -------------- Helpers ----------------
+# ======== Helpers ========
 gpu_count() { nvidia-smi -L | wc -l; }
+
+csv_range_0_to_nminus1() {
+  local n="$1"
+  if (( n <= 0 )); then echo ""; return; fi
+  local out="0"
+  for ((i=1;i<n;i++)); do out="${out},${i}"; done
+  echo "${out}"
+}
 
 run_single_experiment() {
   local LEVEL="$1"      # 1..5
   local NORM="$2"       # standard | no_std
-  local GPU="$3"        # ignored when USE_ALL_GPUS=1
+  local GPU="$3"        # used only in per-GPU mode
   local LEVEL_NAME="$4"
 
   local EXTRA_FLAGS=""
@@ -45,10 +56,10 @@ run_single_experiment() {
   local LOG_FILE="${LOG_DIR}/level${LEVEL}_${NORM}.log"
 
   if [[ "$USE_ALL_GPUS" -eq 1 ]]; then
-    # DDP: use all GPUs, run in foreground
+    # -------- DDP across ALL GPUs (torchrun) --------
     local NGPUS
     NGPUS="$(gpu_count)"
-    echo "Running Level ${LEVEL} (${LEVEL_NAME}) with ${NORM} using all ${NGPUS} GPUs..."
+    echo "Running Level ${LEVEL} (${LEVEL_NAME}) with ${NORM} using DDP on ${NGPUS} GPUs..."
     OMP_NUM_THREADS=1 torchrun --standalone --nproc_per_node="${NGPUS}" \
       train_math_levels.py \
       --difficulty "level${LEVEL}" \
@@ -59,10 +70,27 @@ run_single_experiment() {
       --wandb_project "${WANDB_PROJECT}" \
       --exp_name "level${LEVEL}_${NORM}" \
       ${EXTRA_FLAGS} 2>&1 | tee "${LOG_FILE}"
+
+  elif [[ "$SINGLE_PROCESS_ALL_GPUS" -eq 1 ]]; then
+    # -------- Single process spanning ALL GPUs (model-parallel / device_map="auto") --------
+    local NGPUS VISIBLE
+    NGPUS="$(gpu_count)"
+    VISIBLE="$(csv_range_0_to_nminus1 "${NGPUS}")"
+    echo "Running Level ${LEVEL} (${LEVEL_NAME}) with ${NORM} in ONE process on GPUs: ${VISIBLE}"
+    OMP_NUM_THREADS=1 CUDA_VISIBLE_DEVICES="${VISIBLE}" python train_math_levels.py \
+      --difficulty "level${LEVEL}" \
+      --normalization "${NORM}" \
+      --model_name "${MODEL}" \
+      --max_steps "${MAX_STEPS}" \
+      --use_wandb \
+      --wandb_project "${WANDB_PROJECT}" \
+      --exp_name "level${LEVEL}_${NORM}" \
+      ${EXTRA_FLAGS} 2>&1 | tee "${LOG_FILE}"
+
   else
-    # Single GPU pinned, backgrounded
+    # -------- Per-GPU single-process (background) --------
     echo "  [GPU ${GPU}] Running Level ${LEVEL} (${LEVEL_NAME}) with ${NORM} normalization"
-    CUDA_VISIBLE_DEVICES="${GPU}" python train_math_levels.py \
+    CUDA_VISIBLE_DEVICES="${GPU}" OMP_NUM_THREADS=1 python train_math_levels.py \
       --difficulty "level${LEVEL}" \
       --normalization "${NORM}" \
       --model_name "${MODEL}" \
@@ -89,12 +117,12 @@ run_level_experiments() {
   echo "Starting Level ${LEVEL} (${LEVEL_NAME})"
   echo "=========================================="
 
-  if [[ "$USE_ALL_GPUS" -eq 1 ]]; then
-    # Sequential (all GPUs)
+  if [[ "$USE_ALL_GPUS" -eq 1 || "$SINGLE_PROCESS_ALL_GPUS" -eq 1 ]]; then
+    # Sequential: both norms share all GPUs (either DDP or single-process-all)
     run_single_experiment "${LEVEL}" "standard" 0 "${LEVEL_NAME}"
     run_single_experiment "${LEVEL}" "no_std" 0 "${LEVEL_NAME}"
   else
-    # Parallel (two GPUs)
+    # Parallel per-GPU
     local PID1 PID2
     PID1="$(run_single_experiment "${LEVEL}" "standard" "${GPU1}" "${LEVEL_NAME}")"
     PID2="$(run_single_experiment "${LEVEL}" "no_std"  "${GPU2}" "${LEVEL_NAME}")"
@@ -103,15 +131,11 @@ run_level_experiments() {
   fi
 
   echo "  Level ${LEVEL} completed!"
-
-  # Show results summary
   echo ""
   echo "  Results for Level ${LEVEL}:"
   echo "  -------------------------"
-
   local LOG_STD="${LOG_DIR}/level${LEVEL}_standard.log"
   local LOG_NOS="${LOG_DIR}/level${LEVEL}_no_std.log"
-
   if [[ -f "${LOG_STD}" ]]; then
     echo "  Standard normalization:"
     tail -n 50 "${LOG_STD}" | grep -E "Final Pass@K|Final Sample|FINAL" || echo "    Check log for details"
@@ -123,7 +147,7 @@ run_level_experiments() {
 }
 
 run_all_levels_parallel() {
-  # Note: only meaningful when USE_ALL_GPUS=0
+  # Only meaningful when both USE_ALL_GPUS=0 and SINGLE_PROCESS_ALL_GPUS=0
   echo ""
   echo "Running ALL levels in parallel using 8 GPUs"
   echo "Level 1 & 2 use GPUs 0-3, Level 3 & 4 use GPUs 4-7, Level 5 uses GPUs 0-1"
@@ -133,7 +157,7 @@ run_all_levels_parallel() {
   run_single_experiment 1 "no_std"   1 "Elementary" >/dev/null
   run_single_experiment 2 "standard" 2 "Middle School" >/dev/null
   run_single_experiment 2 "no_std"   3 "Middle School" >/dev/null
-  run_single_experiment 3 "standard" 4 "High School" >/devnull 2>&1 || true
+  run_single_experiment 3 "standard" 4 "High School" >/dev/null 2>&1 || true
   run_single_experiment 3 "no_std"   5 "High School" >/dev/null
   run_single_experiment 4 "standard" 6 "Competition" >/dev/null
   run_single_experiment 4 "no_std"   7 "Competition" >/dev/null
@@ -170,7 +194,7 @@ show_menu() {
   echo ""
 }
 
-# ---------------- Main ----------------
+# ======== Main ========
 show_menu
 read -r -p "Enter your choice (0-8): " choice
 
@@ -240,3 +264,4 @@ echo ""
 echo "To check GPU usage:"
 echo "  nvidia-smi"
 echo "=========================================="
+

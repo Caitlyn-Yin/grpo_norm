@@ -1,0 +1,58 @@
+VARIANCE ANALYSIS SUMMARY
+========================
+
+Question Variance Differences (across iterations):
+  Question prompt_0: 0.000000
+  Question prompt_1: 0.000000
+  Question prompt_2: 0.000000
+  Question prompt_3: 0.000000
+  Question prompt_4: 0.005914
+  Average: 0.001183
+
+Iteration Variance Differences (across questions):
+  Iteration 170: 0.005625
+  Iteration 380: 0.001914
+  Iteration 600: 0.000000
+  Average: 0.002513
+
+Cosine Similarity Analysis:
+  Total pairs analyzed: 30
+  Pairs with positive cosine: 30 (100.0%)
+  Pairs with negative cosine: 0 (0.0%)
+  Avg variance diff for positive cosine: 0.039583
+  Correlation between cosine and variance diff: 0.043 (p=0.823)
+
+Fisher Information vs Reward Variance Analysis (Overall):
+  Total data points: 15
+  Correlation between Fisher and reward variance: -0.052 (p=0.853)
+  Linear fit: σ² = -2.0353 * κ + 0.0254
+
+Fisher Information vs Reward Std Analysis (By Iteration):
+  Iterations analyzed: 3
+  Mean correlation: -0.045 ± 0.019
+  Range: [-0.059, -0.032]
+  Significant correlations (p < 0.05): 0/3 (0.0%)
+  Correlation trend over iterations: nan (p=nan)
+
+  Per-iteration details:
+    Iteration 170.0: r=-0.059, p=0.925, n=5.0
+    Iteration 380.0: r=-0.032, p=0.959, n=5.0
+    Iteration 600.0: r=nan, p=nan, n=5.0
+
+Cross-Time Correlation Analysis (Fisher(i) vs Reward_Std(j), i≠j):
+  Total cross-time pairs analyzed: 3
+  Mean cross-time correlation: -0.059 ± nan
+  Range: [-0.059, -0.059]
+  Significant cross-time correlations (p < 0.05): 0/3 (0.0%)
+  T-test against zero correlation: t=nan, p=nan
+
+  Cross-time correlation details:
+    Fisher(t=170.0) vs Reward_Std(t=380.0): r=-0.059, p=0.925, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=380.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+
+Accuracy Analysis:
+  Overall average accuracy: 0.975
+  Iteration 170 average accuracy: 0.950
+  Iteration 380 average accuracy: 0.975
+  Iteration 600 average accuracy: 1.000

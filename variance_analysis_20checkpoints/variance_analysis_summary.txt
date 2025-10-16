@@ -1,0 +1,9 @@
+VARIANCE ANALYSIS SUMMARY
+========================
+
+Question Variance Differences (across iterations):
+  Average: nan
+
+Iteration Variance Differences (across questions):
+  Average: nan
+

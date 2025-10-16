@@ -104,6 +104,7 @@ class CustomGRPOTrainer(GRPOTrainer):
         self.pass_at_k_history = []
         self.accuracy_history = []
         self.step_count = 0
+        self.last_step_avg_reward_std = None
         
         # Variance analysis
         self.analyze_variance = analyze_variance
@@ -176,16 +177,30 @@ class CustomGRPOTrainer(GRPOTrainer):
         
         # Log to wandb
         if wandb.run is not None:
+            # Current step metrics
             current_pass_at_k = np.mean(self.pass_at_k_history[-num_questions:])
-            current_accuracy = np.mean(self.accuracy_history[-num_questions:])
+            step_accuracy = np.mean(self.accuracy_history[-num_questions:])
+
+            # Compute Pass@1 for this step: first completion correctness per question
+            pass_at_1_values = []
+            for q_idx in range(num_questions):
+                start_idx = q_idx * self.k
+                end_idx = start_idx + self.k
+                q_completions = completions[start_idx:end_idx]
+                q_answers = final_answers[start_idx:end_idx]
+                correct_rewards = correctness_reward_func_qa(q_completions, final_answer=q_answers)
+                pass_at_1_values.append(1.0 if (len(correct_rewards) > 0 and correct_rewards[0] > 0) else 0.0)
+            current_pass_at_1 = float(np.mean(pass_at_1_values)) if pass_at_1_values else 0.0
+
+            # Optional cumulative metric (retain cumulative pass@k; do not log cumulative accuracy)
             cumulative_pass_at_k = np.mean(self.pass_at_k_history)
-            cumulative_accuracy = np.mean(self.accuracy_history)
             
             wandb.log({
+                "train/pass_at_1": current_pass_at_1,
                 "train/pass_at_k": current_pass_at_k,
-                "train/sample_accuracy": current_accuracy,
+                "train/step_accuracy": step_accuracy,
+                "train/avg_reward_std": self.last_step_avg_reward_std if self.last_step_avg_reward_std is not None else None,
                 "train/cumulative_pass_at_k": cumulative_pass_at_k,
-                "train/cumulative_accuracy": cumulative_accuracy,
                 "train/total_questions_seen": len(self.pass_at_k_history),
             }, step=self.step_count)
         if num_questions > 0:
@@ -197,6 +212,13 @@ class CustomGRPOTrainer(GRPOTrainer):
         Extended logging
         """
         self.step_count += 1
+        
+        # Ensure step-accurate metric is present (mean correctness == step accuracy)
+        if "rewards/correctness_reward_func_qa/mean" in logs:
+            try:
+                logs["train/step_accuracy"] = float(logs["rewards/correctness_reward_func_qa/mean"])
+            except Exception:
+                pass
         
         # Add additional monitoring metrics
         if self.pass_at_k_history:
@@ -275,7 +297,7 @@ def get_memory_optimized_config(args):
         
         max_steps=args.max_steps,
         save_strategy="steps",
-        save_steps=20,  
+        save_steps=50,  
         save_total_limit=2,  
         
         
@@ -349,6 +371,7 @@ def parse_args():
                 question_rewards[question_id].append(reward)
         
         # Calculate standard deviation for each question
+        step_stds = []
         for question_id, q_rewards in question_rewards.items():
             if len(q_rewards) > 1:  # Need at least 2 samples for std
                 reward_std = np.std(q_rewards)
@@ -357,6 +380,14 @@ def parse_args():
                 # Record variance for variance difference analysis
                 variance = reward_std ** 2
                 self.variance_analyzer.record_variance(question_id, self.step_count, variance)
+                step_stds.append(float(reward_std))
+
+        # Average std across questions for this step (sqrt of variance already since we used std)
+        self.last_step_avg_reward_std = float(np.mean(step_stds)) if step_stds else 0.0
+        if wandb.run is not None:
+            wandb.log({
+                "train/avg_reward_std": self.last_step_avg_reward_std
+            }, step=self.step_count)
     
     def compute_loss(self, model, inputs: Dict[str, Any], return_outputs=False, **kwargs):
         """
@@ -494,7 +525,7 @@ def main():
     ).dataset.shuffle(seed=42)
     
     model_name = args.model_name
-    output_dir = f'outputs/GRPO_final2_difficulty/{args.normalization}/{args.format}/{model_name.split("/")[-1]}/{args.exp_name}'
+    output_dir = f'outputs/GRPO_efr_difficulty/{args.normalization}/{args.format}/{model_name.split("/")[-1]}/{args.exp_name}'
     
     if args.normalization == 'standard':
         scale_rewards = True  
@@ -505,7 +536,7 @@ def main():
     
     training_args = GRPOConfig(
         output_dir=output_dir,
-        run_name=f'GRPO_final2_difficulty-{args.normalization}-{args.exp_name}',
+        run_name=f'GRPO_efr_difficulty-{args.normalization}-{args.exp_name}',
         learning_rate=args.learning_rate,
         beta=args.kl_beta,  
         scale_rewards=scale_rewards,  

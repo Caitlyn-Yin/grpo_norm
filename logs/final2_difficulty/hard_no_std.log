@@ -1,1810 +1,0 @@
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/wandb/sdk/launch/builder/build.py:11: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
-  import pkg_resources
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/wandb/sdk/launch/builder/build.py:11: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
-  import pkg_resources
-wandb: Currently logged in as: hyin66 (hyin66-university-of-wisconsin-madison). Use `wandb login --relogin` to force relogin
-wandb: wandb version 0.21.3 is available!  To upgrade, please run:
-wandb:  $ pip install wandb --upgrade
-wandb: Tracking run with wandb version 0.15.12
-wandb: Run data is saved locally in /home/heqiy/trl_grpo/wandb/run-20250909_112648-5zntprqq
-wandb: Run `wandb offline` to turn off syncing.
-wandb: Syncing run grpo-final3-no_std-hard-hard_no_std
-wandb: ⭐️ View project at https://wandb.ai/hyin66-university-of-wisconsin-madison/grpo-final2-difficulty
-wandb: 🚀 View run at https://wandb.ai/hyin66-university-of-wisconsin-madison/grpo-final2-difficulty/runs/5zntprqq
-`torch_dtype` is deprecated! Use `dtype` instead!
-INFO:accelerate.utils.modeling:Based on the current allocation process, no modules could be assigned to the following devices due to insufficient memory:
-  - 0: 560343040 bytes required
-These minimum requirements are specific to this allocation attempt and may vary. Consider increasing the available memory for these devices to at least the specified minimum, or adjusting the model config.
-The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'bos_token_id': None, 'pad_token_id': 151643}.
-Arguments: Namespace(difficulty='hard', data_dir='data/gsm8k_difficulty_subsets', max_samples=None, format='qa', num_shots=2, model_name='Qwen/Qwen2.5-Math-1.5B', num_generations=8, learning_rate=1e-05, kl_beta=0.02, max_steps=1000, normalization='no_std', use_wandb=True, wandb_project='grpo-final2-difficulty', wandb_run_name=None, exp_name='hard_no_std')
-Training on hard difficulty dataset
-Loaded 1255 examples from hard difficulty dataset
-Dataset loaded successfully with 1255 samples
-Trainable parameters: 18464768
-All parameters: 1562179072
-Percentage trainable: 1.18%
-
-Starting training:
-  Difficulty: hard
-  Normalization: no_std
-  Dataset size: 1255
-  scale_rewards setting: False
-  0%|          | 0/1000 [00:00<?, ?it/s]/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:92: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
-  warnings.warn(
-INFO:root:Batch accuracy: 1/8 = 12.5%
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:295: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
-  with torch.enable_grad(), device_autocast_ctx, torch.cpu.amp.autocast(**ctx.cpu_autocast_kwargs):  # type: ignore[attr-defined]
-  0%|          | 1/1000 [01:06<18:25:55, 66.42s/it]INFO:root:Batch accuracy: 0/8 = 0.0%
-  0%|          | 2/1000 [02:08<17:45:56, 64.08s/it]INFO:root:Batch accuracy: 0/8 = 0.0%
-  0%|          | 3/1000 [02:47<14:33:34, 52.57s/it]INFO:root:Batch accuracy: 3/8 = 37.5%
-  0%|          | 4/1000 [03:51<15:48:56, 57.16s/it]INFO:root:Batch accuracy: 0/8 = 0.0%
-  0%|          | 5/1000 [04:28<13:42:10, 49.58s/it]                                                     0%|          | 5/1000 [04:28<13:42:10, 49.58s/it]INFO:root:Batch accuracy: 2/8 = 25.0%
-  1%|          | 6/1000 [04:58<11:50:52, 42.91s/it]INFO:root:Batch accuracy: 1/8 = 12.5%
-  1%|          | 7/1000 [05:59<13:28:46, 48.87s/it]INFO:root:Batch accuracy: 2/8 = 25.0%
-  1%|          | 8/1000 [07:01<14:37:25, 53.07s/it]INFO:root:Batch accuracy: 2/8 = 25.0%
-  1%|          | 9/1000 [07:50<14:18:03, 51.95s/it]INFO:root:Batch accuracy: 1/8 = 12.5%
-  1%|          | 10/1000 [08:47<14:43:36, 53.55s/it]                                                      1%|          | 10/1000 [08:47<14:43:36, 53.55s/it]/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:92: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
-  warnings.warn(
-INFO:root:Batch accuracy: 1/8 = 12.5%
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:295: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
-  with torch.enable_grad(), device_autocast_ctx, torch.cpu.amp.autocast(**ctx.cpu_autocast_kwargs):  # type: ignore[attr-defined]
-  1%|          | 11/1000 [09:52<15:37:15, 56.86s/it]INFO:root:Batch accuracy: 0/8 = 0.0%
-  1%|          | 12/1000 [10:55<16:08:01, 58.79s/it]INFO:root:Batch accuracy: 3/8 = 37.5%
-  1%|▏         | 13/1000 [11:20<13:17:18, 48.47s/it]INFO:root:Batch accuracy: 4/8 = 50.0%
-  1%|▏         | 14/1000 [11:54<12:06:47, 44.23s/it]INFO:root:Batch accuracy: 2/8 = 25.0%
-  2%|▏         | 15/1000 [12:01<9:00:31, 32.92s/it]                                                      2%|▏         | 15/1000 [12:01<9:00:31, 32.92s/it]INFO:root:Batch accuracy: 1/8 = 12.5%
-  2%|▏         | 16/1000 [13:03<11:25:32, 41.80s/it]INFO:root:Batch accuracy: 4/8 = 50.0%
-  2%|▏         | 17/1000 [14:06<13:08:49, 48.15s/it]INFO:root:Batch accuracy: 0/8 = 0.0%
-  2%|▏         | 18/1000 [15:09<14:21:05, 52.61s/it]INFO:root:Batch accuracy: 1/8 = 12.5%
-  2%|▏         | 19/1000 [16:11<15:07:05, 55.48s/it]INFO:root:Batch accuracy: 2/8 = 25.0%
-  2%|▏         | 20/1000 [17:11<15:25:56, 56.69s/it]                                                      2%|▏         | 20/1000 [17:11<15:25:56, 56.69s/it]/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:92: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
-  warnings.warn(
-INFO:root:Batch accuracy: 5/8 = 62.5%
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:295: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
-  with torch.enable_grad(), device_autocast_ctx, torch.cpu.amp.autocast(**ctx.cpu_autocast_kwargs):  # type: ignore[attr-defined]
-  2%|▏         | 21/1000 [17:45<13:33:39, 49.87s/it]INFO:root:Batch accuracy: 1/8 = 12.5%
-  2%|▏         | 22/1000 [18:46<14:30:49, 53.42s/it]INFO:root:Batch accuracy: 1/8 = 12.5%
-  2%|▏         | 23/1000 [19:51<15:24:48, 56.79s/it]INFO:root:Batch accuracy: 2/8 = 25.0%
-  2%|▏         | 24/1000 [20:26<13:38:11, 50.30s/it]INFO:root:Batch accuracy: 0/8 = 0.0%
-  2%|▎         | 25/1000 [21:28<14:31:31, 53.63s/it]                                                      2%|▎         | 25/1000 [21:28<14:31:31, 53.63s/it]INFO:root:Batch accuracy: 1/8 = 12.5%
-  3%|▎         | 26/1000 [21:34<10:42:00, 39.55s/it]INFO:root:Batch accuracy: 1/8 = 12.5%
-  3%|▎         | 27/1000 [22:36<12:27:13, 46.08s/it]
-📊 Current batch - Pass@8: 1.00, Accuracy: 12.50%
-📈 Cumulative - Pass@8: 1.0000, Accuracy: 0.1250
-   Total questions seen: 1
-
-📊 Current batch - Pass@8: 0.00, Accuracy: 0.00%
-📈 Cumulative - Pass@8: 0.5000, Accuracy: 0.0625
-   Total questions seen: 2
-
-📊 Current batch - Pass@8: 0.00, Accuracy: 0.00%
-📈 Cumulative - Pass@8: 0.3333, Accuracy: 0.0417
-   Total questions seen: 3
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 37.50%
-📈 Cumulative - Pass@8: 0.5000, Accuracy: 0.1250
-   Total questions seen: 4
-
-📊 Current batch - Pass@8: 0.00, Accuracy: 0.00%
-📈 Cumulative - Pass@8: 0.4000, Accuracy: 0.1000
-   Total questions seen: 5
-{'loss': -0.0875, 'grad_norm': 0.00026480958331376314, 'learning_rate': 9.960000000000001e-06, 'difficulty': 'hard', 'num_tokens': 19603.0, 'completions/mean_length': 232.275, 'completions/min_length': 2.6, 'completions/max_length': 824.0, 'completions/clipped_ratio': 0.075, 'completions/mean_terminated_length': 165.7964294433594, 'completions/min_terminated_length': 2.6, 'completions/max_terminated_length': 573.2, 'rewards/format_reward_func_qa/mean': 0.0375, 'rewards/format_reward_func_qa/std': 0.0816463440656662, 'rewards/correctness_reward_func_qa/mean': 0.1, 'rewards/correctness_reward_func_qa/std': 0.17422052025794982, 'reward': 0.1375, 'reward_std': 0.2474873661994934, 'frac_reward_zero_std': 0.6, 'kl': 0.000360771936175297, 'entropy': 1.5221326109021902, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.0}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 25.00%
-📈 Cumulative - Pass@8: 0.5000, Accuracy: 0.1250
-   Total questions seen: 6
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 12.50%
-📈 Cumulative - Pass@8: 0.5714, Accuracy: 0.1250
-   Total questions seen: 7
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 25.00%
-📈 Cumulative - Pass@8: 0.6250, Accuracy: 0.1406
-   Total questions seen: 8
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 25.00%
-📈 Cumulative - Pass@8: 0.6667, Accuracy: 0.1528
-   Total questions seen: 9
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 12.50%
-📈 Cumulative - Pass@8: 0.7000, Accuracy: 0.1500
-   Total questions seen: 10
-{'loss': -0.2787, 'grad_norm': 0.1549341380596161, 'learning_rate': 9.91e-06, 'difficulty': 'hard', 'num_tokens': 38872.0, 'completions/mean_length': 236.525, 'completions/min_length': 2.8, 'completions/max_length': 845.0, 'completions/clipped_ratio': 0.1, 'completions/mean_terminated_length': 146.23333358764648, 'completions/min_terminated_length': 2.8, 'completions/max_terminated_length': 580.8, 'rewards/format_reward_func_qa/mean': 0.1125, 'rewards/format_reward_func_qa/std': 0.20580926835536956, 'rewards/correctness_reward_func_qa/mean': 0.2, 'rewards/correctness_reward_func_qa/std': 0.41916738748550414, 'reward': 0.3125, 'reward_std': 0.5735483169555664, 'frac_reward_zero_std': 0.0, 'kl': 0.0004903485839804489, 'entropy': 1.3991211540997028, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.01}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 12.50%
-📈 Cumulative - Pass@8: 0.7273, Accuracy: 0.1477
-   Total questions seen: 11
-
-📊 Current batch - Pass@8: 0.00, Accuracy: 0.00%
-📈 Cumulative - Pass@8: 0.6667, Accuracy: 0.1354
-   Total questions seen: 12
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 37.50%
-📈 Cumulative - Pass@8: 0.6923, Accuracy: 0.1538
-   Total questions seen: 13
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 50.00%
-📈 Cumulative - Pass@8: 0.7143, Accuracy: 0.1786
-   Total questions seen: 14
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 25.00%
-📈 Cumulative - Pass@8: 0.7333, Accuracy: 0.1833
-   Total questions seen: 15
-{'loss': -0.2566, 'grad_norm': 0.547142505645752, 'learning_rate': 9.86e-06, 'difficulty': 'hard', 'num_tokens': 55952.0, 'completions/mean_length': 156.6, 'completions/min_length': 5.2, 'completions/max_length': 578.2, 'completions/clipped_ratio': 0.05, 'completions/mean_terminated_length': 112.38214416503907, 'completions/min_terminated_length': 5.2, 'completions/max_terminated_length': 434.6, 'rewards/format_reward_func_qa/mean': 0.1, 'rewards/format_reward_func_qa/std': 0.20411194264888763, 'rewards/correctness_reward_func_qa/mean': 0.25, 'rewards/correctness_reward_func_qa/std': 0.37370702624320984, 'reward': 0.35, 'reward_std': 0.5602014750242233, 'frac_reward_zero_std': 0.0, 'kl': 0.0003876073201354302, 'entropy': 0.9776584714651108, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.01}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 12.50%
-📈 Cumulative - Pass@8: 0.7500, Accuracy: 0.1797
-   Total questions seen: 16
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 50.00%
-📈 Cumulative - Pass@8: 0.7647, Accuracy: 0.1985
-   Total questions seen: 17
-
-📊 Current batch - Pass@8: 0.00, Accuracy: 0.00%
-📈 Cumulative - Pass@8: 0.7222, Accuracy: 0.1875
-   Total questions seen: 18
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 12.50%
-📈 Cumulative - Pass@8: 0.7368, Accuracy: 0.1842
-   Total questions seen: 19
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 25.00%
-📈 Cumulative - Pass@8: 0.7500, Accuracy: 0.1875
-   Total questions seen: 20
-{'loss': -0.0116, 'grad_norm': 0.06396781653165817, 'learning_rate': 9.810000000000001e-06, 'difficulty': 'hard', 'num_tokens': 82034.0, 'completions/mean_length': 425.85, 'completions/min_length': 10.4, 'completions/max_length': 1019.6, 'completions/clipped_ratio': 0.175, 'completions/mean_terminated_length': 291.2547668457031, 'completions/min_terminated_length': 10.4, 'completions/max_terminated_length': 805.6, 'rewards/format_reward_func_qa/mean': 0.1, 'rewards/format_reward_func_qa/std': 0.17045392990112304, 'rewards/correctness_reward_func_qa/mean': 0.2, 'rewards/correctness_reward_func_qa/std': 0.3409078598022461, 'reward': 0.3, 'reward_std': 0.5113617897033691, 'frac_reward_zero_std': 0.2, 'kl': 0.0004270984627510188, 'entropy': 1.2774868324398994, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.02}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 62.50%
-📈 Cumulative - Pass@8: 0.7619, Accuracy: 0.2083
-   Total questions seen: 21
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 12.50%
-📈 Cumulative - Pass@8: 0.7727, Accuracy: 0.2045
-   Total questions seen: 22
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 12.50%
-📈 Cumulative - Pass@8: 0.7826, Accuracy: 0.2011
-   Total questions seen: 23
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 25.00%
-📈 Cumulative - Pass@8: 0.7917, Accuracy: 0.2031
-   Total questions seen: 24
-
-📊 Current batch - Pass@8: 0.00, Accuracy: 0.00%
-📈 Cumulative - Pass@8: 0.7600, Accuracy: 0.1950
-   Total questions seen: 25
-{'loss': -0.0914, 'grad_norm': 0.0001237953983945772, 'learning_rate': 9.760000000000001e-06, 'difficulty': 'hard', 'num_tokens': 101248.0, 'completions/mean_length': 227.15, 'completions/min_length': 5.4, 'completions/max_length': 811.8, 'completions/clipped_ratio': 0.075, 'completions/mean_terminated_length': 165.33214721679687, 'completions/min_terminated_length': 5.4, 'completions/max_terminated_length': 722.2, 'rewards/format_reward_func_qa/mean': 0.1125, 'rewards/format_reward_func_qa/std': 0.1687566041946411, 'rewards/correctness_reward_func_qa/mean': 0.225, 'rewards/correctness_reward_func_qa/std': 0.3375132083892822, 'reward': 0.3375, 'reward_std': 0.4746061682701111, 'frac_reward_zero_std': 0.2, 'kl': 0.0004808235138625605, 'entropy': 1.2015155900269747, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.02}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 12.50%
-📈 Cumulative - Pass@8: 0.7692, Accuracy: 0.1923
-   Total questions seen: 26
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 12.50%
-📈 Cumulative - Pass@8: 0.7778, Accuracy: 0.1898
-   Total questions seen: 27
-INFO:root:Batch accuracy: 3/8 = 37.5%
-  3%|▎         | 28/1000 [23:38<13:43:17, 50.82s/it]INFO:root:Batch accuracy: 3/8 = 37.5%
-  3%|▎         | 29/1000 [24:42<14:49:14, 54.95s/it]INFO:root:Batch accuracy: 4/8 = 50.0%
-  3%|▎         | 30/1000 [25:23<13:38:42, 50.64s/it]                                                      3%|▎         | 30/1000 [25:23<13:38:42, 50.64s/it]/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:92: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
-  warnings.warn(
-INFO:root:Batch accuracy: 1/8 = 12.5%
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:295: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
-  with torch.enable_grad(), device_autocast_ctx, torch.cpu.amp.autocast(**ctx.cpu_autocast_kwargs):  # type: ignore[attr-defined]
-  3%|▎         | 31/1000 [25:42<11:05:23, 41.20s/it]INFO:root:Batch accuracy: 4/8 = 50.0%
-  3%|▎         | 32/1000 [26:44<12:45:25, 47.44s/it]INFO:root:Batch accuracy: 2/8 = 25.0%
-  3%|▎         | 33/1000 [27:19<11:45:11, 43.76s/it]INFO:root:Batch accuracy: 3/8 = 37.5%
-  3%|▎         | 34/1000 [28:21<13:11:06, 49.14s/it]INFO:root:Batch accuracy: 1/8 = 12.5%
-  4%|▎         | 35/1000 [28:45<11:09:37, 41.63s/it]                                                      4%|▎         | 35/1000 [28:45<11:09:37, 41.63s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
-  4%|▎         | 36/1000 [29:45<12:38:52, 47.23s/it]INFO:root:Batch accuracy: 1/8 = 12.5%
-  4%|▎         | 37/1000 [30:27<12:13:27, 45.70s/it]INFO:root:Batch accuracy: 2/8 = 25.0%
-  4%|▍         | 38/1000 [31:05<11:36:04, 43.41s/it]INFO:root:Batch accuracy: 0/8 = 0.0%
-  4%|▍         | 39/1000 [32:09<13:10:27, 49.35s/it]INFO:root:Batch accuracy: 0/8 = 0.0%
-  4%|▍         | 40/1000 [33:12<14:18:16, 53.64s/it]                                                      4%|▍         | 40/1000 [33:12<14:18:16, 53.64s/it]/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:92: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
-  warnings.warn(
-INFO:root:Batch accuracy: 2/8 = 25.0%
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:295: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
-  with torch.enable_grad(), device_autocast_ctx, torch.cpu.amp.autocast(**ctx.cpu_autocast_kwargs):  # type: ignore[attr-defined]
-  4%|▍         | 41/1000 [34:17<15:10:03, 56.94s/it]INFO:root:Batch accuracy: 0/8 = 0.0%
-  4%|▍         | 42/1000 [35:05<14:28:10, 54.37s/it]INFO:root:Batch accuracy: 2/8 = 25.0%
-  4%|▍         | 43/1000 [36:06<14:59:45, 56.41s/it]INFO:root:Batch accuracy: 0/8 = 0.0%
-  4%|▍         | 44/1000 [37:08<15:23:53, 57.98s/it]INFO:root:Batch accuracy: 6/8 = 75.0%
-  4%|▍         | 45/1000 [38:09<15:39:06, 59.00s/it]                                                      4%|▍         | 45/1000 [38:09<15:39:06, 59.00s/it]INFO:root:Batch accuracy: 1/8 = 12.5%
-  5%|▍         | 46/1000 [39:13<15:57:30, 60.22s/it]INFO:root:Batch accuracy: 2/8 = 25.0%
-  5%|▍         | 47/1000 [39:51<14:13:57, 53.76s/it]INFO:root:Batch accuracy: 5/8 = 62.5%
-  5%|▍         | 48/1000 [40:51<14:42:47, 55.64s/it]INFO:root:Batch accuracy: 2/8 = 25.0%
-  5%|▍         | 49/1000 [41:49<14:51:32, 56.25s/it]INFO:root:Batch accuracy: 3/8 = 37.5%
-  5%|▌         | 50/1000 [42:24<13:09:59, 49.89s/it]                                                      5%|▌         | 50/1000 [42:24<13:09:59, 49.89s/it]/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:92: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
-  warnings.warn(
-INFO:root:Batch accuracy: 5/8 = 62.5%
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:295: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
-  with torch.enable_grad(), device_autocast_ctx, torch.cpu.amp.autocast(**ctx.cpu_autocast_kwargs):  # type: ignore[attr-defined]
-  5%|▌         | 51/1000 [43:06<12:32:48, 47.60s/it]INFO:root:Batch accuracy: 4/8 = 50.0%
-  5%|▌         | 52/1000 [44:06<13:31:48, 51.38s/it]INFO:root:Batch accuracy: 1/8 = 12.5%
-  5%|▌         | 53/1000 [45:06<14:08:05, 53.73s/it]INFO:root:Batch accuracy: 1/8 = 12.5%
-  5%|▌         | 54/1000 [45:24<11:19:14, 43.08s/it]
-📊 Current batch - Pass@8: 1.00, Accuracy: 37.50%
-📈 Cumulative - Pass@8: 0.7857, Accuracy: 0.1964
-   Total questions seen: 28
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 37.50%
-📈 Cumulative - Pass@8: 0.7931, Accuracy: 0.2026
-   Total questions seen: 29
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 50.00%
-📈 Cumulative - Pass@8: 0.8000, Accuracy: 0.2125
-   Total questions seen: 30
-{'loss': -0.2564, 'grad_norm': 0.16135424375534058, 'learning_rate': 9.71e-06, 'difficulty': 'hard', 'num_tokens': 121185.0, 'completions/mean_length': 234.425, 'completions/min_length': 5.0, 'completions/max_length': 744.2, 'completions/clipped_ratio': 0.1, 'completions/mean_terminated_length': 155.5321487426758, 'completions/min_terminated_length': 5.0, 'completions/max_terminated_length': 548.6, 'rewards/format_reward_func_qa/mean': 0.1375, 'rewards/format_reward_func_qa/std': 0.19231742918491362, 'rewards/correctness_reward_func_qa/mean': 0.3, 'rewards/correctness_reward_func_qa/std': 0.45534553527832033, 'reward': 0.4375, 'reward_std': 0.6280184686183929, 'frac_reward_zero_std': 0.0, 'kl': 0.0003925697812746876, 'entropy': 1.1618977524340153, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.02}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 12.50%
-📈 Cumulative - Pass@8: 0.8065, Accuracy: 0.2097
-   Total questions seen: 31
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 50.00%
-📈 Cumulative - Pass@8: 0.8125, Accuracy: 0.2188
-   Total questions seen: 32
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 25.00%
-📈 Cumulative - Pass@8: 0.8182, Accuracy: 0.2197
-   Total questions seen: 33
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 37.50%
-📈 Cumulative - Pass@8: 0.8235, Accuracy: 0.2243
-   Total questions seen: 34
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 12.50%
-📈 Cumulative - Pass@8: 0.8286, Accuracy: 0.2214
-   Total questions seen: 35
-{'loss': -0.137, 'grad_norm': 0.26902538537979126, 'learning_rate': 9.66e-06, 'difficulty': 'hard', 'num_tokens': 138503.0, 'completions/mean_length': 171.15, 'completions/min_length': 6.4, 'completions/max_length': 626.6, 'completions/clipped_ratio': 0.05, 'completions/mean_terminated_length': 125.57143096923828, 'completions/min_terminated_length': 6.4, 'completions/max_terminated_length': 405.2, 'rewards/format_reward_func_qa/mean': 0.15, 'rewards/format_reward_func_qa/std': 0.22390617728233336, 'rewards/correctness_reward_func_qa/mean': 0.275, 'rewards/correctness_reward_func_qa/std': 0.44441770315170287, 'reward': 0.425, 'reward_std': 0.6601665496826172, 'frac_reward_zero_std': 0.0, 'kl': 0.0006420252839234308, 'entropy': 1.3849973782896996, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.03}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.8333, Accuracy: 0.2396
-   Total questions seen: 36
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 12.50%
-📈 Cumulative - Pass@8: 0.8378, Accuracy: 0.2365
-   Total questions seen: 37
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 25.00%
-📈 Cumulative - Pass@8: 0.8421, Accuracy: 0.2368
-   Total questions seen: 38
-
-📊 Current batch - Pass@8: 0.00, Accuracy: 0.00%
-📈 Cumulative - Pass@8: 0.8205, Accuracy: 0.2308
-   Total questions seen: 39
-
-📊 Current batch - Pass@8: 0.00, Accuracy: 0.00%
-📈 Cumulative - Pass@8: 0.8000, Accuracy: 0.2250
-   Total questions seen: 40
-{'loss': -0.062, 'grad_norm': 0.01911766827106476, 'learning_rate': 9.610000000000001e-06, 'difficulty': 'hard', 'num_tokens': 159677.0, 'completions/mean_length': 249.95, 'completions/min_length': 5.8, 'completions/max_length': 866.0, 'completions/clipped_ratio': 0.075, 'completions/mean_terminated_length': 190.10714569091797, 'completions/min_terminated_length': 5.8, 'completions/max_terminated_length': 610.0, 'rewards/format_reward_func_qa/mean': 0.125, 'rewards/format_reward_func_qa/std': 0.1632926881313324, 'rewards/correctness_reward_func_qa/mean': 0.25, 'rewards/correctness_reward_func_qa/std': 0.23400336503982544, 'reward': 0.375, 'reward_std': 0.36793782413005827, 'frac_reward_zero_std': 0.2, 'kl': 0.000567419705203065, 'entropy': 1.5671166237443686, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.03}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 25.00%
-📈 Cumulative - Pass@8: 0.8049, Accuracy: 0.2256
-   Total questions seen: 41
-
-📊 Current batch - Pass@8: 0.00, Accuracy: 0.00%
-📈 Cumulative - Pass@8: 0.7857, Accuracy: 0.2202
-   Total questions seen: 42
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 25.00%
-📈 Cumulative - Pass@8: 0.7907, Accuracy: 0.2209
-   Total questions seen: 43
-
-📊 Current batch - Pass@8: 0.00, Accuracy: 0.00%
-📈 Cumulative - Pass@8: 0.7727, Accuracy: 0.2159
-   Total questions seen: 44
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 75.00%
-📈 Cumulative - Pass@8: 0.7778, Accuracy: 0.2278
-   Total questions seen: 45
-{'loss': 0.1633, 'grad_norm': 0.10302791744470596, 'learning_rate': 9.56e-06, 'difficulty': 'hard', 'num_tokens': 183858.0, 'completions/mean_length': 322.325, 'completions/min_length': 12.2, 'completions/max_length': 973.2, 'completions/clipped_ratio': 0.2, 'completions/mean_terminated_length': 135.56190795898436, 'completions/min_terminated_length': 12.2, 'completions/max_terminated_length': 467.6, 'rewards/format_reward_func_qa/mean': 0.125, 'rewards/format_reward_func_qa/std': 0.17969227135181426, 'rewards/correctness_reward_func_qa/mean': 0.25, 'rewards/correctness_reward_func_qa/std': 0.2777460336685181, 'reward': 0.375, 'reward_std': 0.448721644282341, 'frac_reward_zero_std': 0.2, 'kl': 0.0006422910206310917, 'entropy': 1.042037158459425, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.04}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 12.50%
-📈 Cumulative - Pass@8: 0.7826, Accuracy: 0.2255
-   Total questions seen: 46
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 25.00%
-📈 Cumulative - Pass@8: 0.7872, Accuracy: 0.2261
-   Total questions seen: 47
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 62.50%
-📈 Cumulative - Pass@8: 0.7917, Accuracy: 0.2344
-   Total questions seen: 48
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 25.00%
-📈 Cumulative - Pass@8: 0.7959, Accuracy: 0.2347
-   Total questions seen: 49
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 37.50%
-📈 Cumulative - Pass@8: 0.8000, Accuracy: 0.2375
-   Total questions seen: 50
-{'loss': 0.1581, 'grad_norm': 0.22727888822555542, 'learning_rate': 9.51e-06, 'difficulty': 'hard', 'num_tokens': 201615.0, 'completions/mean_length': 212.325, 'completions/min_length': 8.8, 'completions/max_length': 823.0, 'completions/clipped_ratio': 0.05, 'completions/mean_terminated_length': 169.1857177734375, 'completions/min_terminated_length': 8.8, 'completions/max_terminated_length': 557.6, 'rewards/format_reward_func_qa/mean': 0.1375, 'rewards/format_reward_func_qa/std': 0.23144719302654265, 'rewards/correctness_reward_func_qa/mean': 0.325, 'rewards/correctness_reward_func_qa/std': 0.4628943860530853, 'reward': 0.4625, 'reward_std': 0.6574888467788697, 'frac_reward_zero_std': 0.0, 'kl': 0.0009569700850988738, 'entropy': 1.1027997441589832, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.04}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 62.50%
-📈 Cumulative - Pass@8: 0.8039, Accuracy: 0.2451
-   Total questions seen: 51
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 50.00%
-📈 Cumulative - Pass@8: 0.8077, Accuracy: 0.2500
-   Total questions seen: 52
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 12.50%
-📈 Cumulative - Pass@8: 0.8113, Accuracy: 0.2476
-   Total questions seen: 53
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 12.50%
-📈 Cumulative - Pass@8: 0.8148, Accuracy: 0.2454
-   Total questions seen: 54
-INFO:root:Batch accuracy: 1/8 = 12.5%
-  6%|▌         | 55/1000 [45:52<10:07:13, 38.55s/it]                                                      6%|▌         | 55/1000 [45:52<10:07:13, 38.55s/it]INFO:root:Batch accuracy: 2/8 = 25.0%
-  6%|▌         | 56/1000 [46:23<9:32:23, 36.38s/it] INFO:root:Batch accuracy: 7/8 = 87.5%
-  6%|▌         | 57/1000 [47:24<11:27:58, 43.77s/it]INFO:root:Batch accuracy: 1/8 = 12.5%
-  6%|▌         | 58/1000 [48:06<11:18:31, 43.22s/it]INFO:root:Batch accuracy: 0/8 = 0.0%
-  6%|▌         | 59/1000 [48:54<11:38:17, 44.52s/it]INFO:root:Batch accuracy: 4/8 = 50.0%
-  6%|▌         | 60/1000 [49:56<13:02:08, 49.92s/it]                                                      6%|▌         | 60/1000 [49:56<13:02:08, 49.92s/it]/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:92: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
-  warnings.warn(
-INFO:root:Batch accuracy: 0/8 = 0.0%
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:295: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
-  with torch.enable_grad(), device_autocast_ctx, torch.cpu.amp.autocast(**ctx.cpu_autocast_kwargs):  # type: ignore[attr-defined]
-  6%|▌         | 61/1000 [50:04<9:43:52, 37.31s/it] INFO:root:Batch accuracy: 3/8 = 37.5%
-  6%|▌         | 62/1000 [51:08<11:47:31, 45.26s/it]INFO:root:Batch accuracy: 1/8 = 12.5%
-  6%|▋         | 63/1000 [51:45<11:07:36, 42.75s/it]INFO:root:Batch accuracy: 0/8 = 0.0%
-  6%|▋         | 64/1000 [52:46<12:33:36, 48.31s/it]INFO:root:Batch accuracy: 0/8 = 0.0%
-  6%|▋         | 65/1000 [53:45<13:20:43, 51.38s/it]                                                      6%|▋         | 65/1000 [53:45<13:20:43, 51.38s/it]INFO:root:Batch accuracy: 2/8 = 25.0%
-  7%|▋         | 66/1000 [54:11<11:22:47, 43.86s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
-  7%|▋         | 67/1000 [55:13<12:46:04, 49.27s/it]INFO:root:Batch accuracy: 3/8 = 37.5%
-  7%|▋         | 68/1000 [56:10<13:22:53, 51.69s/it]INFO:root:Batch accuracy: 3/8 = 37.5%
-  7%|▋         | 69/1000 [57:11<14:05:32, 54.49s/it]INFO:root:Batch accuracy: 0/8 = 0.0%
-  7%|▋         | 70/1000 [58:09<14:18:54, 55.41s/it]                                                      7%|▋         | 70/1000 [58:09<14:18:54, 55.41s/it]/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:92: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
-  warnings.warn(
-INFO:root:Batch accuracy: 1/8 = 12.5%
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:295: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
-  with torch.enable_grad(), device_autocast_ctx, torch.cpu.amp.autocast(**ctx.cpu_autocast_kwargs):  # type: ignore[attr-defined]
-  7%|▋         | 71/1000 [58:37<12:10:55, 47.21s/it]INFO:root:Batch accuracy: 5/8 = 62.5%
-  7%|▋         | 72/1000 [59:11<11:07:56, 43.19s/it]INFO:root:Batch accuracy: 1/8 = 12.5%
-  7%|▋         | 73/1000 [59:26<8:56:45, 34.74s/it] INFO:root:Batch accuracy: 0/8 = 0.0%
-  7%|▋         | 74/1000 [1:00:28<11:02:56, 42.96s/it]INFO:root:Batch accuracy: 0/8 = 0.0%
-  8%|▊         | 75/1000 [1:01:30<12:33:14, 48.86s/it]                                                        8%|▊         | 75/1000 [1:01:30<12:33:14, 48.86s/it]INFO:root:Batch accuracy: 4/8 = 50.0%
-  8%|▊         | 76/1000 [1:02:02<11:14:21, 43.79s/it]INFO:root:Batch accuracy: 5/8 = 62.5%
-  8%|▊         | 77/1000 [1:03:05<12:42:17, 49.55s/it]INFO:root:Batch accuracy: 1/8 = 12.5%
-  8%|▊         | 78/1000 [1:04:06<13:31:55, 52.84s/it]INFO:root:Batch accuracy: 2/8 = 25.0%
-  8%|▊         | 79/1000 [1:04:51<12:55:37, 50.53s/it]INFO:root:Batch accuracy: 1/8 = 12.5%
-  8%|▊         | 80/1000 [1:05:32<12:11:11, 47.69s/it]                                                      
-📊 Current batch - Pass@8: 1.00, Accuracy: 12.50%
-📈 Cumulative - Pass@8: 0.8182, Accuracy: 0.2432
-   Total questions seen: 55
-{'loss': -0.2294, 'grad_norm': 0.2710592746734619, 'learning_rate': 9.460000000000001e-06, 'difficulty': 'hard', 'num_tokens': 219456.0, 'completions/mean_length': 186.425, 'completions/min_length': 4.4, 'completions/max_length': 660.6, 'completions/clipped_ratio': 0.05, 'completions/mean_terminated_length': 144.65714416503906, 'completions/min_terminated_length': 4.4, 'completions/max_terminated_length': 572.8, 'rewards/format_reward_func_qa/mean': 0.175, 'rewards/format_reward_func_qa/std': 0.2205115258693695, 'rewards/correctness_reward_func_qa/mean': 0.3, 'rewards/correctness_reward_func_qa/std': 0.4225463688373566, 'reward': 0.475, 'reward_std': 0.6248953342437744, 'frac_reward_zero_std': 0.0, 'kl': 0.0015254039706633193, 'entropy': 1.1832831993699073, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.04}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 25.00%
-📈 Cumulative - Pass@8: 0.8214, Accuracy: 0.2433
-   Total questions seen: 56
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.8246, Accuracy: 0.2544
-   Total questions seen: 57
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 12.50%
-📈 Cumulative - Pass@8: 0.8276, Accuracy: 0.2522
-   Total questions seen: 58
-
-📊 Current batch - Pass@8: 0.00, Accuracy: 0.00%
-📈 Cumulative - Pass@8: 0.8136, Accuracy: 0.2479
-   Total questions seen: 59
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 50.00%
-📈 Cumulative - Pass@8: 0.8167, Accuracy: 0.2521
-   Total questions seen: 60
-{'loss': -0.4139, 'grad_norm': 0.08079132437705994, 'learning_rate': 9.41e-06, 'difficulty': 'hard', 'num_tokens': 237550.0, 'completions/mean_length': 217.75, 'completions/min_length': 6.4, 'completions/max_length': 789.0, 'completions/clipped_ratio': 0.1, 'completions/mean_terminated_length': 121.73333435058593, 'completions/min_terminated_length': 6.4, 'completions/max_terminated_length': 507.8, 'rewards/format_reward_func_qa/mean': 0.175, 'rewards/format_reward_func_qa/std': 0.17045392990112304, 'rewards/correctness_reward_func_qa/mean': 0.35, 'rewards/correctness_reward_func_qa/std': 0.3409078598022461, 'reward': 0.525, 'reward_std': 0.5113617897033691, 'frac_reward_zero_std': 0.2, 'kl': 0.0017831804401794217, 'entropy': 1.2680170495063066, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.05}
-
-📊 Current batch - Pass@8: 0.00, Accuracy: 0.00%
-📈 Cumulative - Pass@8: 0.8033, Accuracy: 0.2480
-   Total questions seen: 61
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 37.50%
-📈 Cumulative - Pass@8: 0.8065, Accuracy: 0.2500
-   Total questions seen: 62
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 12.50%
-📈 Cumulative - Pass@8: 0.8095, Accuracy: 0.2480
-   Total questions seen: 63
-
-📊 Current batch - Pass@8: 0.00, Accuracy: 0.00%
-📈 Cumulative - Pass@8: 0.7969, Accuracy: 0.2441
-   Total questions seen: 64
-
-📊 Current batch - Pass@8: 0.00, Accuracy: 0.00%
-📈 Cumulative - Pass@8: 0.7846, Accuracy: 0.2404
-   Total questions seen: 65
-{'loss': -0.1509, 'grad_norm': 0.03844136372208595, 'learning_rate': 9.360000000000002e-06, 'difficulty': 'hard', 'num_tokens': 254199.0, 'completions/mean_length': 180.625, 'completions/min_length': 2.4, 'completions/max_length': 713.6, 'completions/clipped_ratio': 0.05, 'completions/mean_terminated_length': 137.4000045776367, 'completions/min_terminated_length': 2.4, 'completions/max_terminated_length': 493.2, 'rewards/format_reward_func_qa/mean': 0.075, 'rewards/format_reward_func_qa/std': 0.1334012657403946, 'rewards/correctness_reward_func_qa/mean': 0.1, 'rewards/correctness_reward_func_qa/std': 0.17422052025794982, 'reward': 0.175, 'reward_std': 0.29752459228038786, 'frac_reward_zero_std': 0.4, 'kl': 0.003529761829850031, 'entropy': 1.5938798554241658, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.05}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 25.00%
-📈 Cumulative - Pass@8: 0.7879, Accuracy: 0.2405
-   Total questions seen: 66
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.7910, Accuracy: 0.2500
-   Total questions seen: 67
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 37.50%
-📈 Cumulative - Pass@8: 0.7941, Accuracy: 0.2518
-   Total questions seen: 68
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 37.50%
-📈 Cumulative - Pass@8: 0.7971, Accuracy: 0.2536
-   Total questions seen: 69
-
-📊 Current batch - Pass@8: 0.00, Accuracy: 0.00%
-📈 Cumulative - Pass@8: 0.7857, Accuracy: 0.2500
-   Total questions seen: 70
-{'loss': 0.006, 'grad_norm': 0.0004910032148472965, 'learning_rate': 9.31e-06, 'difficulty': 'hard', 'num_tokens': 273689.0, 'completions/mean_length': 215.65, 'completions/min_length': 5.6, 'completions/max_length': 862.2, 'completions/clipped_ratio': 0.075, 'completions/mean_terminated_length': 149.5369079589844, 'completions/min_terminated_length': 5.6, 'completions/max_terminated_length': 658.2, 'rewards/format_reward_func_qa/mean': 0.1875, 'rewards/format_reward_func_qa/std': 0.185156187415123, 'rewards/correctness_reward_func_qa/mean': 0.375, 'rewards/correctness_reward_func_qa/std': 0.370312374830246, 'reward': 0.5625, 'reward_std': 0.5383723974227905, 'frac_reward_zero_std': 0.2, 'kl': 0.0038705507009581196, 'entropy': 1.1488306380808353, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.06}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 12.50%
-📈 Cumulative - Pass@8: 0.7887, Accuracy: 0.2482
-   Total questions seen: 71
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 62.50%
-📈 Cumulative - Pass@8: 0.7917, Accuracy: 0.2535
-   Total questions seen: 72
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 12.50%
-📈 Cumulative - Pass@8: 0.7945, Accuracy: 0.2517
-   Total questions seen: 73
-
-📊 Current batch - Pass@8: 0.00, Accuracy: 0.00%
-📈 Cumulative - Pass@8: 0.7838, Accuracy: 0.2483
-   Total questions seen: 74
-
-📊 Current batch - Pass@8: 0.00, Accuracy: 0.00%
-📈 Cumulative - Pass@8: 0.7733, Accuracy: 0.2450
-   Total questions seen: 75
-{'loss': -0.0681, 'grad_norm': 0.020941294729709625, 'learning_rate': 9.260000000000001e-06, 'difficulty': 'hard', 'num_tokens': 292566.0, 'completions/mean_length': 209.725, 'completions/min_length': 4.2, 'completions/max_length': 616.4, 'completions/clipped_ratio': 0.1, 'completions/mean_terminated_length': 122.51428833007813, 'completions/min_terminated_length': 4.2, 'completions/max_terminated_length': 408.0, 'rewards/format_reward_func_qa/mean': 0.125, 'rewards/format_reward_func_qa/std': 0.20411194264888763, 'rewards/correctness_reward_func_qa/mean': 0.175, 'rewards/correctness_reward_func_qa/std': 0.24493119716644288, 'reward': 0.3, 'reward_std': 0.43894594311714175, 'frac_reward_zero_std': 0.0, 'kl': 0.0064929015388770495, 'entropy': 1.6006057929247617, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.06}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 50.00%
-📈 Cumulative - Pass@8: 0.7763, Accuracy: 0.2484
-   Total questions seen: 76
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 62.50%
-📈 Cumulative - Pass@8: 0.7792, Accuracy: 0.2532
-   Total questions seen: 77
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 12.50%
-📈 Cumulative - Pass@8: 0.7821, Accuracy: 0.2516
-   Total questions seen: 78
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 25.00%
-📈 Cumulative - Pass@8: 0.7848, Accuracy: 0.2516
-   Total questions seen: 79
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 12.50%
-📈 Cumulative - Pass@8: 0.7875, Accuracy: 0.2500
-   Total questions seen: 80
-  8%|▊         | 80/1000 [1:05:32<12:11:11, 47.69s/it]/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:92: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
-  warnings.warn(
-INFO:root:Batch accuracy: 5/8 = 62.5%
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:295: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
-  with torch.enable_grad(), device_autocast_ctx, torch.cpu.amp.autocast(**ctx.cpu_autocast_kwargs):  # type: ignore[attr-defined]
-  8%|▊         | 81/1000 [1:06:16<11:53:42, 46.60s/it]INFO:root:Batch accuracy: 2/8 = 25.0%
-  8%|▊         | 82/1000 [1:07:20<13:14:16, 51.91s/it]INFO:root:Batch accuracy: 6/8 = 75.0%
-  8%|▊         | 83/1000 [1:08:22<13:58:11, 54.84s/it]INFO:root:Batch accuracy: 5/8 = 62.5%
-  8%|▊         | 84/1000 [1:08:51<11:56:12, 46.91s/it]INFO:root:Batch accuracy: 1/8 = 12.5%
-  8%|▊         | 85/1000 [1:09:52<13:02:14, 51.29s/it]                                                        8%|▊         | 85/1000 [1:09:52<13:02:14, 51.29s/it]INFO:root:Batch accuracy: 3/8 = 37.5%
-  9%|▊         | 86/1000 [1:10:55<13:56:42, 54.93s/it]INFO:root:Batch accuracy: 3/8 = 37.5%
-  9%|▊         | 87/1000 [1:11:41<13:14:01, 52.18s/it]INFO:root:Batch accuracy: 3/8 = 37.5%
-  9%|▉         | 88/1000 [1:12:44<14:03:22, 55.49s/it]INFO:root:Batch accuracy: 4/8 = 50.0%
-  9%|▉         | 89/1000 [1:13:45<14:25:33, 57.01s/it]INFO:root:Batch accuracy: 3/8 = 37.5%
-  9%|▉         | 90/1000 [1:14:47<14:49:04, 58.62s/it]                                                        9%|▉         | 90/1000 [1:14:47<14:49:04, 58.62s/it]/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:92: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
-  warnings.warn(
-INFO:root:Batch accuracy: 3/8 = 37.5%
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:295: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
-  with torch.enable_grad(), device_autocast_ctx, torch.cpu.amp.autocast(**ctx.cpu_autocast_kwargs):  # type: ignore[attr-defined]
-  9%|▉         | 91/1000 [1:15:21<12:56:15, 51.24s/it]INFO:root:Batch accuracy: 6/8 = 75.0%
-  9%|▉         | 92/1000 [1:15:40<10:27:54, 41.49s/it]INFO:root:Batch accuracy: 0/8 = 0.0%
-  9%|▉         | 93/1000 [1:16:28<10:55:25, 43.36s/it]INFO:root:Batch accuracy: 2/8 = 25.0%
-  9%|▉         | 94/1000 [1:17:15<11:10:54, 44.43s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 10%|▉         | 95/1000 [1:18:11<12:03:43, 47.98s/it]                                                       10%|▉         | 95/1000 [1:18:11<12:03:43, 47.98s/it]INFO:root:Batch accuracy: 4/8 = 50.0%
- 10%|▉         | 96/1000 [1:19:13<13:03:54, 52.03s/it]INFO:root:Batch accuracy: 5/8 = 62.5%
- 10%|▉         | 97/1000 [1:20:16<13:55:01, 55.48s/it]INFO:root:Batch accuracy: 2/8 = 25.0%
- 10%|▉         | 98/1000 [1:21:20<14:33:43, 58.12s/it]INFO:root:Batch accuracy: 4/8 = 50.0%
- 10%|▉         | 99/1000 [1:22:22<14:48:06, 59.14s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 10%|█         | 100/1000 [1:23:09<13:53:24, 55.56s/it]                                                        10%|█         | 100/1000 [1:23:09<13:53:24, 55.56s/it]/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:92: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
-  warnings.warn(
-INFO:root:Batch accuracy: 5/8 = 62.5%
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:295: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
-  with torch.enable_grad(), device_autocast_ctx, torch.cpu.amp.autocast(**ctx.cpu_autocast_kwargs):  # type: ignore[attr-defined]
- 10%|█         | 101/1000 [1:24:14<14:35:27, 58.43s/it]INFO:root:Batch accuracy: 5/8 = 62.5%
- 10%|█         | 102/1000 [1:25:16<14:47:35, 59.30s/it]INFO:root:Batch accuracy: 4/8 = 50.0%
- 10%|█         | 103/1000 [1:26:16<14:51:13, 59.61s/it]INFO:root:Batch accuracy: 3/8 = 37.5%
- 10%|█         | 104/1000 [1:27:18<15:02:45, 60.45s/it]INFO:root:Batch accuracy: 4/8 = 50.0%
- 10%|█         | 105/1000 [1:28:20<15:05:25, 60.70s/it]                                                       {'loss': -0.2497, 'grad_norm': 0.07223999500274658, 'learning_rate': 9.210000000000002e-06, 'difficulty': 'hard', 'num_tokens': 311648.0, 'completions/mean_length': 228.85, 'completions/min_length': 4.6, 'completions/max_length': 773.4, 'completions/clipped_ratio': 0.025, 'completions/mean_terminated_length': 208.44285888671874, 'completions/min_terminated_length': 4.6, 'completions/max_terminated_length': 682.2, 'rewards/format_reward_func_qa/mean': 0.15, 'rewards/format_reward_func_qa/std': 0.2205115258693695, 'rewards/correctness_reward_func_qa/mean': 0.325, 'rewards/correctness_reward_func_qa/std': 0.44441770315170287, 'reward': 0.475, 'reward_std': 0.6568638563156128, 'frac_reward_zero_std': 0.0, 'kl': 0.00796211273118388, 'entropy': 1.4141568329185248, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.06}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 62.50%
-📈 Cumulative - Pass@8: 0.7901, Accuracy: 0.2546
-   Total questions seen: 81
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 25.00%
-📈 Cumulative - Pass@8: 0.7927, Accuracy: 0.2546
-   Total questions seen: 82
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 75.00%
-📈 Cumulative - Pass@8: 0.7952, Accuracy: 0.2605
-   Total questions seen: 83
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 62.50%
-📈 Cumulative - Pass@8: 0.7976, Accuracy: 0.2649
-   Total questions seen: 84
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 12.50%
-📈 Cumulative - Pass@8: 0.8000, Accuracy: 0.2632
-   Total questions seen: 85
-{'loss': -0.0899, 'grad_norm': 0.05981794744729996, 'learning_rate': 9.16e-06, 'difficulty': 'hard', 'num_tokens': 331223.0, 'completions/mean_length': 240.975, 'completions/min_length': 7.2, 'completions/max_length': 833.8, 'completions/clipped_ratio': 0.075, 'completions/mean_terminated_length': 174.90357780456543, 'completions/min_terminated_length': 7.2, 'completions/max_terminated_length': 442.8, 'rewards/format_reward_func_qa/mean': 0.2125, 'rewards/format_reward_func_qa/std': 0.2386084347963333, 'rewards/correctness_reward_func_qa/mean': 0.475, 'rewards/correctness_reward_func_qa/std': 0.4628943860530853, 'reward': 0.6875, 'reward_std': 0.6846288204193115, 'frac_reward_zero_std': 0.0, 'kl': 0.015028404860640877, 'entropy': 1.0709383219480515, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.07}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 37.50%
-📈 Cumulative - Pass@8: 0.8023, Accuracy: 0.2645
-   Total questions seen: 86
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 37.50%
-📈 Cumulative - Pass@8: 0.8046, Accuracy: 0.2658
-   Total questions seen: 87
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 37.50%
-📈 Cumulative - Pass@8: 0.8068, Accuracy: 0.2670
-   Total questions seen: 88
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 50.00%
-📈 Cumulative - Pass@8: 0.8090, Accuracy: 0.2697
-   Total questions seen: 89
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 37.50%
-📈 Cumulative - Pass@8: 0.8111, Accuracy: 0.2708
-   Total questions seen: 90
-{'loss': -0.3696, 'grad_norm': 0.19187946617603302, 'learning_rate': 9.110000000000001e-06, 'difficulty': 'hard', 'num_tokens': 351450.0, 'completions/mean_length': 246.475, 'completions/min_length': 3.8, 'completions/max_length': 963.8, 'completions/clipped_ratio': 0.075, 'completions/mean_terminated_length': 182.1571472167969, 'completions/min_terminated_length': 3.8, 'completions/max_terminated_length': 693.2, 'rewards/format_reward_func_qa/mean': 0.2125, 'rewards/format_reward_func_qa/std': 0.2621692597866058, 'rewards/correctness_reward_func_qa/mean': 0.4, 'rewards/correctness_reward_func_qa/std': 0.5209438681602478, 'reward': 0.6125, 'reward_std': 0.7749557852745056, 'frac_reward_zero_std': 0.0, 'kl': 0.032142727189057044, 'entropy': 1.4533182390034198, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.07}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 37.50%
-📈 Cumulative - Pass@8: 0.8132, Accuracy: 0.2720
-   Total questions seen: 91
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 75.00%
-📈 Cumulative - Pass@8: 0.8152, Accuracy: 0.2772
-   Total questions seen: 92
-
-📊 Current batch - Pass@8: 0.00, Accuracy: 0.00%
-📈 Cumulative - Pass@8: 0.8065, Accuracy: 0.2742
-   Total questions seen: 93
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 25.00%
-📈 Cumulative - Pass@8: 0.8085, Accuracy: 0.2739
-   Total questions seen: 94
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.8105, Accuracy: 0.2803
-   Total questions seen: 95
-{'loss': -0.0275, 'grad_norm': 0.04520991072058678, 'learning_rate': 9.060000000000001e-06, 'difficulty': 'hard', 'num_tokens': 369789.0, 'completions/mean_length': 202.475, 'completions/min_length': 6.8, 'completions/max_length': 625.4, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 202.475, 'completions/min_terminated_length': 6.8, 'completions/max_terminated_length': 625.4, 'rewards/format_reward_func_qa/mean': 0.25, 'rewards/format_reward_func_qa/std': 0.18685351312160492, 'rewards/correctness_reward_func_qa/mean': 0.45, 'rewards/correctness_reward_func_qa/std': 0.3593845427036285, 'reward': 0.7, 'reward_std': 0.5293640613555908, 'frac_reward_zero_std': 0.2, 'kl': 0.04491697193152504, 'entropy': 1.1898330207914114, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.08}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 50.00%
-📈 Cumulative - Pass@8: 0.8125, Accuracy: 0.2826
-   Total questions seen: 96
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 62.50%
-📈 Cumulative - Pass@8: 0.8144, Accuracy: 0.2861
-   Total questions seen: 97
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 25.00%
-📈 Cumulative - Pass@8: 0.8163, Accuracy: 0.2857
-   Total questions seen: 98
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 50.00%
-📈 Cumulative - Pass@8: 0.8182, Accuracy: 0.2879
-   Total questions seen: 99
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.8200, Accuracy: 0.2938
-   Total questions seen: 100
-{'loss': -0.2818, 'grad_norm': 0.1455680876970291, 'learning_rate': 9.01e-06, 'difficulty': 'hard', 'num_tokens': 393622.0, 'completions/mean_length': 340.025, 'completions/min_length': 9.6, 'completions/max_length': 967.8, 'completions/clipped_ratio': 0.15, 'completions/mean_terminated_length': 218.50952758789063, 'completions/min_terminated_length': 9.6, 'completions/max_terminated_length': 532.2, 'rewards/format_reward_func_qa/mean': 0.275, 'rewards/format_reward_func_qa/std': 0.24030576050281524, 'rewards/correctness_reward_func_qa/mean': 0.55, 'rewards/correctness_reward_func_qa/std': 0.4806115210056305, 'reward': 0.825, 'reward_std': 0.720917284488678, 'frac_reward_zero_std': 0.0, 'kl': 0.020177281923679402, 'entropy': 1.312914877384901, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.08}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 62.50%
-📈 Cumulative - Pass@8: 0.8218, Accuracy: 0.2970
-   Total questions seen: 101
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 62.50%
-📈 Cumulative - Pass@8: 0.8235, Accuracy: 0.3002
-   Total questions seen: 102
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 50.00%
-📈 Cumulative - Pass@8: 0.8252, Accuracy: 0.3022
-   Total questions seen: 103
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 37.50%
-📈 Cumulative - Pass@8: 0.8269, Accuracy: 0.3029
-   Total questions seen: 104
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 50.00%
-📈 Cumulative - Pass@8: 0.8286, Accuracy: 0.3048
-   Total questions seen: 105
- 10%|█         | 105/1000 [1:28:20<15:05:25, 60.70s/it]INFO:root:Batch accuracy: 5/8 = 62.5%
- 11%|█         | 106/1000 [1:29:21<15:06:40, 60.85s/it]INFO:root:Batch accuracy: 4/8 = 50.0%
- 11%|█         | 107/1000 [1:30:19<14:56:08, 60.21s/it]INFO:root:Batch accuracy: 3/8 = 37.5%
- 11%|█         | 108/1000 [1:31:12<14:20:14, 57.86s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 11%|█         | 109/1000 [1:32:07<14:05:14, 56.92s/it]INFO:root:Batch accuracy: 1/8 = 12.5%
- 11%|█         | 110/1000 [1:33:01<13:54:23, 56.25s/it]                                                        11%|█         | 110/1000 [1:33:01<13:54:23, 56.25s/it]/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:92: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
-  warnings.warn(
-INFO:root:Batch accuracy: 5/8 = 62.5%
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:295: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
-  with torch.enable_grad(), device_autocast_ctx, torch.cpu.amp.autocast(**ctx.cpu_autocast_kwargs):  # type: ignore[attr-defined]
- 11%|█         | 111/1000 [1:34:07<14:35:04, 59.06s/it]INFO:root:Batch accuracy: 1/8 = 12.5%
- 11%|█         | 112/1000 [1:35:09<14:48:17, 60.02s/it]INFO:root:Batch accuracy: 3/8 = 37.5%
- 11%|█▏        | 113/1000 [1:36:09<14:45:48, 59.92s/it]INFO:root:Batch accuracy: 6/8 = 75.0%
- 11%|█▏        | 114/1000 [1:36:50<13:22:01, 54.31s/it]INFO:root:Batch accuracy: 6/8 = 75.0%
- 12%|█▏        | 115/1000 [1:37:52<13:56:55, 56.74s/it]                                                        12%|█▏        | 115/1000 [1:37:52<13:56:55, 56.74s/it]INFO:root:Batch accuracy: 3/8 = 37.5%
- 12%|█▏        | 116/1000 [1:38:48<13:51:28, 56.43s/it]INFO:root:Batch accuracy: 1/8 = 12.5%
- 12%|█▏        | 117/1000 [1:39:42<13:37:09, 55.53s/it]INFO:root:Batch accuracy: 6/8 = 75.0%
- 12%|█▏        | 118/1000 [1:40:44<14:07:34, 57.66s/it]INFO:root:Batch accuracy: 3/8 = 37.5%
- 12%|█▏        | 119/1000 [1:41:46<14:25:42, 58.96s/it]INFO:root:Batch accuracy: 6/8 = 75.0%
- 12%|█▏        | 120/1000 [1:42:25<12:58:06, 53.05s/it]                                                        12%|█▏        | 120/1000 [1:42:26<12:58:06, 53.05s/it]/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:92: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
-  warnings.warn(
-INFO:root:Batch accuracy: 7/8 = 87.5%
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:295: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
-  with torch.enable_grad(), device_autocast_ctx, torch.cpu.amp.autocast(**ctx.cpu_autocast_kwargs):  # type: ignore[attr-defined]
- 12%|█▏        | 121/1000 [1:43:27<13:35:05, 55.64s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 12%|█▏        | 122/1000 [1:44:05<12:14:53, 50.22s/it]INFO:root:Batch accuracy: 1/8 = 12.5%
- 12%|█▏        | 123/1000 [1:45:01<12:42:34, 52.17s/it]INFO:root:Batch accuracy: 3/8 = 37.5%
- 12%|█▏        | 124/1000 [1:46:05<13:32:46, 55.67s/it]INFO:root:Batch accuracy: 6/8 = 75.0%
- 12%|█▎        | 125/1000 [1:47:08<14:04:27, 57.91s/it]                                                        12%|█▎        | 125/1000 [1:47:08<14:04:27, 57.91s/it]INFO:root:Batch accuracy: 6/8 = 75.0%
- 13%|█▎        | 126/1000 [1:48:11<14:25:39, 59.43s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 13%|█▎        | 127/1000 [1:49:06<14:01:53, 57.86s/it]INFO:root:Batch accuracy: 6/8 = 75.0%
- 13%|█▎        | 128/1000 [1:49:37<12:06:04, 49.96s/it]INFO:root:Batch accuracy: 6/8 = 75.0%
- 13%|█▎        | 129/1000 [1:50:40<13:02:01, 53.87s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 13%|█▎        | 130/1000 [1:51:41<13:32:07, 56.01s/it]                                                       {'loss': -0.0415, 'grad_norm': 0.16645129024982452, 'learning_rate': 8.96e-06, 'difficulty': 'hard', 'num_tokens': 421610.0, 'completions/mean_length': 460.9, 'completions/min_length': 27.4, 'completions/max_length': 1024.0, 'completions/clipped_ratio': 0.2, 'completions/mean_terminated_length': 319.88096008300784, 'completions/min_terminated_length': 27.4, 'completions/max_terminated_length': 745.8, 'rewards/format_reward_func_qa/mean': 0.3125, 'rewards/format_reward_func_qa/std': 0.24408018589019775, 'rewards/correctness_reward_func_qa/mean': 0.525, 'rewards/correctness_reward_func_qa/std': 0.5243385195732116, 'reward': 0.8375, 'reward_std': 0.7373372316360474, 'frac_reward_zero_std': 0.0, 'kl': 0.028401374479290097, 'entropy': 1.4128126453608274, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.08}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 62.50%
-📈 Cumulative - Pass@8: 0.8302, Accuracy: 0.3078
-   Total questions seen: 106
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 50.00%
-📈 Cumulative - Pass@8: 0.8318, Accuracy: 0.3096
-   Total questions seen: 107
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 37.50%
-📈 Cumulative - Pass@8: 0.8333, Accuracy: 0.3102
-   Total questions seen: 108
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.8349, Accuracy: 0.3154
-   Total questions seen: 109
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 12.50%
-📈 Cumulative - Pass@8: 0.8364, Accuracy: 0.3136
-   Total questions seen: 110
-{'loss': -0.0257, 'grad_norm': 0.035789187997579575, 'learning_rate': 8.910000000000001e-06, 'difficulty': 'hard', 'num_tokens': 443331.0, 'completions/mean_length': 257.425, 'completions/min_length': 10.2, 'completions/max_length': 936.4, 'completions/clipped_ratio': 0.075, 'completions/mean_terminated_length': 191.00238189697265, 'completions/min_terminated_length': 10.2, 'completions/max_terminated_length': 764.8, 'rewards/format_reward_func_qa/mean': 0.325, 'rewards/format_reward_func_qa/std': 0.22767276763916017, 'rewards/correctness_reward_func_qa/mean': 0.5, 'rewards/correctness_reward_func_qa/std': 0.45534553527832033, 'reward': 0.825, 'reward_std': 0.6314522385597229, 'frac_reward_zero_std': 0.0, 'kl': 0.09491085749759805, 'entropy': 1.2370258048176765, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.09}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 62.50%
-📈 Cumulative - Pass@8: 0.8378, Accuracy: 0.3164
-   Total questions seen: 111
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 12.50%
-📈 Cumulative - Pass@8: 0.8393, Accuracy: 0.3147
-   Total questions seen: 112
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 37.50%
-📈 Cumulative - Pass@8: 0.8407, Accuracy: 0.3153
-   Total questions seen: 113
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 75.00%
-📈 Cumulative - Pass@8: 0.8421, Accuracy: 0.3191
-   Total questions seen: 114
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 75.00%
-📈 Cumulative - Pass@8: 0.8435, Accuracy: 0.3228
-   Total questions seen: 115
-{'loss': -0.009, 'grad_norm': 0.06314768642187119, 'learning_rate': 8.860000000000002e-06, 'difficulty': 'hard', 'num_tokens': 471188.0, 'completions/mean_length': 461.225, 'completions/min_length': 11.0, 'completions/max_length': 941.8, 'completions/clipped_ratio': 0.225, 'completions/mean_terminated_length': 306.82166748046876, 'completions/min_terminated_length': 11.0, 'completions/max_terminated_length': 705.4, 'rewards/format_reward_func_qa/mean': 0.325, 'rewards/format_reward_func_qa/std': 0.24577751159667968, 'rewards/correctness_reward_func_qa/mean': 0.525, 'rewards/correctness_reward_func_qa/std': 0.4628943860530853, 'reward': 0.85, 'reward_std': 0.67148197889328, 'frac_reward_zero_std': 0.0, 'kl': 0.024437111504084896, 'entropy': 1.0681050643324852, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.09}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 37.50%
-📈 Cumulative - Pass@8: 0.8448, Accuracy: 0.3233
-   Total questions seen: 116
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 12.50%
-📈 Cumulative - Pass@8: 0.8462, Accuracy: 0.3216
-   Total questions seen: 117
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 75.00%
-📈 Cumulative - Pass@8: 0.8475, Accuracy: 0.3252
-   Total questions seen: 118
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 37.50%
-📈 Cumulative - Pass@8: 0.8487, Accuracy: 0.3256
-   Total questions seen: 119
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 75.00%
-📈 Cumulative - Pass@8: 0.8500, Accuracy: 0.3292
-   Total questions seen: 120
-{'loss': -0.1083, 'grad_norm': 0.0949651449918747, 'learning_rate': 8.81e-06, 'difficulty': 'hard', 'num_tokens': 491234.0, 'completions/mean_length': 243.55, 'completions/min_length': 6.2, 'completions/max_length': 885.4, 'completions/clipped_ratio': 0.05, 'completions/mean_terminated_length': 202.61785964965821, 'completions/min_terminated_length': 6.2, 'completions/max_terminated_length': 671.6, 'rewards/format_reward_func_qa/mean': 0.3, 'rewards/format_reward_func_qa/std': 0.2112731844186783, 'rewards/correctness_reward_func_qa/mean': 0.475, 'rewards/correctness_reward_func_qa/std': 0.4628943860530853, 'reward': 0.775, 'reward_std': 0.6332063555717469, 'frac_reward_zero_std': 0.0, 'kl': 0.12741027669108007, 'entropy': 1.3629763394594192, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.1}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.8512, Accuracy: 0.3337
-   Total questions seen: 121
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.8525, Accuracy: 0.3391
-   Total questions seen: 122
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 12.50%
-📈 Cumulative - Pass@8: 0.8537, Accuracy: 0.3374
-   Total questions seen: 123
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 37.50%
-📈 Cumulative - Pass@8: 0.8548, Accuracy: 0.3377
-   Total questions seen: 124
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 75.00%
-📈 Cumulative - Pass@8: 0.8560, Accuracy: 0.3410
-   Total questions seen: 125
-{'loss': -0.1927, 'grad_norm': 0.09169265627861023, 'learning_rate': 8.76e-06, 'difficulty': 'hard', 'num_tokens': 516842.0, 'completions/mean_length': 386.4, 'completions/min_length': 21.6, 'completions/max_length': 920.6, 'completions/clipped_ratio': 0.1, 'completions/mean_terminated_length': 314.1761993408203, 'completions/min_terminated_length': 21.6, 'completions/max_terminated_length': 746.2, 'rewards/format_reward_func_qa/mean': 0.3625, 'rewards/format_reward_func_qa/std': 0.185156187415123, 'rewards/correctness_reward_func_qa/mean': 0.625, 'rewards/correctness_reward_func_qa/std': 0.3375132083892822, 'reward': 0.9875, 'reward_std': 0.4917936325073242, 'frac_reward_zero_std': 0.2, 'kl': 0.0491000184963923, 'entropy': 1.4310628902167082, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.1}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 75.00%
-📈 Cumulative - Pass@8: 0.8571, Accuracy: 0.3442
-   Total questions seen: 126
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.8583, Accuracy: 0.3484
-   Total questions seen: 127
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 75.00%
-📈 Cumulative - Pass@8: 0.8594, Accuracy: 0.3516
-   Total questions seen: 128
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 75.00%
-📈 Cumulative - Pass@8: 0.8605, Accuracy: 0.3547
-   Total questions seen: 129
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.8615, Accuracy: 0.3587
-   Total questions seen: 130
- 13%|█▎        | 130/1000 [1:51:41<13:32:07, 56.01s/it]/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:92: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
-  warnings.warn(
-INFO:root:Batch accuracy: 3/8 = 37.5%
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:295: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
-  with torch.enable_grad(), device_autocast_ctx, torch.cpu.amp.autocast(**ctx.cpu_autocast_kwargs):  # type: ignore[attr-defined]
- 13%|█▎        | 131/1000 [1:52:26<12:44:29, 52.78s/it]INFO:root:Batch accuracy: 5/8 = 62.5%
- 13%|█▎        | 132/1000 [1:53:30<13:32:02, 56.13s/it]INFO:root:Batch accuracy: 5/8 = 62.5%
- 13%|█▎        | 133/1000 [1:54:33<13:59:14, 58.08s/it]INFO:root:Batch accuracy: 3/8 = 37.5%
- 13%|█▎        | 134/1000 [1:55:34<14:13:01, 59.10s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 14%|█▎        | 135/1000 [1:56:37<14:25:22, 60.03s/it]                                                        14%|█▎        | 135/1000 [1:56:37<14:25:22, 60.03s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 14%|█▎        | 136/1000 [1:57:39<14:32:48, 60.61s/it]INFO:root:Batch accuracy: 6/8 = 75.0%
- 14%|█▎        | 137/1000 [1:58:40<14:36:13, 60.92s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 14%|█▍        | 138/1000 [1:59:27<13:35:29, 56.76s/it]INFO:root:Batch accuracy: 4/8 = 50.0%
- 14%|█▍        | 139/1000 [2:00:29<13:56:42, 58.31s/it]INFO:root:Batch accuracy: 6/8 = 75.0%
- 14%|█▍        | 140/1000 [2:01:32<14:12:57, 59.51s/it]                                                        14%|█▍        | 140/1000 [2:01:32<14:12:57, 59.51s/it]/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:92: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
-  warnings.warn(
-INFO:root:Batch accuracy: 7/8 = 87.5%
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:295: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
-  with torch.enable_grad(), device_autocast_ctx, torch.cpu.amp.autocast(**ctx.cpu_autocast_kwargs):  # type: ignore[attr-defined]
- 14%|█▍        | 141/1000 [2:02:35<14:30:15, 60.79s/it]INFO:root:Batch accuracy: 5/8 = 62.5%
- 14%|█▍        | 142/1000 [2:03:36<14:27:54, 60.69s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 14%|█▍        | 143/1000 [2:04:37<14:30:59, 60.98s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 14%|█▍        | 144/1000 [2:05:21<13:13:23, 55.61s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 14%|█▍        | 145/1000 [2:06:24<13:47:36, 58.08s/it]                                                        14%|█▍        | 145/1000 [2:06:24<13:47:36, 58.08s/it]INFO:root:Batch accuracy: 3/8 = 37.5%
- 15%|█▍        | 146/1000 [2:07:02<12:18:31, 51.89s/it]INFO:root:Batch accuracy: 5/8 = 62.5%
- 15%|█▍        | 147/1000 [2:07:43<11:30:25, 48.56s/it]INFO:root:Batch accuracy: 4/8 = 50.0%
- 15%|█▍        | 148/1000 [2:08:45<12:29:44, 52.80s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 15%|█▍        | 149/1000 [2:09:24<11:30:04, 48.65s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 15%|█▌        | 150/1000 [2:10:26<12:24:06, 52.53s/it]                                                        15%|█▌        | 150/1000 [2:10:26<12:24:06, 52.53s/it]/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:92: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
-  warnings.warn(
-INFO:root:Batch accuracy: 7/8 = 87.5%
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:295: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
-  with torch.enable_grad(), device_autocast_ctx, torch.cpu.amp.autocast(**ctx.cpu_autocast_kwargs):  # type: ignore[attr-defined]
- 15%|█▌        | 151/1000 [2:10:57<10:53:30, 46.18s/it]INFO:root:Batch accuracy: 5/8 = 62.5%
- 15%|█▌        | 152/1000 [2:12:02<12:11:07, 51.73s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 15%|█▌        | 153/1000 [2:13:05<12:59:06, 55.19s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 15%|█▌        | 154/1000 [2:14:07<13:25:32, 57.13s/it]INFO:root:Batch accuracy: 3/8 = 37.5%
- 16%|█▌        | 155/1000 [2:14:54<12:41:04, 54.04s/it]                                                       {'loss': -0.1579, 'grad_norm': 0.03813933953642845, 'learning_rate': 8.710000000000001e-06, 'difficulty': 'hard', 'num_tokens': 542342.0, 'completions/mean_length': 376.1, 'completions/min_length': 21.4, 'completions/max_length': 878.6, 'completions/clipped_ratio': 0.15, 'completions/mean_terminated_length': 267.68333740234374, 'completions/min_terminated_length': 21.4, 'completions/max_terminated_length': 638.8, 'rewards/format_reward_func_qa/mean': 0.4125, 'rewards/format_reward_func_qa/std': 0.17422835528850555, 'rewards/correctness_reward_func_qa/mean': 0.8, 'rewards/correctness_reward_func_qa/std': 0.41916738748550414, 'reward': 1.2125, 'reward_std': 0.5741347014904022, 'frac_reward_zero_std': 0.0, 'kl': 0.029007228306727483, 'entropy': 1.3141781743615866, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.1}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 37.50%
-📈 Cumulative - Pass@8: 0.8626, Accuracy: 0.3588
-   Total questions seen: 131
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 62.50%
-📈 Cumulative - Pass@8: 0.8636, Accuracy: 0.3608
-   Total questions seen: 132
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 62.50%
-📈 Cumulative - Pass@8: 0.8647, Accuracy: 0.3628
-   Total questions seen: 133
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 37.50%
-📈 Cumulative - Pass@8: 0.8657, Accuracy: 0.3629
-   Total questions seen: 134
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.8667, Accuracy: 0.3667
-   Total questions seen: 135
-{'loss': -0.0798, 'grad_norm': 0.04932047054171562, 'learning_rate': 8.66e-06, 'difficulty': 'hard', 'num_tokens': 564595.0, 'completions/mean_length': 322.325, 'completions/min_length': 12.6, 'completions/max_length': 949.4, 'completions/clipped_ratio': 0.125, 'completions/mean_terminated_length': 216.91429443359374, 'completions/min_terminated_length': 12.6, 'completions/max_terminated_length': 455.0, 'rewards/format_reward_func_qa/mean': 0.3375, 'rewards/format_reward_func_qa/std': 0.2386084347963333, 'rewards/correctness_reward_func_qa/mean': 0.575, 'rewards/correctness_reward_func_qa/std': 0.4847500503063202, 'reward': 0.9125, 'reward_std': 0.6923454761505127, 'frac_reward_zero_std': 0.0, 'kl': 0.05845450598280877, 'entropy': 1.0524059116840363, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.11}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.8676, Accuracy: 0.3713
-   Total questions seen: 136
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 75.00%
-📈 Cumulative - Pass@8: 0.8686, Accuracy: 0.3741
-   Total questions seen: 137
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.8696, Accuracy: 0.3777
-   Total questions seen: 138
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 50.00%
-📈 Cumulative - Pass@8: 0.8705, Accuracy: 0.3786
-   Total questions seen: 139
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 75.00%
-📈 Cumulative - Pass@8: 0.8714, Accuracy: 0.3812
-   Total questions seen: 140
-{'loss': 0.0943, 'grad_norm': 0.12156246602535248, 'learning_rate': 8.61e-06, 'difficulty': 'hard', 'num_tokens': 588802.0, 'completions/mean_length': 359.175, 'completions/min_length': 76.2, 'completions/max_length': 970.6, 'completions/clipped_ratio': 0.1, 'completions/mean_terminated_length': 281.17858123779297, 'completions/min_terminated_length': 76.2, 'completions/max_terminated_length': 658.6, 'rewards/format_reward_func_qa/mean': 0.4375, 'rewards/format_reward_func_qa/std': 0.09804592728614807, 'rewards/correctness_reward_func_qa/mean': 0.775, 'rewards/correctness_reward_func_qa/std': 0.36277919411659243, 'reward': 1.2125, 'reward_std': 0.45275976061820983, 'frac_reward_zero_std': 0.2, 'kl': 0.03271583864698187, 'entropy': 1.1673929147422313, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.11}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.8723, Accuracy: 0.3848
-   Total questions seen: 141
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 62.50%
-📈 Cumulative - Pass@8: 0.8732, Accuracy: 0.3864
-   Total questions seen: 142
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.8741, Accuracy: 0.3907
-   Total questions seen: 143
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.8750, Accuracy: 0.3941
-   Total questions seen: 144
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.8759, Accuracy: 0.3974
-   Total questions seen: 145
-{'loss': 0.0062, 'grad_norm': 0.04966036230325699, 'learning_rate': 8.560000000000001e-06, 'difficulty': 'hard', 'num_tokens': 613030.0, 'completions/mean_length': 361.1, 'completions/min_length': 11.4, 'completions/max_length': 951.6, 'completions/clipped_ratio': 0.15, 'completions/mean_terminated_length': 244.68214721679686, 'completions/min_terminated_length': 11.4, 'completions/max_terminated_length': 647.2, 'rewards/format_reward_func_qa/mean': 0.45, 'rewards/format_reward_func_qa/std': 0.11700168251991272, 'rewards/correctness_reward_func_qa/mean': 0.85, 'rewards/correctness_reward_func_qa/std': 0.31564187407493594, 'reward': 1.3, 'reward_std': 0.40236555933952334, 'frac_reward_zero_std': 0.2, 'kl': 0.044140859364415516, 'entropy': 1.2003793949261308, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.12}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 37.50%
-📈 Cumulative - Pass@8: 0.8767, Accuracy: 0.3973
-   Total questions seen: 146
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 62.50%
-📈 Cumulative - Pass@8: 0.8776, Accuracy: 0.3988
-   Total questions seen: 147
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 50.00%
-📈 Cumulative - Pass@8: 0.8784, Accuracy: 0.3995
-   Total questions seen: 148
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.8792, Accuracy: 0.4035
-   Total questions seen: 149
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.8800, Accuracy: 0.4075
-   Total questions seen: 150
-{'loss': 0.0734, 'grad_norm': 0.0011849352158606052, 'learning_rate': 8.51e-06, 'difficulty': 'hard', 'num_tokens': 634595.0, 'completions/mean_length': 307.325, 'completions/min_length': 33.6, 'completions/max_length': 775.0, 'completions/clipped_ratio': 0.05, 'completions/mean_terminated_length': 273.45000610351565, 'completions/min_terminated_length': 33.6, 'completions/max_terminated_length': 685.0, 'rewards/format_reward_func_qa/mean': 0.4625, 'rewards/format_reward_func_qa/std': 0.051754921674728394, 'rewards/correctness_reward_func_qa/mean': 0.7, 'rewards/correctness_reward_func_qa/std': 0.3139241814613342, 'reward': 1.1625, 'reward_std': 0.35761371850967405, 'frac_reward_zero_std': 0.4, 'kl': 0.025738708511926233, 'entropy': 1.137954545021057, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.12}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.8808, Accuracy: 0.4106
-   Total questions seen: 151
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 62.50%
-📈 Cumulative - Pass@8: 0.8816, Accuracy: 0.4120
-   Total questions seen: 152
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.8824, Accuracy: 0.4150
-   Total questions seen: 153
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.8831, Accuracy: 0.4180
-   Total questions seen: 154
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 37.50%
-📈 Cumulative - Pass@8: 0.8839, Accuracy: 0.4177
-   Total questions seen: 155
- 16%|█▌        | 155/1000 [2:14:54<12:41:04, 54.04s/it]INFO:root:Batch accuracy: 1/8 = 12.5%
- 16%|█▌        | 156/1000 [2:15:16<10:27:44, 44.63s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 16%|█▌        | 157/1000 [2:16:17<11:34:20, 49.42s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 16%|█▌        | 158/1000 [2:17:22<12:40:32, 54.20s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 16%|█▌        | 159/1000 [2:18:14<12:29:52, 53.50s/it]INFO:root:Batch accuracy: 6/8 = 75.0%
- 16%|█▌        | 160/1000 [2:19:15<13:01:44, 55.84s/it]                                                        16%|█▌        | 160/1000 [2:19:15<13:01:44, 55.84s/it]/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:92: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
-  warnings.warn(
-INFO:root:Batch accuracy: 6/8 = 75.0%
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:295: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
-  with torch.enable_grad(), device_autocast_ctx, torch.cpu.amp.autocast(**ctx.cpu_autocast_kwargs):  # type: ignore[attr-defined]
- 16%|█▌        | 161/1000 [2:20:18<13:30:15, 57.95s/it]INFO:root:Batch accuracy: 3/8 = 37.5%
- 16%|█▌        | 162/1000 [2:21:22<13:52:50, 59.63s/it]INFO:root:Batch accuracy: 3/8 = 37.5%
- 16%|█▋        | 163/1000 [2:21:54<11:55:45, 51.31s/it]INFO:root:Batch accuracy: 6/8 = 75.0%
- 16%|█▋        | 164/1000 [2:22:39<11:27:44, 49.36s/it]INFO:root:Batch accuracy: 6/8 = 75.0%
- 16%|█▋        | 165/1000 [2:23:40<12:16:09, 52.90s/it]                                                        16%|█▋        | 165/1000 [2:23:40<12:16:09, 52.90s/it]INFO:root:Batch accuracy: 0/8 = 0.0%
- 17%|█▋        | 166/1000 [2:24:43<12:59:34, 56.08s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 17%|█▋        | 167/1000 [2:25:39<12:58:55, 56.11s/it]INFO:root:Batch accuracy: 2/8 = 25.0%
- 17%|█▋        | 168/1000 [2:26:42<13:27:09, 58.21s/it]INFO:root:Batch accuracy: 4/8 = 50.0%
- 17%|█▋        | 169/1000 [2:27:44<13:39:15, 59.15s/it]INFO:root:Batch accuracy: 1/8 = 12.5%
- 17%|█▋        | 170/1000 [2:28:46<13:49:36, 59.97s/it]                                                        17%|█▋        | 170/1000 [2:28:46<13:49:36, 59.97s/it]/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:92: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
-  warnings.warn(
-INFO:root:Batch accuracy: 7/8 = 87.5%
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:295: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
-  with torch.enable_grad(), device_autocast_ctx, torch.cpu.amp.autocast(**ctx.cpu_autocast_kwargs):  # type: ignore[attr-defined]
- 17%|█▋        | 171/1000 [2:29:51<14:08:54, 61.44s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 17%|█▋        | 172/1000 [2:30:52<14:06:00, 61.31s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 17%|█▋        | 173/1000 [2:31:53<14:05:39, 61.35s/it]INFO:root:Batch accuracy: 6/8 = 75.0%
- 17%|█▋        | 174/1000 [2:32:57<14:16:39, 62.23s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 18%|█▊        | 175/1000 [2:33:58<14:09:23, 61.77s/it]                                                        18%|█▊        | 175/1000 [2:33:58<14:09:23, 61.77s/it]INFO:root:Batch accuracy: 6/8 = 75.0%
- 18%|█▊        | 176/1000 [2:34:57<13:56:49, 60.93s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 18%|█▊        | 177/1000 [2:36:00<14:04:32, 61.57s/it]INFO:root:Batch accuracy: 6/8 = 75.0%
- 18%|█▊        | 178/1000 [2:37:02<14:03:16, 61.55s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 18%|█▊        | 179/1000 [2:38:05<14:11:40, 62.24s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 18%|█▊        | 180/1000 [2:38:37<12:06:29, 53.16s/it]                                                       {'loss': 0.004, 'grad_norm': 0.1168958768248558, 'learning_rate': 8.46e-06, 'difficulty': 'hard', 'num_tokens': 658195.0, 'completions/mean_length': 351.6, 'completions/min_length': 18.8, 'completions/max_length': 843.8, 'completions/clipped_ratio': 0.125, 'completions/mean_terminated_length': 258.8814392089844, 'completions/min_terminated_length': 18.8, 'completions/max_terminated_length': 711.0, 'rewards/format_reward_func_qa/mean': 0.4125, 'rewards/format_reward_func_qa/std': 0.1687566041946411, 'rewards/correctness_reward_func_qa/mean': 0.725, 'rewards/correctness_reward_func_qa/std': 0.4191517174243927, 'reward': 1.1375, 'reward_std': 0.5493937075138092, 'frac_reward_zero_std': 0.0, 'kl': 0.03286274571728427, 'entropy': 1.2180627703666687, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.12}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 12.50%
-📈 Cumulative - Pass@8: 0.8846, Accuracy: 0.4159
-   Total questions seen: 156
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.8854, Accuracy: 0.4196
-   Total questions seen: 157
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.8861, Accuracy: 0.4225
-   Total questions seen: 158
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.8868, Accuracy: 0.4261
-   Total questions seen: 159
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 75.00%
-📈 Cumulative - Pass@8: 0.8875, Accuracy: 0.4281
-   Total questions seen: 160
-{'loss': -0.0227, 'grad_norm': 0.058975882828235626, 'learning_rate': 8.41e-06, 'difficulty': 'hard', 'num_tokens': 682119.0, 'completions/mean_length': 347.1, 'completions/min_length': 23.4, 'completions/max_length': 825.6, 'completions/clipped_ratio': 0.075, 'completions/mean_terminated_length': 289.09405212402345, 'completions/min_terminated_length': 23.4, 'completions/max_terminated_length': 680.2, 'rewards/format_reward_func_qa/mean': 0.4125, 'rewards/format_reward_func_qa/std': 0.12246559858322144, 'rewards/correctness_reward_func_qa/mean': 0.75, 'rewards/correctness_reward_func_qa/std': 0.23400336503982544, 'reward': 1.1625, 'reward_std': 0.3400693744421005, 'frac_reward_zero_std': 0.2, 'kl': 0.03718185858160723, 'entropy': 0.9364457627758384, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.13}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 75.00%
-📈 Cumulative - Pass@8: 0.8882, Accuracy: 0.4301
-   Total questions seen: 161
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 37.50%
-📈 Cumulative - Pass@8: 0.8889, Accuracy: 0.4298
-   Total questions seen: 162
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 37.50%
-📈 Cumulative - Pass@8: 0.8896, Accuracy: 0.4294
-   Total questions seen: 163
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 75.00%
-📈 Cumulative - Pass@8: 0.8902, Accuracy: 0.4314
-   Total questions seen: 164
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 75.00%
-📈 Cumulative - Pass@8: 0.8909, Accuracy: 0.4333
-   Total questions seen: 165
-{'loss': 0.0523, 'grad_norm': 0.07695206999778748, 'learning_rate': 8.36e-06, 'difficulty': 'hard', 'num_tokens': 708480.0, 'completions/mean_length': 404.225, 'completions/min_length': 60.0, 'completions/max_length': 840.4, 'completions/clipped_ratio': 0.15, 'completions/mean_terminated_length': 310.1188232421875, 'completions/min_terminated_length': 60.0, 'completions/max_terminated_length': 673.6, 'rewards/format_reward_func_qa/mean': 0.375, 'rewards/format_reward_func_qa/std': 0.17422052025794982, 'rewards/correctness_reward_func_qa/mean': 0.6, 'rewards/correctness_reward_func_qa/std': 0.48476572036743165, 'reward': 0.975, 'reward_std': 0.6210140347480774, 'frac_reward_zero_std': 0.0, 'kl': 0.05933706185023766, 'entropy': 1.1989540418609976, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.13}
-
-📊 Current batch - Pass@8: 0.00, Accuracy: 0.00%
-📈 Cumulative - Pass@8: 0.8855, Accuracy: 0.4307
-   Total questions seen: 166
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.8862, Accuracy: 0.4341
-   Total questions seen: 167
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 25.00%
-📈 Cumulative - Pass@8: 0.8869, Accuracy: 0.4330
-   Total questions seen: 168
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 50.00%
-📈 Cumulative - Pass@8: 0.8876, Accuracy: 0.4334
-   Total questions seen: 169
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 12.50%
-📈 Cumulative - Pass@8: 0.8882, Accuracy: 0.4316
-   Total questions seen: 170
-{'loss': 0.1159, 'grad_norm': 0.0379185751080513, 'learning_rate': 8.31e-06, 'difficulty': 'hard', 'num_tokens': 737587.0, 'completions/mean_length': 419.875, 'completions/min_length': 48.6, 'completions/max_length': 1000.4, 'completions/clipped_ratio': 0.15, 'completions/mean_terminated_length': 308.5226257324219, 'completions/min_terminated_length': 48.6, 'completions/max_terminated_length': 624.8, 'rewards/format_reward_func_qa/mean': 0.35, 'rewards/format_reward_func_qa/std': 0.1334012657403946, 'rewards/correctness_reward_func_qa/mean': 0.375, 'rewards/correctness_reward_func_qa/std': 0.27019718289375305, 'reward': 0.725, 'reward_std': 0.3671671152114868, 'frac_reward_zero_std': 0.4, 'kl': 0.026679107995005325, 'entropy': 1.0759043194353581, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.14}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.8889, Accuracy: 0.4342
-   Total questions seen: 171
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.8895, Accuracy: 0.4368
-   Total questions seen: 172
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.8902, Accuracy: 0.4400
-   Total questions seen: 173
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 75.00%
-📈 Cumulative - Pass@8: 0.8908, Accuracy: 0.4418
-   Total questions seen: 174
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.8914, Accuracy: 0.4450
-   Total questions seen: 175
-{'loss': 0.0422, 'grad_norm': 0.0017770780250430107, 'learning_rate': 8.26e-06, 'difficulty': 'hard', 'num_tokens': 762513.0, 'completions/mean_length': 381.35, 'completions/min_length': 41.8, 'completions/max_length': 1022.0, 'completions/clipped_ratio': 0.1, 'completions/mean_terminated_length': 308.83215789794923, 'completions/min_terminated_length': 41.8, 'completions/max_terminated_length': 750.4, 'rewards/format_reward_func_qa/mean': 0.45, 'rewards/format_reward_func_qa/std': 0.11700168251991272, 'rewards/correctness_reward_func_qa/mean': 0.9, 'rewards/correctness_reward_func_qa/std': 0.23400336503982544, 'reward': 1.35, 'reward_std': 0.3510050415992737, 'frac_reward_zero_std': 0.4, 'kl': 0.03551536746090278, 'entropy': 1.1136125057935715, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.14}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 75.00%
-📈 Cumulative - Pass@8: 0.8920, Accuracy: 0.4467
-   Total questions seen: 176
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.8927, Accuracy: 0.4492
-   Total questions seen: 177
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 75.00%
-📈 Cumulative - Pass@8: 0.8933, Accuracy: 0.4508
-   Total questions seen: 178
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.8939, Accuracy: 0.4539
-   Total questions seen: 179
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.8944, Accuracy: 0.4562
-   Total questions seen: 180
- 18%|█▊        | 180/1000 [2:38:37<12:06:29, 53.16s/it]/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:92: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
-  warnings.warn(
-INFO:root:Batch accuracy: 7/8 = 87.5%
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:295: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
-  with torch.enable_grad(), device_autocast_ctx, torch.cpu.amp.autocast(**ctx.cpu_autocast_kwargs):  # type: ignore[attr-defined]
- 18%|█▊        | 181/1000 [2:39:41<12:50:19, 56.43s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 18%|█▊        | 182/1000 [2:40:44<13:12:39, 58.14s/it]INFO:root:Batch accuracy: 1/8 = 12.5%
- 18%|█▊        | 183/1000 [2:41:46<13:29:32, 59.45s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 18%|█▊        | 184/1000 [2:42:32<12:33:46, 55.42s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 18%|█▊        | 185/1000 [2:43:32<12:50:50, 56.75s/it]                                                        18%|█▊        | 185/1000 [2:43:32<12:50:50, 56.75s/it]INFO:root:Batch accuracy: 6/8 = 75.0%
- 19%|█▊        | 186/1000 [2:44:34<13:12:13, 58.39s/it]INFO:root:Batch accuracy: 2/8 = 25.0%
- 19%|█▊        | 187/1000 [2:45:37<13:30:27, 59.81s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 19%|█▉        | 188/1000 [2:46:12<11:48:26, 52.35s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 19%|█▉        | 189/1000 [2:47:13<12:21:46, 54.88s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 19%|█▉        | 190/1000 [2:48:16<12:55:03, 57.41s/it]                                                        19%|█▉        | 190/1000 [2:48:16<12:55:03, 57.41s/it]/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:92: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
-  warnings.warn(
-INFO:root:Batch accuracy: 7/8 = 87.5%
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:295: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
-  with torch.enable_grad(), device_autocast_ctx, torch.cpu.amp.autocast(**ctx.cpu_autocast_kwargs):  # type: ignore[attr-defined]
- 19%|█▉        | 191/1000 [2:49:14<12:56:45, 57.61s/it]INFO:root:Batch accuracy: 3/8 = 37.5%
- 19%|█▉        | 192/1000 [2:49:54<11:44:01, 52.28s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 19%|█▉        | 193/1000 [2:50:56<12:20:03, 55.02s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 19%|█▉        | 194/1000 [2:51:59<12:53:43, 57.60s/it]INFO:root:Batch accuracy: 0/8 = 0.0%
- 20%|█▉        | 195/1000 [2:53:06<13:28:39, 60.27s/it]                                                        20%|█▉        | 195/1000 [2:53:06<13:28:39, 60.27s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 20%|█▉        | 196/1000 [2:54:01<13:08:18, 58.83s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 20%|█▉        | 197/1000 [2:55:11<13:49:31, 61.98s/it]INFO:root:Batch accuracy: 3/8 = 37.5%
- 20%|█▉        | 198/1000 [2:56:19<14:13:52, 63.88s/it]INFO:root:Batch accuracy: 5/8 = 62.5%
- 20%|█▉        | 199/1000 [2:56:56<12:26:30, 55.92s/it]INFO:root:Batch accuracy: 5/8 = 62.5%
- 20%|██        | 200/1000 [2:58:05<13:16:40, 59.75s/it]                                                        20%|██        | 200/1000 [2:58:05<13:16:40, 59.75s/it]/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:92: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
-  warnings.warn(
-INFO:root:Batch accuracy: 6/8 = 75.0%
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:295: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
-  with torch.enable_grad(), device_autocast_ctx, torch.cpu.amp.autocast(**ctx.cpu_autocast_kwargs):  # type: ignore[attr-defined]
- 20%|██        | 201/1000 [2:59:10<13:37:28, 61.39s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 20%|██        | 202/1000 [3:00:12<13:38:07, 61.51s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 20%|██        | 203/1000 [3:00:29<10:39:08, 48.12s/it]INFO:root:Batch accuracy: 5/8 = 62.5%
- 20%|██        | 204/1000 [3:01:04<9:48:21, 44.35s/it] INFO:root:Batch accuracy: 8/8 = 100.0%
- 20%|██        | 205/1000 [3:02:06<10:55:35, 49.48s/it]                                                       {'loss': 0.0948, 'grad_norm': 0.13739703595638275, 'learning_rate': 8.210000000000001e-06, 'difficulty': 'hard', 'num_tokens': 786121.0, 'completions/mean_length': 336.2, 'completions/min_length': 11.2, 'completions/max_length': 912.0, 'completions/clipped_ratio': 0.15, 'completions/mean_terminated_length': 207.14643249511718, 'completions/min_terminated_length': 11.2, 'completions/max_terminated_length': 516.4, 'rewards/format_reward_func_qa/mean': 0.4625, 'rewards/format_reward_func_qa/std': 0.10606601536273956, 'rewards/correctness_reward_func_qa/mean': 0.85, 'rewards/correctness_reward_func_qa/std': 0.3265853762626648, 'reward': 1.3125, 'reward_std': 0.42348753213882445, 'frac_reward_zero_std': 0.2, 'kl': 0.05229868800379336, 'entropy': 1.085719365440309, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.14}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.8950, Accuracy: 0.4586
-   Total questions seen: 181
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.8956, Accuracy: 0.4615
-   Total questions seen: 182
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 12.50%
-📈 Cumulative - Pass@8: 0.8962, Accuracy: 0.4597
-   Total questions seen: 183
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.8967, Accuracy: 0.4620
-   Total questions seen: 184
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.8973, Accuracy: 0.4649
-   Total questions seen: 185
-{'loss': -0.0084, 'grad_norm': 0.02831532433629036, 'learning_rate': 8.16e-06, 'difficulty': 'hard', 'num_tokens': 811083.0, 'completions/mean_length': 368.85, 'completions/min_length': 12.4, 'completions/max_length': 969.0, 'completions/clipped_ratio': 0.125, 'completions/mean_terminated_length': 277.2178649902344, 'completions/min_terminated_length': 12.4, 'completions/max_terminated_length': 740.6, 'rewards/format_reward_func_qa/mean': 0.425, 'rewards/format_reward_func_qa/std': 0.12416292428970337, 'rewards/correctness_reward_func_qa/mean': 0.775, 'rewards/correctness_reward_func_qa/std': 0.21213203072547912, 'reward': 1.2, 'reward_std': 0.31564185917377474, 'frac_reward_zero_std': 0.2, 'kl': 0.031035651586716995, 'entropy': 0.9633107295259833, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.15}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 75.00%
-📈 Cumulative - Pass@8: 0.8978, Accuracy: 0.4664
-   Total questions seen: 186
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 25.00%
-📈 Cumulative - Pass@8: 0.8984, Accuracy: 0.4652
-   Total questions seen: 187
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.8989, Accuracy: 0.4674
-   Total questions seen: 188
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.8995, Accuracy: 0.4702
-   Total questions seen: 189
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.9000, Accuracy: 0.4724
-   Total questions seen: 190
-{'loss': -0.1421, 'grad_norm': 0.03660956770181656, 'learning_rate': 8.110000000000002e-06, 'difficulty': 'hard', 'num_tokens': 834986.0, 'completions/mean_length': 346.975, 'completions/min_length': 12.0, 'completions/max_length': 915.8, 'completions/clipped_ratio': 0.1, 'completions/mean_terminated_length': 270.5916748046875, 'completions/min_terminated_length': 12.0, 'completions/max_terminated_length': 736.0, 'rewards/format_reward_func_qa/mean': 0.4125, 'rewards/format_reward_func_qa/std': 0.1595182627439499, 'rewards/correctness_reward_func_qa/mean': 0.75, 'rewards/correctness_reward_func_qa/std': 0.3265853762626648, 'reward': 1.1625, 'reward_std': 0.4618362545967102, 'frac_reward_zero_std': 0.2, 'kl': 0.040123461734037844, 'entropy': 1.0320363648235797, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.15}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.9005, Accuracy: 0.4745
-   Total questions seen: 191
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 37.50%
-📈 Cumulative - Pass@8: 0.9010, Accuracy: 0.4740
-   Total questions seen: 192
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.9016, Accuracy: 0.4760
-   Total questions seen: 193
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.9021, Accuracy: 0.4781
-   Total questions seen: 194
-
-📊 Current batch - Pass@8: 0.00, Accuracy: 0.00%
-📈 Cumulative - Pass@8: 0.8974, Accuracy: 0.4756
-   Total questions seen: 195
-{'loss': 0.0048, 'grad_norm': 0.02142980508506298, 'learning_rate': 8.06e-06, 'difficulty': 'hard', 'num_tokens': 861871.0, 'completions/mean_length': 398.925, 'completions/min_length': 37.8, 'completions/max_length': 928.2, 'completions/clipped_ratio': 0.125, 'completions/mean_terminated_length': 313.2300048828125, 'completions/min_terminated_length': 37.8, 'completions/max_terminated_length': 773.8, 'rewards/format_reward_func_qa/mean': 0.475, 'rewards/format_reward_func_qa/std': 0.07071067690849304, 'rewards/correctness_reward_func_qa/mean': 0.6, 'rewards/correctness_reward_func_qa/std': 0.31564187407493594, 'reward': 1.075, 'reward_std': 0.36626086533069613, 'frac_reward_zero_std': 0.0, 'kl': 0.0412147063849261, 'entropy': 1.1948421131819487, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.16}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.8980, Accuracy: 0.4777
-   Total questions seen: 196
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.8985, Accuracy: 0.4803
-   Total questions seen: 197
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 37.50%
-📈 Cumulative - Pass@8: 0.8990, Accuracy: 0.4798
-   Total questions seen: 198
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 62.50%
-📈 Cumulative - Pass@8: 0.8995, Accuracy: 0.4805
-   Total questions seen: 199
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 62.50%
-📈 Cumulative - Pass@8: 0.9000, Accuracy: 0.4813
-   Total questions seen: 200
-{'loss': -0.0258, 'grad_norm': 0.07838910818099976, 'learning_rate': 8.010000000000001e-06, 'difficulty': 'hard', 'num_tokens': 886525.0, 'completions/mean_length': 339.55, 'completions/min_length': 27.8, 'completions/max_length': 887.2, 'completions/clipped_ratio': 0.1, 'completions/mean_terminated_length': 258.40357666015626, 'completions/min_terminated_length': 27.8, 'completions/max_terminated_length': 684.6, 'rewards/format_reward_func_qa/mean': 0.5, 'rewards/format_reward_func_qa/std': 0.0, 'rewards/correctness_reward_func_qa/mean': 0.7, 'rewards/correctness_reward_func_qa/std': 0.3812402069568634, 'reward': 1.2, 'reward_std': 0.38124017119407655, 'frac_reward_zero_std': 0.2, 'kl': 0.061150011778227056, 'entropy': 1.084447219967842, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.16}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 75.00%
-📈 Cumulative - Pass@8: 0.9005, Accuracy: 0.4826
-   Total questions seen: 201
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9010, Accuracy: 0.4851
-   Total questions seen: 202
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.9015, Accuracy: 0.4871
-   Total questions seen: 203
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 62.50%
-📈 Cumulative - Pass@8: 0.9020, Accuracy: 0.4877
-   Total questions seen: 204
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9024, Accuracy: 0.4902
-   Total questions seen: 205
- 20%|██        | 205/1000 [3:02:06<10:55:35, 49.48s/it]INFO:root:Batch accuracy: 4/8 = 50.0%
- 21%|██        | 206/1000 [3:03:08<11:46:23, 53.38s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 21%|██        | 207/1000 [3:04:08<12:10:22, 55.26s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 21%|██        | 208/1000 [3:04:42<10:43:45, 48.77s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 21%|██        | 209/1000 [3:05:11<9:27:54, 43.08s/it] INFO:root:Batch accuracy: 7/8 = 87.5%
- 21%|██        | 210/1000 [3:06:14<10:44:37, 48.96s/it]                                                        21%|██        | 210/1000 [3:06:14<10:44:37, 48.96s/it]/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:92: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
-  warnings.warn(
-INFO:root:Batch accuracy: 8/8 = 100.0%
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:295: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
-  with torch.enable_grad(), device_autocast_ctx, torch.cpu.amp.autocast(**ctx.cpu_autocast_kwargs):  # type: ignore[attr-defined]
- 21%|██        | 211/1000 [3:07:15<11:31:49, 52.61s/it]INFO:root:Batch accuracy: 6/8 = 75.0%
- 21%|██        | 212/1000 [3:08:19<12:13:40, 55.86s/it]INFO:root:Batch accuracy: 6/8 = 75.0%
- 21%|██▏       | 213/1000 [3:08:57<11:02:29, 50.51s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 21%|██▏       | 214/1000 [3:09:59<11:49:29, 54.16s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 22%|██▏       | 215/1000 [3:11:00<12:15:57, 56.25s/it]                                                        22%|██▏       | 215/1000 [3:11:00<12:15:57, 56.25s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 22%|██▏       | 216/1000 [3:11:44<11:25:29, 52.46s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 22%|██▏       | 217/1000 [3:12:47<12:05:41, 55.61s/it]INFO:root:Batch accuracy: 3/8 = 37.5%
- 22%|██▏       | 218/1000 [3:13:50<12:31:47, 57.68s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 22%|██▏       | 219/1000 [3:14:33<11:33:47, 53.30s/it]INFO:root:Batch accuracy: 4/8 = 50.0%
- 22%|██▏       | 220/1000 [3:15:35<12:07:04, 55.93s/it]                                                        22%|██▏       | 220/1000 [3:15:35<12:07:04, 55.93s/it]/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:92: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
-  warnings.warn(
-INFO:root:Batch accuracy: 8/8 = 100.0%
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:295: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
-  with torch.enable_grad(), device_autocast_ctx, torch.cpu.amp.autocast(**ctx.cpu_autocast_kwargs):  # type: ignore[attr-defined]
- 22%|██▏       | 221/1000 [3:16:06<10:29:59, 48.52s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 22%|██▏       | 222/1000 [3:17:10<11:31:29, 53.33s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 22%|██▏       | 223/1000 [3:18:00<11:14:37, 52.09s/it]INFO:root:Batch accuracy: 0/8 = 0.0%
- 22%|██▏       | 224/1000 [3:18:41<10:32:06, 48.87s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 22%|██▎       | 225/1000 [3:19:45<11:28:25, 53.30s/it]                                                        22%|██▎       | 225/1000 [3:19:45<11:28:25, 53.30s/it]INFO:root:Batch accuracy: 2/8 = 25.0%
- 23%|██▎       | 226/1000 [3:20:30<10:57:42, 50.99s/it]INFO:root:Batch accuracy: 6/8 = 75.0%
- 23%|██▎       | 227/1000 [3:21:33<11:43:04, 54.57s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 23%|██▎       | 228/1000 [3:22:34<12:07:52, 56.57s/it]INFO:root:Batch accuracy: 3/8 = 37.5%
- 23%|██▎       | 229/1000 [3:23:37<12:30:29, 58.40s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 23%|██▎       | 230/1000 [3:24:35<12:27:23, 58.24s/it]                                                       {'loss': -0.0484, 'grad_norm': 0.0022071150597184896, 'learning_rate': 7.960000000000002e-06, 'difficulty': 'hard', 'num_tokens': 907905.0, 'completions/mean_length': 292.7, 'completions/min_length': 13.6, 'completions/max_length': 758.4, 'completions/clipped_ratio': 0.075, 'completions/mean_terminated_length': 236.70834045410157, 'completions/min_terminated_length': 13.6, 'completions/max_terminated_length': 618.4, 'rewards/format_reward_func_qa/mean': 0.4375, 'rewards/format_reward_func_qa/std': 0.12793734967708587, 'rewards/correctness_reward_func_qa/mean': 0.85, 'rewards/correctness_reward_func_qa/std': 0.2668025314807892, 'reward': 1.2875, 'reward_std': 0.3863603830337524, 'frac_reward_zero_std': 0.4, 'kl': 0.10817257983144372, 'entropy': 1.0065877467393876, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.16}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 50.00%
-📈 Cumulative - Pass@8: 0.9029, Accuracy: 0.4903
-   Total questions seen: 206
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9034, Accuracy: 0.4928
-   Total questions seen: 207
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9038, Accuracy: 0.4952
-   Total questions seen: 208
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.9043, Accuracy: 0.4970
-   Total questions seen: 209
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.9048, Accuracy: 0.4988
-   Total questions seen: 210
-{'loss': 0.0988, 'grad_norm': 0.04693712666630745, 'learning_rate': 7.91e-06, 'difficulty': 'hard', 'num_tokens': 931354.0, 'completions/mean_length': 352.025, 'completions/min_length': 11.4, 'completions/max_length': 796.0, 'completions/clipped_ratio': 0.05, 'completions/mean_terminated_length': 315.44285888671874, 'completions/min_terminated_length': 11.4, 'completions/max_terminated_length': 694.8, 'rewards/format_reward_func_qa/mean': 0.4625, 'rewards/format_reward_func_qa/std': 0.0816463440656662, 'rewards/correctness_reward_func_qa/mean': 0.85, 'rewards/correctness_reward_func_qa/std': 0.24832584857940673, 'reward': 1.3125, 'reward_std': 0.3156497061252594, 'frac_reward_zero_std': 0.4, 'kl': 0.041567369911354034, 'entropy': 1.0193727634847165, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.17}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9052, Accuracy: 0.5012
-   Total questions seen: 211
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 75.00%
-📈 Cumulative - Pass@8: 0.9057, Accuracy: 0.5024
-   Total questions seen: 212
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 75.00%
-📈 Cumulative - Pass@8: 0.9061, Accuracy: 0.5035
-   Total questions seen: 213
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.9065, Accuracy: 0.5053
-   Total questions seen: 214
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9070, Accuracy: 0.5076
-   Total questions seen: 215
-{'loss': -0.0342, 'grad_norm': 0.0010714938398450613, 'learning_rate': 7.860000000000001e-06, 'difficulty': 'hard', 'num_tokens': 957300.0, 'completions/mean_length': 410.05, 'completions/min_length': 80.6, 'completions/max_length': 934.4, 'completions/clipped_ratio': 0.15, 'completions/mean_terminated_length': 304.41501770019534, 'completions/min_terminated_length': 80.6, 'completions/max_terminated_length': 613.4, 'rewards/format_reward_func_qa/mean': 0.4875, 'rewards/format_reward_func_qa/std': 0.03535533845424652, 'rewards/correctness_reward_func_qa/mean': 0.875, 'rewards/correctness_reward_func_qa/std': 0.25587469935417173, 'reward': 1.3625, 'reward_std': 0.28206618428230285, 'frac_reward_zero_std': 0.4, 'kl': 0.018501237465534358, 'entropy': 1.3204496033489703, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.17}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.9074, Accuracy: 0.5093
-   Total questions seen: 216
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.9078, Accuracy: 0.5109
-   Total questions seen: 217
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 37.50%
-📈 Cumulative - Pass@8: 0.9083, Accuracy: 0.5103
-   Total questions seen: 218
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.9087, Accuracy: 0.5120
-   Total questions seen: 219
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 50.00%
-📈 Cumulative - Pass@8: 0.9091, Accuracy: 0.5119
-   Total questions seen: 220
-{'loss': -0.1263, 'grad_norm': 0.12136803567409515, 'learning_rate': 7.810000000000001e-06, 'difficulty': 'hard', 'num_tokens': 981809.0, 'completions/mean_length': 357.925, 'completions/min_length': 54.8, 'completions/max_length': 889.2, 'completions/clipped_ratio': 0.1, 'completions/mean_terminated_length': 289.7119140625, 'completions/min_terminated_length': 54.8, 'completions/max_terminated_length': 654.6, 'rewards/format_reward_func_qa/mean': 0.425, 'rewards/format_reward_func_qa/std': 0.1632926881313324, 'rewards/correctness_reward_func_qa/mean': 0.7, 'rewards/correctness_reward_func_qa/std': 0.4225463688373566, 'reward': 1.125, 'reward_std': 0.5209828197956086, 'frac_reward_zero_std': 0.0, 'kl': 0.03557238953071647, 'entropy': 1.077670038305223, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.18}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9095, Accuracy: 0.5141
-   Total questions seen: 221
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9099, Accuracy: 0.5163
-   Total questions seen: 222
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.9103, Accuracy: 0.5179
-   Total questions seen: 223
-
-📊 Current batch - Pass@8: 0.00, Accuracy: 0.00%
-📈 Cumulative - Pass@8: 0.9062, Accuracy: 0.5156
-   Total questions seen: 224
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9067, Accuracy: 0.5178
-   Total questions seen: 225
-{'loss': -0.0162, 'grad_norm': 0.0010936398757621646, 'learning_rate': 7.76e-06, 'difficulty': 'hard', 'num_tokens': 1005117.0, 'completions/mean_length': 354.3, 'completions/min_length': 79.6, 'completions/max_length': 777.0, 'completions/clipped_ratio': 0.05, 'completions/mean_terminated_length': 318.071435546875, 'completions/min_terminated_length': 79.6, 'completions/max_terminated_length': 679.2, 'rewards/format_reward_func_qa/mean': 0.5, 'rewards/format_reward_func_qa/std': 0.0, 'rewards/correctness_reward_func_qa/mean': 0.775, 'rewards/correctness_reward_func_qa/std': 0.07071067690849304, 'reward': 1.275, 'reward_std': 0.07071067690849304, 'frac_reward_zero_std': 0.8, 'kl': 0.030104485066840426, 'entropy': 1.039179550856352, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.18}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 25.00%
-📈 Cumulative - Pass@8: 0.9071, Accuracy: 0.5166
-   Total questions seen: 226
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 75.00%
-📈 Cumulative - Pass@8: 0.9075, Accuracy: 0.5176
-   Total questions seen: 227
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.9079, Accuracy: 0.5192
-   Total questions seen: 228
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 37.50%
-📈 Cumulative - Pass@8: 0.9083, Accuracy: 0.5186
-   Total questions seen: 229
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.9087, Accuracy: 0.5201
-   Total questions seen: 230
- 23%|██▎       | 230/1000 [3:24:35<12:27:23, 58.24s/it]/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:92: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
-  warnings.warn(
-INFO:root:Batch accuracy: 8/8 = 100.0%
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:295: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
-  with torch.enable_grad(), device_autocast_ctx, torch.cpu.amp.autocast(**ctx.cpu_autocast_kwargs):  # type: ignore[attr-defined]
- 23%|██▎       | 231/1000 [3:25:09<10:52:14, 50.89s/it]INFO:root:Batch accuracy: 2/8 = 25.0%
- 23%|██▎       | 232/1000 [3:25:41<9:38:15, 45.18s/it] INFO:root:Batch accuracy: 7/8 = 87.5%
- 23%|██▎       | 233/1000 [3:26:41<10:35:57, 49.75s/it]INFO:root:Batch accuracy: 3/8 = 37.5%
- 23%|██▎       | 234/1000 [3:27:43<11:22:25, 53.45s/it]INFO:root:Batch accuracy: 6/8 = 75.0%
- 24%|██▎       | 235/1000 [3:28:47<11:59:45, 56.45s/it]                                                        24%|██▎       | 235/1000 [3:28:47<11:59:45, 56.45s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 24%|██▎       | 236/1000 [3:29:05<9:34:10, 45.09s/it] INFO:root:Batch accuracy: 8/8 = 100.0%
- 24%|██▎       | 237/1000 [3:30:08<10:39:29, 50.29s/it]INFO:root:Batch accuracy: 4/8 = 50.0%
- 24%|██▍       | 238/1000 [3:31:10<11:26:24, 54.05s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 24%|██▍       | 239/1000 [3:32:14<12:02:02, 56.93s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 24%|██▍       | 240/1000 [3:33:18<12:27:57, 59.05s/it]                                                        24%|██▍       | 240/1000 [3:33:18<12:27:57, 59.05s/it]/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:92: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
-  warnings.warn(
-INFO:root:Batch accuracy: 4/8 = 50.0%
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:295: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
-  with torch.enable_grad(), device_autocast_ctx, torch.cpu.amp.autocast(**ctx.cpu_autocast_kwargs):  # type: ignore[attr-defined]
- 24%|██▍       | 241/1000 [3:34:21<12:42:18, 60.26s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 24%|██▍       | 242/1000 [3:35:23<12:47:52, 60.78s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 24%|██▍       | 243/1000 [3:36:25<12:51:30, 61.15s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 24%|██▍       | 244/1000 [3:37:26<12:50:49, 61.18s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 24%|██▍       | 245/1000 [3:38:15<12:03:37, 57.51s/it]                                                        24%|██▍       | 245/1000 [3:38:15<12:03:37, 57.51s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 25%|██▍       | 246/1000 [3:39:18<12:20:37, 58.94s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 25%|██▍       | 247/1000 [3:40:17<12:20:48, 59.03s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 25%|██▍       | 248/1000 [3:41:17<12:24:56, 59.44s/it]INFO:root:Batch accuracy: 6/8 = 75.0%
- 25%|██▍       | 249/1000 [3:42:04<11:36:51, 55.67s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 25%|██▌       | 250/1000 [3:42:52<11:06:12, 53.30s/it]                                                        25%|██▌       | 250/1000 [3:42:52<11:06:12, 53.30s/it]/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:92: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
-  warnings.warn(
-INFO:root:Batch accuracy: 3/8 = 37.5%
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:295: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
-  with torch.enable_grad(), device_autocast_ctx, torch.cpu.amp.autocast(**ctx.cpu_autocast_kwargs):  # type: ignore[attr-defined]
- 25%|██▌       | 251/1000 [3:43:53<11:33:04, 55.52s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 25%|██▌       | 252/1000 [3:44:51<11:44:28, 56.51s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 25%|██▌       | 253/1000 [3:45:50<11:52:31, 57.23s/it]INFO:root:Batch accuracy: 5/8 = 62.5%
- 25%|██▌       | 254/1000 [3:46:51<12:04:19, 58.26s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 26%|██▌       | 255/1000 [3:47:55<12:26:29, 60.12s/it]                                                       {'loss': -0.124, 'grad_norm': 0.0325763076543808, 'learning_rate': 7.71e-06, 'difficulty': 'hard', 'num_tokens': 1032450.0, 'completions/mean_length': 432.325, 'completions/min_length': 11.0, 'completions/max_length': 945.8, 'completions/clipped_ratio': 0.125, 'completions/mean_terminated_length': 349.6333404541016, 'completions/min_terminated_length': 11.0, 'completions/max_terminated_length': 839.6, 'rewards/format_reward_func_qa/mean': 0.4125, 'rewards/format_reward_func_qa/std': 0.17422835528850555, 'rewards/correctness_reward_func_qa/mean': 0.625, 'rewards/correctness_reward_func_qa/std': 0.4300952196121216, 'reward': 1.0375, 'reward_std': 0.5529797196388244, 'frac_reward_zero_std': 0.0, 'kl': 0.31701621270622127, 'entropy': 1.0976989984512329, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.18}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9091, Accuracy: 0.5222
-   Total questions seen: 231
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 25.00%
-📈 Cumulative - Pass@8: 0.9095, Accuracy: 0.5210
-   Total questions seen: 232
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.9099, Accuracy: 0.5225
-   Total questions seen: 233
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 37.50%
-📈 Cumulative - Pass@8: 0.9103, Accuracy: 0.5219
-   Total questions seen: 234
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 75.00%
-📈 Cumulative - Pass@8: 0.9106, Accuracy: 0.5229
-   Total questions seen: 235
-{'loss': -0.0753, 'grad_norm': 0.06236535310745239, 'learning_rate': 7.660000000000001e-06, 'difficulty': 'hard', 'num_tokens': 1056298.0, 'completions/mean_length': 319.4, 'completions/min_length': 11.8, 'completions/max_length': 799.0, 'completions/clipped_ratio': 0.1, 'completions/mean_terminated_length': 242.09405822753905, 'completions/min_terminated_length': 11.8, 'completions/max_terminated_length': 538.4, 'rewards/format_reward_func_qa/mean': 0.375, 'rewards/format_reward_func_qa/std': 0.15319550037384033, 'rewards/correctness_reward_func_qa/mean': 0.65, 'rewards/correctness_reward_func_qa/std': 0.3593845427036285, 'reward': 1.025, 'reward_std': 0.47922199964523315, 'frac_reward_zero_std': 0.2, 'kl': 0.024308791663497687, 'entropy': 0.9622895732522011, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.19}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.9110, Accuracy: 0.5244
-   Total questions seen: 236
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9114, Accuracy: 0.5264
-   Total questions seen: 237
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 50.00%
-📈 Cumulative - Pass@8: 0.9118, Accuracy: 0.5263
-   Total questions seen: 238
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.9121, Accuracy: 0.5277
-   Total questions seen: 239
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9125, Accuracy: 0.5297
-   Total questions seen: 240
-{'loss': 0.0331, 'grad_norm': 0.0013789901277050376, 'learning_rate': 7.610000000000001e-06, 'difficulty': 'hard', 'num_tokens': 1080687.0, 'completions/mean_length': 340.925, 'completions/min_length': 52.8, 'completions/max_length': 863.6, 'completions/clipped_ratio': 0.1, 'completions/mean_terminated_length': 268.5857238769531, 'completions/min_terminated_length': 52.8, 'completions/max_terminated_length': 566.6, 'rewards/format_reward_func_qa/mean': 0.4625, 'rewards/format_reward_func_qa/std': 0.051754921674728394, 'rewards/correctness_reward_func_qa/mean': 0.85, 'rewards/correctness_reward_func_qa/std': 0.24832584857940673, 'reward': 1.3125, 'reward_std': 0.29201540946960447, 'frac_reward_zero_std': 0.4, 'kl': 0.03659775908454321, 'entropy': 1.049987520650029, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.19}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 50.00%
-📈 Cumulative - Pass@8: 0.9129, Accuracy: 0.5296
-   Total questions seen: 241
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9132, Accuracy: 0.5315
-   Total questions seen: 242
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9136, Accuracy: 0.5334
-   Total questions seen: 243
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9139, Accuracy: 0.5353
-   Total questions seen: 244
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.9143, Accuracy: 0.5367
-   Total questions seen: 245
-{'loss': -0.0463, 'grad_norm': 0.10977072268724442, 'learning_rate': 7.5600000000000005e-06, 'difficulty': 'hard', 'num_tokens': 1106945.0, 'completions/mean_length': 411.45, 'completions/min_length': 19.0, 'completions/max_length': 977.4, 'completions/clipped_ratio': 0.1, 'completions/mean_terminated_length': 343.32501220703125, 'completions/min_terminated_length': 19.0, 'completions/max_terminated_length': 789.2, 'rewards/format_reward_func_qa/mean': 0.45, 'rewards/format_reward_func_qa/std': 0.08711026012897491, 'rewards/correctness_reward_func_qa/mean': 0.875, 'rewards/correctness_reward_func_qa/std': 0.1776151716709137, 'reward': 1.325, 'reward_std': 0.25666006803512575, 'frac_reward_zero_std': 0.6, 'kl': 0.0318807246236247, 'entropy': 1.2206232015043497, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.2}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9146, Accuracy: 0.5386
-   Total questions seen: 246
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9150, Accuracy: 0.5405
-   Total questions seen: 247
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.9153, Accuracy: 0.5418
-   Total questions seen: 248
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 75.00%
-📈 Cumulative - Pass@8: 0.9157, Accuracy: 0.5427
-   Total questions seen: 249
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9160, Accuracy: 0.5445
-   Total questions seen: 250
-{'loss': 0.078, 'grad_norm': 0.0023298286832869053, 'learning_rate': 7.510000000000001e-06, 'difficulty': 'hard', 'num_tokens': 1130244.0, 'completions/mean_length': 321.875, 'completions/min_length': 44.0, 'completions/max_length': 922.2, 'completions/clipped_ratio': 0.075, 'completions/mean_terminated_length': 266.1214294433594, 'completions/min_terminated_length': 44.0, 'completions/max_terminated_length': 739.8, 'rewards/format_reward_func_qa/mean': 0.475, 'rewards/format_reward_func_qa/std': 0.046291005611419675, 'rewards/correctness_reward_func_qa/mean': 0.925, 'rewards/correctness_reward_func_qa/std': 0.1632926881313324, 'reward': 1.4, 'reward_std': 0.20958369374275207, 'frac_reward_zero_std': 0.6, 'kl': 0.085166378467693, 'entropy': 0.9370084870606661, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.2}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 37.50%
-📈 Cumulative - Pass@8: 0.9163, Accuracy: 0.5438
-   Total questions seen: 251
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9167, Accuracy: 0.5456
-   Total questions seen: 252
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.9170, Accuracy: 0.5469
-   Total questions seen: 253
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 62.50%
-📈 Cumulative - Pass@8: 0.9173, Accuracy: 0.5472
-   Total questions seen: 254
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.9176, Accuracy: 0.5485
-   Total questions seen: 255
- 26%|██▌       | 255/1000 [3:47:55<12:26:29, 60.12s/it]INFO:root:Batch accuracy: 5/8 = 62.5%
- 26%|██▌       | 256/1000 [3:48:41<11:32:25, 55.84s/it]INFO:root:Batch accuracy: 5/8 = 62.5%
- 26%|██▌       | 257/1000 [3:49:41<11:47:40, 57.15s/it]INFO:root:Batch accuracy: 4/8 = 50.0%
- 26%|██▌       | 258/1000 [3:50:32<11:23:26, 55.26s/it]INFO:root:Batch accuracy: 5/8 = 62.5%
- 26%|██▌       | 259/1000 [3:51:32<11:40:42, 56.74s/it]INFO:root:Batch accuracy: 6/8 = 75.0%
- 26%|██▌       | 260/1000 [3:52:29<11:39:05, 56.68s/it]                                                        26%|██▌       | 260/1000 [3:52:29<11:39:05, 56.68s/it]/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:92: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
-  warnings.warn(
-INFO:root:Batch accuracy: 7/8 = 87.5%
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:295: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
-  with torch.enable_grad(), device_autocast_ctx, torch.cpu.amp.autocast(**ctx.cpu_autocast_kwargs):  # type: ignore[attr-defined]
- 26%|██▌       | 261/1000 [3:53:29<11:49:14, 57.58s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 26%|██▌       | 262/1000 [3:54:29<11:58:04, 58.38s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 26%|██▋       | 263/1000 [3:55:08<10:44:09, 52.44s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 26%|██▋       | 264/1000 [3:56:09<11:15:19, 55.05s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 26%|██▋       | 265/1000 [3:57:14<11:52:36, 58.17s/it]                                                        26%|██▋       | 265/1000 [3:57:14<11:52:36, 58.17s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 27%|██▋       | 266/1000 [3:58:16<12:06:36, 59.40s/it]INFO:root:Batch accuracy: 4/8 = 50.0%
- 27%|██▋       | 267/1000 [3:59:20<12:19:49, 60.56s/it]INFO:root:Batch accuracy: 4/8 = 50.0%
- 27%|██▋       | 268/1000 [4:00:20<12:19:30, 60.62s/it]INFO:root:Batch accuracy: 3/8 = 37.5%
- 27%|██▋       | 269/1000 [4:01:22<12:21:25, 60.86s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 27%|██▋       | 270/1000 [4:02:08<11:25:19, 56.33s/it]                                                        27%|██▋       | 270/1000 [4:02:08<11:25:19, 56.33s/it]/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:92: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
-  warnings.warn(
-INFO:root:Batch accuracy: 7/8 = 87.5%
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:295: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
-  with torch.enable_grad(), device_autocast_ctx, torch.cpu.amp.autocast(**ctx.cpu_autocast_kwargs):  # type: ignore[attr-defined]
- 27%|██▋       | 271/1000 [4:03:14<12:02:55, 59.50s/it]INFO:root:Batch accuracy: 6/8 = 75.0%
- 27%|██▋       | 272/1000 [4:04:14<12:03:04, 59.59s/it]INFO:root:Batch accuracy: 4/8 = 50.0%
- 27%|██▋       | 273/1000 [4:05:13<12:00:39, 59.48s/it]INFO:root:Batch accuracy: 6/8 = 75.0%
- 27%|██▋       | 274/1000 [4:06:13<12:00:12, 59.52s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 28%|██▊       | 275/1000 [4:07:15<12:09:20, 60.36s/it]                                                        28%|██▊       | 275/1000 [4:07:15<12:09:20, 60.36s/it]INFO:root:Batch accuracy: 5/8 = 62.5%
- 28%|██▊       | 276/1000 [4:08:15<12:05:46, 60.15s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 28%|██▊       | 277/1000 [4:09:17<12:12:51, 60.82s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 28%|██▊       | 278/1000 [4:10:20<12:17:27, 61.29s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 28%|██▊       | 279/1000 [4:11:05<11:19:33, 56.55s/it]INFO:root:Batch accuracy: 0/8 = 0.0%
- 28%|██▊       | 280/1000 [4:12:06<11:32:30, 57.71s/it]                                                       {'loss': -0.0405, 'grad_norm': 0.06614894419908524, 'learning_rate': 7.4600000000000006e-06, 'difficulty': 'hard', 'num_tokens': 1159557.0, 'completions/mean_length': 496.025, 'completions/min_length': 63.2, 'completions/max_length': 1023.4, 'completions/clipped_ratio': 0.2, 'completions/mean_terminated_length': 361.73691711425784, 'completions/min_terminated_length': 63.2, 'completions/max_terminated_length': 768.8, 'rewards/format_reward_func_qa/mean': 0.45, 'rewards/format_reward_func_qa/std': 0.11700168251991272, 'rewards/correctness_reward_func_qa/mean': 0.75, 'rewards/correctness_reward_func_qa/std': 0.34844104051589964, 'reward': 1.2, 'reward_std': 0.43697153925895693, 'frac_reward_zero_std': 0.2, 'kl': 0.09086502933059819, 'entropy': 0.961860578507185, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.2}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 62.50%
-📈 Cumulative - Pass@8: 0.9180, Accuracy: 0.5488
-   Total questions seen: 256
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 62.50%
-📈 Cumulative - Pass@8: 0.9183, Accuracy: 0.5491
-   Total questions seen: 257
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 50.00%
-📈 Cumulative - Pass@8: 0.9186, Accuracy: 0.5489
-   Total questions seen: 258
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 62.50%
-📈 Cumulative - Pass@8: 0.9189, Accuracy: 0.5492
-   Total questions seen: 259
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 75.00%
-📈 Cumulative - Pass@8: 0.9192, Accuracy: 0.5500
-   Total questions seen: 260
-{'loss': -0.0487, 'grad_norm': 0.09050404280424118, 'learning_rate': 7.41e-06, 'difficulty': 'hard', 'num_tokens': 1184144.0, 'completions/mean_length': 346.075, 'completions/min_length': 14.8, 'completions/max_length': 908.0, 'completions/clipped_ratio': 0.075, 'completions/mean_terminated_length': 288.6023864746094, 'completions/min_terminated_length': 14.8, 'completions/max_terminated_length': 726.4, 'rewards/format_reward_func_qa/mean': 0.3875, 'rewards/format_reward_func_qa/std': 0.2150476098060608, 'rewards/correctness_reward_func_qa/mean': 0.625, 'rewards/correctness_reward_func_qa/std': 0.5100160360336303, 'reward': 1.0125, 'reward_std': 0.6848438262939454, 'frac_reward_zero_std': 0.0, 'kl': 0.08908486498403363, 'entropy': 1.2195492893457414, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.21}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.9195, Accuracy: 0.5512
-   Total questions seen: 261
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9198, Accuracy: 0.5530
-   Total questions seen: 262
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9202, Accuracy: 0.5547
-   Total questions seen: 263
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.9205, Accuracy: 0.5559
-   Total questions seen: 264
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9208, Accuracy: 0.5575
-   Total questions seen: 265
-{'loss': -0.0426, 'grad_norm': 0.002136101946234703, 'learning_rate': 7.360000000000001e-06, 'difficulty': 'hard', 'num_tokens': 1213059.0, 'completions/mean_length': 459.675, 'completions/min_length': 71.0, 'completions/max_length': 940.6, 'completions/clipped_ratio': 0.2, 'completions/mean_terminated_length': 326.423583984375, 'completions/min_terminated_length': 71.0, 'completions/max_terminated_length': 714.8, 'rewards/format_reward_func_qa/mean': 0.4875, 'rewards/format_reward_func_qa/std': 0.03535533845424652, 'rewards/correctness_reward_func_qa/mean': 0.95, 'rewards/correctness_reward_func_qa/std': 0.1414213538169861, 'reward': 1.4375, 'reward_std': 0.17677668929100038, 'frac_reward_zero_std': 0.6, 'kl': 0.04190548993647099, 'entropy': 1.0980102650821209, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.21}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9211, Accuracy: 0.5592
-   Total questions seen: 266
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 50.00%
-📈 Cumulative - Pass@8: 0.9213, Accuracy: 0.5590
-   Total questions seen: 267
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 50.00%
-📈 Cumulative - Pass@8: 0.9216, Accuracy: 0.5588
-   Total questions seen: 268
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 37.50%
-📈 Cumulative - Pass@8: 0.9219, Accuracy: 0.5581
-   Total questions seen: 269
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9222, Accuracy: 0.5597
-   Total questions seen: 270
-{'loss': -0.1657, 'grad_norm': 0.002594982273876667, 'learning_rate': 7.31e-06, 'difficulty': 'hard', 'num_tokens': 1238721.0, 'completions/mean_length': 370.55, 'completions/min_length': 22.2, 'completions/max_length': 959.6, 'completions/clipped_ratio': 0.15, 'completions/mean_terminated_length': 250.39000549316407, 'completions/min_terminated_length': 22.2, 'completions/max_terminated_length': 672.2, 'rewards/format_reward_func_qa/mean': 0.3875, 'rewards/format_reward_func_qa/std': 0.17591784596443177, 'rewards/correctness_reward_func_qa/mean': 0.675, 'rewards/correctness_reward_func_qa/std': 0.3173188328742981, 'reward': 1.0625, 'reward_std': 0.4611430257558823, 'frac_reward_zero_std': 0.2, 'kl': 0.07458536664489657, 'entropy': 1.0664803210645915, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.22}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.9225, Accuracy: 0.5609
-   Total questions seen: 271
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 75.00%
-📈 Cumulative - Pass@8: 0.9228, Accuracy: 0.5616
-   Total questions seen: 272
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 50.00%
-📈 Cumulative - Pass@8: 0.9231, Accuracy: 0.5614
-   Total questions seen: 273
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 75.00%
-📈 Cumulative - Pass@8: 0.9234, Accuracy: 0.5620
-   Total questions seen: 274
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9236, Accuracy: 0.5636
-   Total questions seen: 275
-{'loss': -0.0709, 'grad_norm': 0.002442004857584834, 'learning_rate': 7.260000000000001e-06, 'difficulty': 'hard', 'num_tokens': 1265832.0, 'completions/mean_length': 417.375, 'completions/min_length': 58.6, 'completions/max_length': 1024.0, 'completions/clipped_ratio': 0.2, 'completions/mean_terminated_length': 261.8952507019043, 'completions/min_terminated_length': 58.6, 'completions/max_terminated_length': 517.8, 'rewards/format_reward_func_qa/mean': 0.45, 'rewards/format_reward_func_qa/std': 0.08711026012897491, 'rewards/correctness_reward_func_qa/mean': 0.775, 'rewards/correctness_reward_func_qa/std': 0.36277919411659243, 'reward': 1.225, 'reward_std': 0.43266023993492125, 'frac_reward_zero_std': 0.2, 'kl': 0.04382722410955466, 'entropy': 1.1033078111708163, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.22}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 62.50%
-📈 Cumulative - Pass@8: 0.9239, Accuracy: 0.5639
-   Total questions seen: 276
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9242, Accuracy: 0.5654
-   Total questions seen: 277
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9245, Accuracy: 0.5670
-   Total questions seen: 278
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9247, Accuracy: 0.5685
-   Total questions seen: 279
-
-📊 Current batch - Pass@8: 0.00, Accuracy: 0.00%
-📈 Cumulative - Pass@8: 0.9214, Accuracy: 0.5665
-   Total questions seen: 280
- 28%|██▊       | 280/1000 [4:12:06<11:32:30, 57.71s/it]/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:92: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
-  warnings.warn(
-INFO:root:Batch accuracy: 6/8 = 75.0%
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:295: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
-  with torch.enable_grad(), device_autocast_ctx, torch.cpu.amp.autocast(**ctx.cpu_autocast_kwargs):  # type: ignore[attr-defined]
- 28%|██▊       | 281/1000 [4:13:11<11:56:51, 59.82s/it]INFO:root:Batch accuracy: 5/8 = 62.5%
- 28%|██▊       | 282/1000 [4:14:14<12:10:27, 61.04s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 28%|██▊       | 283/1000 [4:15:13<12:01:18, 60.36s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 28%|██▊       | 284/1000 [4:16:15<12:05:43, 60.81s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 28%|██▊       | 285/1000 [4:17:02<11:13:59, 56.56s/it]                                                        28%|██▊       | 285/1000 [4:17:02<11:13:59, 56.56s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 29%|██▊       | 286/1000 [4:18:01<11:22:08, 57.32s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 29%|██▊       | 287/1000 [4:19:03<11:39:04, 58.83s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 29%|██▉       | 288/1000 [4:20:03<11:41:24, 59.11s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 29%|██▉       | 289/1000 [4:20:39<10:20:25, 52.36s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 29%|██▉       | 290/1000 [4:21:18<9:32:07, 48.35s/it]                                                        29%|██▉       | 290/1000 [4:21:18<9:32:07, 48.35s/it]/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:92: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
-  warnings.warn(
-INFO:root:Batch accuracy: 7/8 = 87.5%
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:295: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
-  with torch.enable_grad(), device_autocast_ctx, torch.cpu.amp.autocast(**ctx.cpu_autocast_kwargs):  # type: ignore[attr-defined]
- 29%|██▉       | 291/1000 [4:22:20<10:17:00, 52.22s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 29%|██▉       | 292/1000 [4:23:24<10:57:49, 55.75s/it]INFO:root:Batch accuracy: 6/8 = 75.0%
- 29%|██▉       | 293/1000 [4:24:08<10:15:57, 52.27s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 29%|██▉       | 294/1000 [4:25:05<10:33:46, 53.86s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 30%|██▉       | 295/1000 [4:26:07<11:00:52, 56.24s/it]                                                        30%|██▉       | 295/1000 [4:26:07<11:00:52, 56.24s/it]INFO:root:Batch accuracy: 2/8 = 25.0%
- 30%|██▉       | 296/1000 [4:27:08<11:14:23, 57.48s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 30%|██▉       | 297/1000 [4:28:07<11:19:35, 58.00s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 30%|██▉       | 298/1000 [4:29:06<11:22:43, 58.35s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 30%|██▉       | 299/1000 [4:30:06<11:28:05, 58.89s/it]INFO:root:Batch accuracy: 4/8 = 50.0%
- 30%|███       | 300/1000 [4:30:53<10:45:48, 55.36s/it]                                                        30%|███       | 300/1000 [4:30:53<10:45:48, 55.36s/it]/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:92: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
-  warnings.warn(
-INFO:root:Batch accuracy: 8/8 = 100.0%
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:295: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
-  with torch.enable_grad(), device_autocast_ctx, torch.cpu.amp.autocast(**ctx.cpu_autocast_kwargs):  # type: ignore[attr-defined]
- 30%|███       | 301/1000 [4:31:54<11:05:18, 57.11s/it]INFO:root:Batch accuracy: 6/8 = 75.0%
- 30%|███       | 302/1000 [4:32:55<11:15:16, 58.05s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 30%|███       | 303/1000 [4:33:56<11:24:45, 58.95s/it]INFO:root:Batch accuracy: 7/8 = 87.5%
- 30%|███       | 304/1000 [4:34:57<11:30:24, 59.52s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 30%|███       | 305/1000 [4:36:00<11:42:30, 60.65s/it]                                                       {'loss': -0.0211, 'grad_norm': 0.020758116617798805, 'learning_rate': 7.2100000000000004e-06, 'difficulty': 'hard', 'num_tokens': 1294355.0, 'completions/mean_length': 377.675, 'completions/min_length': 62.8, 'completions/max_length': 966.0, 'completions/clipped_ratio': 0.15, 'completions/mean_terminated_length': 259.80238647460936, 'completions/min_terminated_length': 62.8, 'completions/max_terminated_length': 553.2, 'rewards/format_reward_func_qa/mean': 0.4375, 'rewards/format_reward_func_qa/std': 0.09804592728614807, 'rewards/correctness_reward_func_qa/mean': 0.725, 'rewards/correctness_reward_func_qa/std': 0.10350984334945679, 'reward': 1.1625, 'reward_std': 0.2015557646751404, 'frac_reward_zero_std': 0.6, 'kl': 0.048750472714891656, 'entropy': 1.1207179609686135, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.22}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 75.00%
-📈 Cumulative - Pass@8: 0.9217, Accuracy: 0.5672
-   Total questions seen: 281
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 62.50%
-📈 Cumulative - Pass@8: 0.9220, Accuracy: 0.5674
-   Total questions seen: 282
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9223, Accuracy: 0.5689
-   Total questions seen: 283
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9225, Accuracy: 0.5704
-   Total questions seen: 284
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9228, Accuracy: 0.5719
-   Total questions seen: 285
-{'loss': -0.0597, 'grad_norm': 0.001667032833211124, 'learning_rate': 7.16e-06, 'difficulty': 'hard', 'num_tokens': 1323768.0, 'completions/mean_length': 447.125, 'completions/min_length': 10.8, 'completions/max_length': 972.0, 'completions/clipped_ratio': 0.15, 'completions/mean_terminated_length': 349.05714721679686, 'completions/min_terminated_length': 10.8, 'completions/max_terminated_length': 685.6, 'rewards/format_reward_func_qa/mean': 0.45, 'rewards/format_reward_func_qa/std': 0.09258201122283935, 'rewards/correctness_reward_func_qa/mean': 0.875, 'rewards/correctness_reward_func_qa/std': 0.19609185457229614, 'reward': 1.325, 'reward_std': 0.28029437065124513, 'frac_reward_zero_std': 0.6, 'kl': 0.1727367656712886, 'entropy': 1.132547541335225, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.23}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9231, Accuracy: 0.5734
-   Total questions seen: 286
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.9233, Accuracy: 0.5745
-   Total questions seen: 287
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.9236, Accuracy: 0.5755
-   Total questions seen: 288
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.9239, Accuracy: 0.5766
-   Total questions seen: 289
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.9241, Accuracy: 0.5776
-   Total questions seen: 290
-{'loss': -0.0136, 'grad_norm': 0.053279537707567215, 'learning_rate': 7.1100000000000005e-06, 'difficulty': 'hard', 'num_tokens': 1349040.0, 'completions/mean_length': 361.8, 'completions/min_length': 30.8, 'completions/max_length': 852.2, 'completions/clipped_ratio': 0.125, 'completions/mean_terminated_length': 259.7952453613281, 'completions/min_terminated_length': 30.8, 'completions/max_terminated_length': 572.4, 'rewards/format_reward_func_qa/mean': 0.475, 'rewards/format_reward_func_qa/std': 0.07071067690849304, 'rewards/correctness_reward_func_qa/mean': 0.9, 'rewards/correctness_reward_func_qa/std': 0.2828427076339722, 'reward': 1.375, 'reward_std': 0.3218897461891174, 'frac_reward_zero_std': 0.2, 'kl': 0.048642355808988215, 'entropy': 1.0081501048058272, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.23}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.9244, Accuracy: 0.5786
-   Total questions seen: 291
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9247, Accuracy: 0.5801
-   Total questions seen: 292
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 75.00%
-📈 Cumulative - Pass@8: 0.9249, Accuracy: 0.5806
-   Total questions seen: 293
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9252, Accuracy: 0.5821
-   Total questions seen: 294
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9254, Accuracy: 0.5835
-   Total questions seen: 295
-{'loss': 0.0078, 'grad_norm': 0.0015741721726953983, 'learning_rate': 7.06e-06, 'difficulty': 'hard', 'num_tokens': 1373158.0, 'completions/mean_length': 354.35, 'completions/min_length': 30.0, 'completions/max_length': 944.8, 'completions/clipped_ratio': 0.1, 'completions/mean_terminated_length': 282.6881042480469, 'completions/min_terminated_length': 30.0, 'completions/max_terminated_length': 751.4, 'rewards/format_reward_func_qa/mean': 0.4625, 'rewards/format_reward_func_qa/std': 0.0816463440656662, 'rewards/correctness_reward_func_qa/mean': 0.925, 'rewards/correctness_reward_func_qa/std': 0.1632926881313324, 'reward': 1.3875, 'reward_std': 0.24493902921676636, 'frac_reward_zero_std': 0.6, 'kl': 0.07270657031331211, 'entropy': 0.870927637629211, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.24}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 25.00%
-📈 Cumulative - Pass@8: 0.9257, Accuracy: 0.5823
-   Total questions seen: 296
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9259, Accuracy: 0.5838
-   Total questions seen: 297
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9262, Accuracy: 0.5852
-   Total questions seen: 298
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9264, Accuracy: 0.5865
-   Total questions seen: 299
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 50.00%
-📈 Cumulative - Pass@8: 0.9267, Accuracy: 0.5863
-   Total questions seen: 300
-{'loss': 0.0794, 'grad_norm': 0.14531657099723816, 'learning_rate': 7.01e-06, 'difficulty': 'hard', 'num_tokens': 1402210.0, 'completions/mean_length': 476.3, 'completions/min_length': 91.2, 'completions/max_length': 969.4, 'completions/clipped_ratio': 0.25, 'completions/mean_terminated_length': 299.60834350585935, 'completions/min_terminated_length': 91.2, 'completions/max_terminated_length': 615.4, 'rewards/format_reward_func_qa/mean': 0.45, 'rewards/format_reward_func_qa/std': 0.08711026012897491, 'rewards/correctness_reward_func_qa/mean': 0.75, 'rewards/correctness_reward_func_qa/std': 0.19948650598526002, 'reward': 1.2, 'reward_std': 0.25666006803512575, 'frac_reward_zero_std': 0.6, 'kl': 0.031639891874510793, 'entropy': 1.2739190392196178, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.24}
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9269, Accuracy: 0.5876
-   Total questions seen: 301
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 75.00%
-📈 Cumulative - Pass@8: 0.9272, Accuracy: 0.5882
-   Total questions seen: 302
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9274, Accuracy: 0.5895
-   Total questions seen: 303
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 87.50%
-📈 Cumulative - Pass@8: 0.9276, Accuracy: 0.5905
-   Total questions seen: 304
-
-📊 Current batch - Pass@8: 1.00, Accuracy: 100.00%
-📈 Cumulative - Pass@8: 0.9279, Accuracy: 0.5918
-   Total questions seen: 305
- 30%|███       | 305/1000 [4:36:00<11:42:30, 60.65s/it]INFO:root:Batch accuracy: 5/8 = 62.5%
- 31%|███       | 306/1000 [4:36:50<11:04:08, 57.42s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 31%|███       | 307/1000 [4:38:00<11:48:39, 61.36s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 31%|███       | 308/1000 [4:39:11<12:19:21, 64.11s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 31%|███       | 309/1000 [4:40:20<12:37:03, 65.74s/it]INFO:root:Batch accuracy: 6/8 = 75.0%
- 31%|███       | 310/1000 [4:41:21<12:18:28, 64.22s/it]                                                        31%|███       | 310/1000 [4:41:21<12:18:28, 64.22s/it]/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:92: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
-  warnings.warn(
-INFO:root:Batch accuracy: 8/8 = 100.0%
-/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/torch/utils/checkpoint.py:295: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
-  with torch.enable_grad(), device_autocast_ctx, torch.cpu.amp.autocast(**ctx.cpu_autocast_kwargs):  # type: ignore[attr-defined]
- 31%|███       | 311/1000 [4:42:35<12:51:15, 67.16s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 31%|███       | 312/1000 [4:43:45<13:01:14, 68.13s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 31%|███▏      | 313/1000 [4:44:55<13:03:53, 68.46s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 31%|███▏      | 314/1000 [4:45:56<12:37:25, 66.25s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 32%|███▏      | 315/1000 [4:46:27<10:36:16, 55.73s/it]                                                        32%|███▏      | 315/1000 [4:46:27<10:36:16, 55.73s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 32%|███▏      | 316/1000 [4:47:36<11:21:05, 59.75s/it]INFO:root:Batch accuracy: 6/8 = 75.0%
- 32%|███▏      | 317/1000 [4:48:45<11:51:02, 62.46s/it]INFO:root:Batch accuracy: 8/8 = 100.0%
- 32%|███▏      | 318/1000 [4:49:35<11:08:23, 58.80s/it]INFO:root:Batch accuracy: 4/8 = 50.0%
- 32%|███▏      | 319/1000 [4:50:45<11:43:22, 61.97s/it]--- Logging error ---
-Traceback (most recent call last):
-  File "/home/heqiy/miniconda3/envs/verl/lib/python3.10/logging/__init__.py", line 1104, in emit
-    self.flush()
-  File "/home/heqiy/miniconda3/envs/verl/lib/python3.10/logging/__init__.py", line 1084, in flush
-    self.stream.flush()
-OSError: [Errno 28] No space left on device
-Call stack:
-  File "/home/heqiy/miniconda3/envs/verl/lib/python3.10/threading.py", line 973, in _bootstrap
-    self._bootstrap_inner()
-  File "/home/heqiy/miniconda3/envs/verl/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
-    self.run()
-  File "/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/wandb/vendor/watchdog_0_9_0/wandb_watchdog/observers/api.py", line 199, in run
-    self.dispatch_events(self.event_queue, self.timeout)
-  File "/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/wandb/vendor/watchdog_0_9_0/wandb_watchdog/observers/api.py", line 368, in dispatch_events
-    handler.dispatch(event)
-  File "/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/wandb/vendor/watchdog_0_9_0/wandb_watchdog/events.py", line 454, in dispatch
-    _method_map[event_type](event)
-  File "/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/wandb/filesync/dir_watcher.py", line 288, in _on_file_modified
-    logger.info(f"file/dir modified: { event.src_path}")
-Message: 'file/dir modified: /home/heqiy/trl_grpo/wandb/run-20250909_112648-5zntprqq/files/wandb-summary.json'
-Arguments: ()
---- Logging error ---
-Traceback (most recent call last):
-  File "/home/heqiy/miniconda3/envs/verl/lib/python3.10/logging/__init__.py", line 1104, in emit
-    self.flushINFO:root:Batch accuracy: 8/8 = 100.0%
---- Logging error ---
- 32%|███▏      | 320/1000 [4:51:50<11:54:30, 63.04s/it]Traceback (most recent call last):
-Error in sys.excepthook:
-Traceback (most recent call last):
-
-
-Original exception was:
-Traceback (most recent call last):
-
-Exception ignored in atexit callback: <function _Manager._atexit_setup.<locals>.<lambda> at 0x7f72dc2abe20>
-Traceback (most recent call last):
-  File "/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/wandb/sdk/wandb_manager.py", line 155, in <lambda>
-    self._atexit_lambda = lambda: self._atexit_teardown()
-  File "/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/wandb/sdk/wandb_manager.py", line 164, in _atexit_teardown
-    self._teardown(exit_code)
-  File "/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/wandb/sdk/wandb_manager.py", line 175, in _teardown
-    result = self._service.join()
-  File "/home/heqiy/miniconda3/envs/verl/lib/python3.10/site-packages/wandb/sdk/service/service.py", line 271, in join
-    ret = self._internal_proc.wait()
-  File "/home/heqiy/miniconda3/envs/verl/lib/python3.10/subprocess.py", line 1209, in wait
-    return self._wait(timeout=timeout)
-  File "/home/heqiy/miniconda3/envs/verl/lib/python3.10/subprocess.py", line 1959, in _wait
-    (pid, sts) = self._try_wait(0)
-  File "/home/heqiy/miniconda3/envs/verl/lib/python3.10/subprocess.py", line 1917, in _try_wait
-    (pid, sts) = os.waitpid(self.pid, wait_flags)
-KeyboardInterrupt: 

@@ -1,0 +1,1124 @@
+VARIANCE ANALYSIS SUMMARY
+========================
+
+Question Variance Differences (across iterations):
+  Question prompt_0: 0.000000
+  Question prompt_1: 0.000000
+  Question prompt_2: 0.000000
+  Question prompt_3: 0.000000
+  Question prompt_4: 0.009068
+  Average: 0.001814
+
+Iteration Variance Differences (across questions):
+  Iteration 170: 0.008789
+  Iteration 180: 0.008789
+  Iteration 190: 0.008789
+  Iteration 200: 0.005625
+  Iteration 210: 0.005625
+  Iteration 220: 0.008789
+  Iteration 230: 0.008789
+  Iteration 240: 0.010000
+  Iteration 250: 0.008789
+  Iteration 260: 0.005625
+  Iteration 270: 0.000000
+  Iteration 280: 0.000000
+  Iteration 290: 0.010000
+  Iteration 300: 0.010000
+  Iteration 310: 0.001914
+  Iteration 320: 0.000000
+  Iteration 330: 0.005625
+  Iteration 340: 0.001914
+  Iteration 350: 0.000000
+  Iteration 360: 0.005625
+  Iteration 370: 0.008789
+  Iteration 380: 0.000000
+  Iteration 390: 0.000000
+  Iteration 400: 0.000000
+  Iteration 410: 0.000000
+  Iteration 420: 0.000000
+  Iteration 430: 0.001914
+  Iteration 440: 0.001914
+  Iteration 450: 0.005625
+  Iteration 460: 0.001914
+  Iteration 470: 0.000000
+  Iteration 480: 0.001914
+  Iteration 490: 0.000000
+  Iteration 500: 0.001914
+  Iteration 510: 0.008789
+  Iteration 520: 0.000000
+  Iteration 530: 0.001914
+  Iteration 540: 0.000000
+  Iteration 550: 0.001914
+  Iteration 560: 0.001914
+  Iteration 570: 0.001914
+  Iteration 580: 0.001914
+  Iteration 590: 0.000000
+  Iteration 600: 0.000000
+  Average: 0.003569
+
+Cosine Similarity Analysis:
+  Total pairs analyzed: 440
+  Pairs with positive cosine: 440 (100.0%)
+  Pairs with negative cosine: 0 (0.0%)
+  Avg variance diff for positive cosine: 0.046023
+  Correlation between cosine and variance diff: 0.092 (p=0.055)
+
+Fisher Information vs Reward Variance Analysis (Overall):
+  Total data points: 220
+  Correlation between Fisher and reward variance: -0.022 (p=0.749)
+  Linear fit: σ² = -0.9951 * κ + 0.0258
+
+Fisher Information vs Reward Std Analysis (By Iteration):
+  Iterations analyzed: 44
+  Mean correlation: -0.027 ± 0.013
+  Range: [-0.057, -0.004]
+  Significant correlations (p < 0.05): 0/44 (0.0%)
+  Correlation trend over iterations: nan (p=nan)
+
+  Per-iteration details:
+    Iteration 170.0: r=-0.031, p=0.961, n=5.0
+    Iteration 180.0: r=-0.028, p=0.965, n=5.0
+    Iteration 190.0: r=-0.057, p=0.928, n=5.0
+    Iteration 200.0: r=-0.033, p=0.958, n=5.0
+    Iteration 210.0: r=-0.044, p=0.944, n=5.0
+    Iteration 220.0: r=-0.048, p=0.939, n=5.0
+    Iteration 230.0: r=-0.024, p=0.970, n=5.0
+    Iteration 240.0: r=-0.025, p=0.968, n=5.0
+    Iteration 250.0: r=-0.025, p=0.968, n=5.0
+    Iteration 260.0: r=-0.026, p=0.966, n=5.0
+    Iteration 270.0: r=nan, p=nan, n=5.0
+    Iteration 280.0: r=nan, p=nan, n=5.0
+    Iteration 290.0: r=-0.028, p=0.964, n=5.0
+    Iteration 300.0: r=-0.048, p=0.939, n=5.0
+    Iteration 310.0: r=-0.018, p=0.977, n=5.0
+    Iteration 320.0: r=nan, p=nan, n=5.0
+    Iteration 330.0: r=-0.043, p=0.946, n=5.0
+    Iteration 340.0: r=-0.047, p=0.940, n=5.0
+    Iteration 350.0: r=nan, p=nan, n=5.0
+    Iteration 360.0: r=-0.023, p=0.971, n=5.0
+    Iteration 370.0: r=-0.011, p=0.986, n=5.0
+    Iteration 380.0: r=nan, p=nan, n=5.0
+    Iteration 390.0: r=nan, p=nan, n=5.0
+    Iteration 400.0: r=nan, p=nan, n=5.0
+    Iteration 410.0: r=nan, p=nan, n=5.0
+    Iteration 420.0: r=nan, p=nan, n=5.0
+    Iteration 430.0: r=-0.020, p=0.974, n=5.0
+    Iteration 440.0: r=-0.012, p=0.985, n=5.0
+    Iteration 450.0: r=-0.024, p=0.970, n=5.0
+    Iteration 460.0: r=-0.022, p=0.972, n=5.0
+    Iteration 470.0: r=nan, p=nan, n=5.0
+    Iteration 480.0: r=-0.004, p=0.995, n=5.0
+    Iteration 490.0: r=nan, p=nan, n=5.0
+    Iteration 500.0: r=-0.027, p=0.966, n=5.0
+    Iteration 510.0: r=-0.023, p=0.971, n=5.0
+    Iteration 520.0: r=nan, p=nan, n=5.0
+    Iteration 530.0: r=-0.020, p=0.974, n=5.0
+    Iteration 540.0: r=nan, p=nan, n=5.0
+    Iteration 550.0: r=-0.015, p=0.981, n=5.0
+    Iteration 560.0: r=-0.005, p=0.994, n=5.0
+    Iteration 570.0: r=-0.020, p=0.974, n=5.0
+    Iteration 580.0: r=-0.018, p=0.977, n=5.0
+    Iteration 590.0: r=nan, p=nan, n=5.0
+    Iteration 600.0: r=nan, p=nan, n=5.0
+
+Cross-Time Correlation Analysis (Fisher(i) vs Reward_Std(j), i≠j):
+  Total cross-time pairs analyzed: 946
+  Mean cross-time correlation: -0.028 ± 0.013
+  Range: [-0.057, -0.004]
+  Significant cross-time correlations (p < 0.05): 0/946 (0.0%)
+  T-test against zero correlation: t=nan, p=nan
+
+  Cross-time correlation details:
+    Fisher(t=170.0) vs Reward_Std(t=180.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=190.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=200.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=210.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=220.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=230.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=240.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=250.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=260.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=270.0): r=nan, p=nan, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=280.0): r=nan, p=nan, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=290.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=300.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=310.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=320.0): r=nan, p=nan, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=330.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=340.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=350.0): r=nan, p=nan, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=360.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=370.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=380.0): r=nan, p=nan, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=390.0): r=nan, p=nan, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=400.0): r=nan, p=nan, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=410.0): r=nan, p=nan, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=420.0): r=nan, p=nan, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=430.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=440.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=450.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=460.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=470.0): r=nan, p=nan, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=480.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=490.0): r=nan, p=nan, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=500.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=510.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=530.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=550.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=560.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=570.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=580.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=170.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=190.0): r=-0.028, p=0.965, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=200.0): r=-0.028, p=0.965, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=210.0): r=-0.028, p=0.965, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=220.0): r=-0.028, p=0.965, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=230.0): r=-0.028, p=0.965, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=240.0): r=-0.028, p=0.965, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=250.0): r=-0.028, p=0.965, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=260.0): r=-0.028, p=0.965, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=270.0): r=nan, p=nan, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=280.0): r=nan, p=nan, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=290.0): r=-0.028, p=0.965, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=300.0): r=-0.028, p=0.965, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=310.0): r=-0.028, p=0.965, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=320.0): r=nan, p=nan, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=330.0): r=-0.028, p=0.965, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=340.0): r=-0.028, p=0.965, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=350.0): r=nan, p=nan, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=360.0): r=-0.028, p=0.965, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=370.0): r=-0.028, p=0.965, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=380.0): r=nan, p=nan, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=390.0): r=nan, p=nan, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=400.0): r=nan, p=nan, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=410.0): r=nan, p=nan, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=420.0): r=nan, p=nan, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=430.0): r=-0.028, p=0.965, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=440.0): r=-0.028, p=0.965, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=450.0): r=-0.028, p=0.965, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=460.0): r=-0.028, p=0.965, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=470.0): r=nan, p=nan, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=480.0): r=-0.028, p=0.965, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=490.0): r=nan, p=nan, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=500.0): r=-0.028, p=0.965, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=510.0): r=-0.028, p=0.965, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=530.0): r=-0.028, p=0.965, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=550.0): r=-0.028, p=0.965, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=560.0): r=-0.028, p=0.965, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=570.0): r=-0.028, p=0.965, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=580.0): r=-0.028, p=0.965, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=180.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=200.0): r=-0.057, p=0.928, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=210.0): r=-0.057, p=0.928, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=220.0): r=-0.057, p=0.928, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=230.0): r=-0.057, p=0.928, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=240.0): r=-0.057, p=0.928, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=250.0): r=-0.057, p=0.928, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=260.0): r=-0.057, p=0.928, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=270.0): r=nan, p=nan, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=280.0): r=nan, p=nan, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=290.0): r=-0.057, p=0.928, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=300.0): r=-0.057, p=0.928, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=310.0): r=-0.057, p=0.928, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=320.0): r=nan, p=nan, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=330.0): r=-0.057, p=0.928, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=340.0): r=-0.057, p=0.928, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=350.0): r=nan, p=nan, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=360.0): r=-0.057, p=0.928, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=370.0): r=-0.057, p=0.928, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=380.0): r=nan, p=nan, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=390.0): r=nan, p=nan, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=400.0): r=nan, p=nan, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=410.0): r=nan, p=nan, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=420.0): r=nan, p=nan, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=430.0): r=-0.057, p=0.928, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=440.0): r=-0.057, p=0.928, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=450.0): r=-0.057, p=0.928, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=460.0): r=-0.057, p=0.928, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=470.0): r=nan, p=nan, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=480.0): r=-0.057, p=0.928, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=490.0): r=nan, p=nan, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=500.0): r=-0.057, p=0.928, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=510.0): r=-0.057, p=0.928, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=530.0): r=-0.057, p=0.928, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=550.0): r=-0.057, p=0.928, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=560.0): r=-0.057, p=0.928, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=570.0): r=-0.057, p=0.928, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=580.0): r=-0.057, p=0.928, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=190.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=210.0): r=-0.033, p=0.958, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=220.0): r=-0.033, p=0.958, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=230.0): r=-0.033, p=0.958, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=240.0): r=-0.033, p=0.958, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=250.0): r=-0.033, p=0.958, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=260.0): r=-0.033, p=0.958, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=270.0): r=nan, p=nan, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=280.0): r=nan, p=nan, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=290.0): r=-0.033, p=0.958, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=300.0): r=-0.033, p=0.958, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=310.0): r=-0.033, p=0.958, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=320.0): r=nan, p=nan, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=330.0): r=-0.033, p=0.958, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=340.0): r=-0.033, p=0.958, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=350.0): r=nan, p=nan, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=360.0): r=-0.033, p=0.958, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=370.0): r=-0.033, p=0.958, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=380.0): r=nan, p=nan, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=390.0): r=nan, p=nan, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=400.0): r=nan, p=nan, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=410.0): r=nan, p=nan, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=420.0): r=nan, p=nan, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=430.0): r=-0.033, p=0.958, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=440.0): r=-0.033, p=0.958, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=450.0): r=-0.033, p=0.958, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=460.0): r=-0.033, p=0.958, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=470.0): r=nan, p=nan, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=480.0): r=-0.033, p=0.958, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=490.0): r=nan, p=nan, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=500.0): r=-0.033, p=0.958, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=510.0): r=-0.033, p=0.958, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=530.0): r=-0.033, p=0.958, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=550.0): r=-0.033, p=0.958, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=560.0): r=-0.033, p=0.958, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=570.0): r=-0.033, p=0.958, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=580.0): r=-0.033, p=0.958, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=200.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=220.0): r=-0.044, p=0.944, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=230.0): r=-0.044, p=0.944, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=240.0): r=-0.044, p=0.944, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=250.0): r=-0.044, p=0.944, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=260.0): r=-0.044, p=0.944, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=270.0): r=nan, p=nan, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=280.0): r=nan, p=nan, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=290.0): r=-0.044, p=0.944, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=300.0): r=-0.044, p=0.944, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=310.0): r=-0.044, p=0.944, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=320.0): r=nan, p=nan, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=330.0): r=-0.044, p=0.944, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=340.0): r=-0.044, p=0.944, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=350.0): r=nan, p=nan, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=360.0): r=-0.044, p=0.944, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=370.0): r=-0.044, p=0.944, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=380.0): r=nan, p=nan, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=390.0): r=nan, p=nan, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=400.0): r=nan, p=nan, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=410.0): r=nan, p=nan, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=420.0): r=nan, p=nan, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=430.0): r=-0.044, p=0.944, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=440.0): r=-0.044, p=0.944, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=450.0): r=-0.044, p=0.944, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=460.0): r=-0.044, p=0.944, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=470.0): r=nan, p=nan, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=480.0): r=-0.044, p=0.944, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=490.0): r=nan, p=nan, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=500.0): r=-0.044, p=0.944, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=510.0): r=-0.044, p=0.944, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=530.0): r=-0.044, p=0.944, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=550.0): r=-0.044, p=0.944, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=560.0): r=-0.044, p=0.944, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=570.0): r=-0.044, p=0.944, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=580.0): r=-0.044, p=0.944, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=210.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=230.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=240.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=250.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=260.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=270.0): r=nan, p=nan, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=280.0): r=nan, p=nan, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=290.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=300.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=310.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=320.0): r=nan, p=nan, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=330.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=340.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=350.0): r=nan, p=nan, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=360.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=370.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=380.0): r=nan, p=nan, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=390.0): r=nan, p=nan, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=400.0): r=nan, p=nan, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=410.0): r=nan, p=nan, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=420.0): r=nan, p=nan, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=430.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=440.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=450.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=460.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=470.0): r=nan, p=nan, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=480.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=490.0): r=nan, p=nan, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=500.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=510.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=530.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=550.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=560.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=570.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=580.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=220.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=240.0): r=-0.024, p=0.970, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=250.0): r=-0.024, p=0.970, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=260.0): r=-0.024, p=0.970, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=270.0): r=nan, p=nan, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=280.0): r=nan, p=nan, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=290.0): r=-0.024, p=0.970, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=300.0): r=-0.024, p=0.970, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=310.0): r=-0.024, p=0.970, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=320.0): r=nan, p=nan, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=330.0): r=-0.024, p=0.970, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=340.0): r=-0.024, p=0.970, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=350.0): r=nan, p=nan, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=360.0): r=-0.024, p=0.970, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=370.0): r=-0.024, p=0.970, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=380.0): r=nan, p=nan, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=390.0): r=nan, p=nan, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=400.0): r=nan, p=nan, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=410.0): r=nan, p=nan, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=420.0): r=nan, p=nan, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=430.0): r=-0.024, p=0.970, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=440.0): r=-0.024, p=0.970, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=450.0): r=-0.024, p=0.970, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=460.0): r=-0.024, p=0.970, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=470.0): r=nan, p=nan, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=480.0): r=-0.024, p=0.970, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=490.0): r=nan, p=nan, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=500.0): r=-0.024, p=0.970, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=510.0): r=-0.024, p=0.970, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=530.0): r=-0.024, p=0.970, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=550.0): r=-0.024, p=0.970, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=560.0): r=-0.024, p=0.970, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=570.0): r=-0.024, p=0.970, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=580.0): r=-0.024, p=0.970, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=230.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=250.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=260.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=270.0): r=nan, p=nan, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=280.0): r=nan, p=nan, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=290.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=300.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=310.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=320.0): r=nan, p=nan, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=330.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=340.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=350.0): r=nan, p=nan, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=360.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=370.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=380.0): r=nan, p=nan, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=390.0): r=nan, p=nan, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=400.0): r=nan, p=nan, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=410.0): r=nan, p=nan, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=420.0): r=nan, p=nan, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=430.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=440.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=450.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=460.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=470.0): r=nan, p=nan, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=480.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=490.0): r=nan, p=nan, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=500.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=510.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=530.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=550.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=560.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=570.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=580.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=240.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=260.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=270.0): r=nan, p=nan, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=280.0): r=nan, p=nan, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=290.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=300.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=310.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=320.0): r=nan, p=nan, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=330.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=340.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=350.0): r=nan, p=nan, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=360.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=370.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=380.0): r=nan, p=nan, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=390.0): r=nan, p=nan, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=400.0): r=nan, p=nan, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=410.0): r=nan, p=nan, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=420.0): r=nan, p=nan, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=430.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=440.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=450.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=460.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=470.0): r=nan, p=nan, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=480.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=490.0): r=nan, p=nan, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=500.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=510.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=530.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=550.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=560.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=570.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=580.0): r=-0.025, p=0.968, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=250.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=270.0): r=nan, p=nan, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=280.0): r=nan, p=nan, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=290.0): r=-0.026, p=0.966, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=300.0): r=-0.026, p=0.966, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=310.0): r=-0.026, p=0.966, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=320.0): r=nan, p=nan, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=330.0): r=-0.026, p=0.966, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=340.0): r=-0.026, p=0.966, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=350.0): r=nan, p=nan, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=360.0): r=-0.026, p=0.966, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=370.0): r=-0.026, p=0.966, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=380.0): r=nan, p=nan, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=390.0): r=nan, p=nan, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=400.0): r=nan, p=nan, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=410.0): r=nan, p=nan, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=420.0): r=nan, p=nan, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=430.0): r=-0.026, p=0.966, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=440.0): r=-0.026, p=0.966, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=450.0): r=-0.026, p=0.966, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=460.0): r=-0.026, p=0.966, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=470.0): r=nan, p=nan, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=480.0): r=-0.026, p=0.966, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=490.0): r=nan, p=nan, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=500.0): r=-0.026, p=0.966, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=510.0): r=-0.026, p=0.966, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=530.0): r=-0.026, p=0.966, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=550.0): r=-0.026, p=0.966, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=560.0): r=-0.026, p=0.966, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=570.0): r=-0.026, p=0.966, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=580.0): r=-0.026, p=0.966, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=260.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=270.0) vs Reward_Std(t=280.0): r=nan, p=nan, n=5.0
+    Fisher(t=270.0) vs Reward_Std(t=290.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=270.0) vs Reward_Std(t=300.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=270.0) vs Reward_Std(t=310.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=270.0) vs Reward_Std(t=320.0): r=nan, p=nan, n=5.0
+    Fisher(t=270.0) vs Reward_Std(t=330.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=270.0) vs Reward_Std(t=340.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=270.0) vs Reward_Std(t=350.0): r=nan, p=nan, n=5.0
+    Fisher(t=270.0) vs Reward_Std(t=360.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=270.0) vs Reward_Std(t=370.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=270.0) vs Reward_Std(t=380.0): r=nan, p=nan, n=5.0
+    Fisher(t=270.0) vs Reward_Std(t=390.0): r=nan, p=nan, n=5.0
+    Fisher(t=270.0) vs Reward_Std(t=400.0): r=nan, p=nan, n=5.0
+    Fisher(t=270.0) vs Reward_Std(t=410.0): r=nan, p=nan, n=5.0
+    Fisher(t=270.0) vs Reward_Std(t=420.0): r=nan, p=nan, n=5.0
+    Fisher(t=270.0) vs Reward_Std(t=430.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=270.0) vs Reward_Std(t=440.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=270.0) vs Reward_Std(t=450.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=270.0) vs Reward_Std(t=460.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=270.0) vs Reward_Std(t=470.0): r=nan, p=nan, n=5.0
+    Fisher(t=270.0) vs Reward_Std(t=480.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=270.0) vs Reward_Std(t=490.0): r=nan, p=nan, n=5.0
+    Fisher(t=270.0) vs Reward_Std(t=500.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=270.0) vs Reward_Std(t=510.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=270.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=270.0) vs Reward_Std(t=530.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=270.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=270.0) vs Reward_Std(t=550.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=270.0) vs Reward_Std(t=560.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=270.0) vs Reward_Std(t=570.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=270.0) vs Reward_Std(t=580.0): r=-0.031, p=0.961, n=5.0
+    Fisher(t=270.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=270.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=280.0) vs Reward_Std(t=290.0): r=-0.022, p=0.973, n=5.0
+    Fisher(t=280.0) vs Reward_Std(t=300.0): r=-0.022, p=0.973, n=5.0
+    Fisher(t=280.0) vs Reward_Std(t=310.0): r=-0.022, p=0.973, n=5.0
+    Fisher(t=280.0) vs Reward_Std(t=320.0): r=nan, p=nan, n=5.0
+    Fisher(t=280.0) vs Reward_Std(t=330.0): r=-0.022, p=0.973, n=5.0
+    Fisher(t=280.0) vs Reward_Std(t=340.0): r=-0.022, p=0.973, n=5.0
+    Fisher(t=280.0) vs Reward_Std(t=350.0): r=nan, p=nan, n=5.0
+    Fisher(t=280.0) vs Reward_Std(t=360.0): r=-0.022, p=0.973, n=5.0
+    Fisher(t=280.0) vs Reward_Std(t=370.0): r=-0.022, p=0.973, n=5.0
+    Fisher(t=280.0) vs Reward_Std(t=380.0): r=nan, p=nan, n=5.0
+    Fisher(t=280.0) vs Reward_Std(t=390.0): r=nan, p=nan, n=5.0
+    Fisher(t=280.0) vs Reward_Std(t=400.0): r=nan, p=nan, n=5.0
+    Fisher(t=280.0) vs Reward_Std(t=410.0): r=nan, p=nan, n=5.0
+    Fisher(t=280.0) vs Reward_Std(t=420.0): r=nan, p=nan, n=5.0
+    Fisher(t=280.0) vs Reward_Std(t=430.0): r=-0.022, p=0.973, n=5.0
+    Fisher(t=280.0) vs Reward_Std(t=440.0): r=-0.022, p=0.973, n=5.0
+    Fisher(t=280.0) vs Reward_Std(t=450.0): r=-0.022, p=0.973, n=5.0
+    Fisher(t=280.0) vs Reward_Std(t=460.0): r=-0.022, p=0.973, n=5.0
+    Fisher(t=280.0) vs Reward_Std(t=470.0): r=nan, p=nan, n=5.0
+    Fisher(t=280.0) vs Reward_Std(t=480.0): r=-0.022, p=0.973, n=5.0
+    Fisher(t=280.0) vs Reward_Std(t=490.0): r=nan, p=nan, n=5.0
+    Fisher(t=280.0) vs Reward_Std(t=500.0): r=-0.022, p=0.973, n=5.0
+    Fisher(t=280.0) vs Reward_Std(t=510.0): r=-0.022, p=0.973, n=5.0
+    Fisher(t=280.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=280.0) vs Reward_Std(t=530.0): r=-0.022, p=0.973, n=5.0
+    Fisher(t=280.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=280.0) vs Reward_Std(t=550.0): r=-0.022, p=0.973, n=5.0
+    Fisher(t=280.0) vs Reward_Std(t=560.0): r=-0.022, p=0.973, n=5.0
+    Fisher(t=280.0) vs Reward_Std(t=570.0): r=-0.022, p=0.973, n=5.0
+    Fisher(t=280.0) vs Reward_Std(t=580.0): r=-0.022, p=0.973, n=5.0
+    Fisher(t=280.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=280.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=290.0) vs Reward_Std(t=300.0): r=-0.028, p=0.964, n=5.0
+    Fisher(t=290.0) vs Reward_Std(t=310.0): r=-0.028, p=0.964, n=5.0
+    Fisher(t=290.0) vs Reward_Std(t=320.0): r=nan, p=nan, n=5.0
+    Fisher(t=290.0) vs Reward_Std(t=330.0): r=-0.028, p=0.964, n=5.0
+    Fisher(t=290.0) vs Reward_Std(t=340.0): r=-0.028, p=0.964, n=5.0
+    Fisher(t=290.0) vs Reward_Std(t=350.0): r=nan, p=nan, n=5.0
+    Fisher(t=290.0) vs Reward_Std(t=360.0): r=-0.028, p=0.964, n=5.0
+    Fisher(t=290.0) vs Reward_Std(t=370.0): r=-0.028, p=0.964, n=5.0
+    Fisher(t=290.0) vs Reward_Std(t=380.0): r=nan, p=nan, n=5.0
+    Fisher(t=290.0) vs Reward_Std(t=390.0): r=nan, p=nan, n=5.0
+    Fisher(t=290.0) vs Reward_Std(t=400.0): r=nan, p=nan, n=5.0
+    Fisher(t=290.0) vs Reward_Std(t=410.0): r=nan, p=nan, n=5.0
+    Fisher(t=290.0) vs Reward_Std(t=420.0): r=nan, p=nan, n=5.0
+    Fisher(t=290.0) vs Reward_Std(t=430.0): r=-0.028, p=0.964, n=5.0
+    Fisher(t=290.0) vs Reward_Std(t=440.0): r=-0.028, p=0.964, n=5.0
+    Fisher(t=290.0) vs Reward_Std(t=450.0): r=-0.028, p=0.964, n=5.0
+    Fisher(t=290.0) vs Reward_Std(t=460.0): r=-0.028, p=0.964, n=5.0
+    Fisher(t=290.0) vs Reward_Std(t=470.0): r=nan, p=nan, n=5.0
+    Fisher(t=290.0) vs Reward_Std(t=480.0): r=-0.028, p=0.964, n=5.0
+    Fisher(t=290.0) vs Reward_Std(t=490.0): r=nan, p=nan, n=5.0
+    Fisher(t=290.0) vs Reward_Std(t=500.0): r=-0.028, p=0.964, n=5.0
+    Fisher(t=290.0) vs Reward_Std(t=510.0): r=-0.028, p=0.964, n=5.0
+    Fisher(t=290.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=290.0) vs Reward_Std(t=530.0): r=-0.028, p=0.964, n=5.0
+    Fisher(t=290.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=290.0) vs Reward_Std(t=550.0): r=-0.028, p=0.964, n=5.0
+    Fisher(t=290.0) vs Reward_Std(t=560.0): r=-0.028, p=0.964, n=5.0
+    Fisher(t=290.0) vs Reward_Std(t=570.0): r=-0.028, p=0.964, n=5.0
+    Fisher(t=290.0) vs Reward_Std(t=580.0): r=-0.028, p=0.964, n=5.0
+    Fisher(t=290.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=290.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=300.0) vs Reward_Std(t=310.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=300.0) vs Reward_Std(t=320.0): r=nan, p=nan, n=5.0
+    Fisher(t=300.0) vs Reward_Std(t=330.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=300.0) vs Reward_Std(t=340.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=300.0) vs Reward_Std(t=350.0): r=nan, p=nan, n=5.0
+    Fisher(t=300.0) vs Reward_Std(t=360.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=300.0) vs Reward_Std(t=370.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=300.0) vs Reward_Std(t=380.0): r=nan, p=nan, n=5.0
+    Fisher(t=300.0) vs Reward_Std(t=390.0): r=nan, p=nan, n=5.0
+    Fisher(t=300.0) vs Reward_Std(t=400.0): r=nan, p=nan, n=5.0
+    Fisher(t=300.0) vs Reward_Std(t=410.0): r=nan, p=nan, n=5.0
+    Fisher(t=300.0) vs Reward_Std(t=420.0): r=nan, p=nan, n=5.0
+    Fisher(t=300.0) vs Reward_Std(t=430.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=300.0) vs Reward_Std(t=440.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=300.0) vs Reward_Std(t=450.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=300.0) vs Reward_Std(t=460.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=300.0) vs Reward_Std(t=470.0): r=nan, p=nan, n=5.0
+    Fisher(t=300.0) vs Reward_Std(t=480.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=300.0) vs Reward_Std(t=490.0): r=nan, p=nan, n=5.0
+    Fisher(t=300.0) vs Reward_Std(t=500.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=300.0) vs Reward_Std(t=510.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=300.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=300.0) vs Reward_Std(t=530.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=300.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=300.0) vs Reward_Std(t=550.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=300.0) vs Reward_Std(t=560.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=300.0) vs Reward_Std(t=570.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=300.0) vs Reward_Std(t=580.0): r=-0.048, p=0.939, n=5.0
+    Fisher(t=300.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=300.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=310.0) vs Reward_Std(t=320.0): r=nan, p=nan, n=5.0
+    Fisher(t=310.0) vs Reward_Std(t=330.0): r=-0.018, p=0.977, n=5.0
+    Fisher(t=310.0) vs Reward_Std(t=340.0): r=-0.018, p=0.977, n=5.0
+    Fisher(t=310.0) vs Reward_Std(t=350.0): r=nan, p=nan, n=5.0
+    Fisher(t=310.0) vs Reward_Std(t=360.0): r=-0.018, p=0.977, n=5.0
+    Fisher(t=310.0) vs Reward_Std(t=370.0): r=-0.018, p=0.977, n=5.0
+    Fisher(t=310.0) vs Reward_Std(t=380.0): r=nan, p=nan, n=5.0
+    Fisher(t=310.0) vs Reward_Std(t=390.0): r=nan, p=nan, n=5.0
+    Fisher(t=310.0) vs Reward_Std(t=400.0): r=nan, p=nan, n=5.0
+    Fisher(t=310.0) vs Reward_Std(t=410.0): r=nan, p=nan, n=5.0
+    Fisher(t=310.0) vs Reward_Std(t=420.0): r=nan, p=nan, n=5.0
+    Fisher(t=310.0) vs Reward_Std(t=430.0): r=-0.018, p=0.977, n=5.0
+    Fisher(t=310.0) vs Reward_Std(t=440.0): r=-0.018, p=0.977, n=5.0
+    Fisher(t=310.0) vs Reward_Std(t=450.0): r=-0.018, p=0.977, n=5.0
+    Fisher(t=310.0) vs Reward_Std(t=460.0): r=-0.018, p=0.977, n=5.0
+    Fisher(t=310.0) vs Reward_Std(t=470.0): r=nan, p=nan, n=5.0
+    Fisher(t=310.0) vs Reward_Std(t=480.0): r=-0.018, p=0.977, n=5.0
+    Fisher(t=310.0) vs Reward_Std(t=490.0): r=nan, p=nan, n=5.0
+    Fisher(t=310.0) vs Reward_Std(t=500.0): r=-0.018, p=0.977, n=5.0
+    Fisher(t=310.0) vs Reward_Std(t=510.0): r=-0.018, p=0.977, n=5.0
+    Fisher(t=310.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=310.0) vs Reward_Std(t=530.0): r=-0.018, p=0.977, n=5.0
+    Fisher(t=310.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=310.0) vs Reward_Std(t=550.0): r=-0.018, p=0.977, n=5.0
+    Fisher(t=310.0) vs Reward_Std(t=560.0): r=-0.018, p=0.977, n=5.0
+    Fisher(t=310.0) vs Reward_Std(t=570.0): r=-0.018, p=0.977, n=5.0
+    Fisher(t=310.0) vs Reward_Std(t=580.0): r=-0.018, p=0.977, n=5.0
+    Fisher(t=310.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=310.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=320.0) vs Reward_Std(t=330.0): r=-0.035, p=0.955, n=5.0
+    Fisher(t=320.0) vs Reward_Std(t=340.0): r=-0.035, p=0.955, n=5.0
+    Fisher(t=320.0) vs Reward_Std(t=350.0): r=nan, p=nan, n=5.0
+    Fisher(t=320.0) vs Reward_Std(t=360.0): r=-0.035, p=0.955, n=5.0
+    Fisher(t=320.0) vs Reward_Std(t=370.0): r=-0.035, p=0.955, n=5.0
+    Fisher(t=320.0) vs Reward_Std(t=380.0): r=nan, p=nan, n=5.0
+    Fisher(t=320.0) vs Reward_Std(t=390.0): r=nan, p=nan, n=5.0
+    Fisher(t=320.0) vs Reward_Std(t=400.0): r=nan, p=nan, n=5.0
+    Fisher(t=320.0) vs Reward_Std(t=410.0): r=nan, p=nan, n=5.0
+    Fisher(t=320.0) vs Reward_Std(t=420.0): r=nan, p=nan, n=5.0
+    Fisher(t=320.0) vs Reward_Std(t=430.0): r=-0.035, p=0.955, n=5.0
+    Fisher(t=320.0) vs Reward_Std(t=440.0): r=-0.035, p=0.955, n=5.0
+    Fisher(t=320.0) vs Reward_Std(t=450.0): r=-0.035, p=0.955, n=5.0
+    Fisher(t=320.0) vs Reward_Std(t=460.0): r=-0.035, p=0.955, n=5.0
+    Fisher(t=320.0) vs Reward_Std(t=470.0): r=nan, p=nan, n=5.0
+    Fisher(t=320.0) vs Reward_Std(t=480.0): r=-0.035, p=0.955, n=5.0
+    Fisher(t=320.0) vs Reward_Std(t=490.0): r=nan, p=nan, n=5.0
+    Fisher(t=320.0) vs Reward_Std(t=500.0): r=-0.035, p=0.955, n=5.0
+    Fisher(t=320.0) vs Reward_Std(t=510.0): r=-0.035, p=0.955, n=5.0
+    Fisher(t=320.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=320.0) vs Reward_Std(t=530.0): r=-0.035, p=0.955, n=5.0
+    Fisher(t=320.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=320.0) vs Reward_Std(t=550.0): r=-0.035, p=0.955, n=5.0
+    Fisher(t=320.0) vs Reward_Std(t=560.0): r=-0.035, p=0.955, n=5.0
+    Fisher(t=320.0) vs Reward_Std(t=570.0): r=-0.035, p=0.955, n=5.0
+    Fisher(t=320.0) vs Reward_Std(t=580.0): r=-0.035, p=0.955, n=5.0
+    Fisher(t=320.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=320.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=330.0) vs Reward_Std(t=340.0): r=-0.043, p=0.946, n=5.0
+    Fisher(t=330.0) vs Reward_Std(t=350.0): r=nan, p=nan, n=5.0
+    Fisher(t=330.0) vs Reward_Std(t=360.0): r=-0.043, p=0.946, n=5.0
+    Fisher(t=330.0) vs Reward_Std(t=370.0): r=-0.043, p=0.946, n=5.0
+    Fisher(t=330.0) vs Reward_Std(t=380.0): r=nan, p=nan, n=5.0
+    Fisher(t=330.0) vs Reward_Std(t=390.0): r=nan, p=nan, n=5.0
+    Fisher(t=330.0) vs Reward_Std(t=400.0): r=nan, p=nan, n=5.0
+    Fisher(t=330.0) vs Reward_Std(t=410.0): r=nan, p=nan, n=5.0
+    Fisher(t=330.0) vs Reward_Std(t=420.0): r=nan, p=nan, n=5.0
+    Fisher(t=330.0) vs Reward_Std(t=430.0): r=-0.043, p=0.946, n=5.0
+    Fisher(t=330.0) vs Reward_Std(t=440.0): r=-0.043, p=0.946, n=5.0
+    Fisher(t=330.0) vs Reward_Std(t=450.0): r=-0.043, p=0.946, n=5.0
+    Fisher(t=330.0) vs Reward_Std(t=460.0): r=-0.043, p=0.946, n=5.0
+    Fisher(t=330.0) vs Reward_Std(t=470.0): r=nan, p=nan, n=5.0
+    Fisher(t=330.0) vs Reward_Std(t=480.0): r=-0.043, p=0.946, n=5.0
+    Fisher(t=330.0) vs Reward_Std(t=490.0): r=nan, p=nan, n=5.0
+    Fisher(t=330.0) vs Reward_Std(t=500.0): r=-0.043, p=0.946, n=5.0
+    Fisher(t=330.0) vs Reward_Std(t=510.0): r=-0.043, p=0.946, n=5.0
+    Fisher(t=330.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=330.0) vs Reward_Std(t=530.0): r=-0.043, p=0.946, n=5.0
+    Fisher(t=330.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=330.0) vs Reward_Std(t=550.0): r=-0.043, p=0.946, n=5.0
+    Fisher(t=330.0) vs Reward_Std(t=560.0): r=-0.043, p=0.946, n=5.0
+    Fisher(t=330.0) vs Reward_Std(t=570.0): r=-0.043, p=0.946, n=5.0
+    Fisher(t=330.0) vs Reward_Std(t=580.0): r=-0.043, p=0.946, n=5.0
+    Fisher(t=330.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=330.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=340.0) vs Reward_Std(t=350.0): r=nan, p=nan, n=5.0
+    Fisher(t=340.0) vs Reward_Std(t=360.0): r=-0.047, p=0.940, n=5.0
+    Fisher(t=340.0) vs Reward_Std(t=370.0): r=-0.047, p=0.940, n=5.0
+    Fisher(t=340.0) vs Reward_Std(t=380.0): r=nan, p=nan, n=5.0
+    Fisher(t=340.0) vs Reward_Std(t=390.0): r=nan, p=nan, n=5.0
+    Fisher(t=340.0) vs Reward_Std(t=400.0): r=nan, p=nan, n=5.0
+    Fisher(t=340.0) vs Reward_Std(t=410.0): r=nan, p=nan, n=5.0
+    Fisher(t=340.0) vs Reward_Std(t=420.0): r=nan, p=nan, n=5.0
+    Fisher(t=340.0) vs Reward_Std(t=430.0): r=-0.047, p=0.940, n=5.0
+    Fisher(t=340.0) vs Reward_Std(t=440.0): r=-0.047, p=0.940, n=5.0
+    Fisher(t=340.0) vs Reward_Std(t=450.0): r=-0.047, p=0.940, n=5.0
+    Fisher(t=340.0) vs Reward_Std(t=460.0): r=-0.047, p=0.940, n=5.0
+    Fisher(t=340.0) vs Reward_Std(t=470.0): r=nan, p=nan, n=5.0
+    Fisher(t=340.0) vs Reward_Std(t=480.0): r=-0.047, p=0.940, n=5.0
+    Fisher(t=340.0) vs Reward_Std(t=490.0): r=nan, p=nan, n=5.0
+    Fisher(t=340.0) vs Reward_Std(t=500.0): r=-0.047, p=0.940, n=5.0
+    Fisher(t=340.0) vs Reward_Std(t=510.0): r=-0.047, p=0.940, n=5.0
+    Fisher(t=340.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=340.0) vs Reward_Std(t=530.0): r=-0.047, p=0.940, n=5.0
+    Fisher(t=340.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=340.0) vs Reward_Std(t=550.0): r=-0.047, p=0.940, n=5.0
+    Fisher(t=340.0) vs Reward_Std(t=560.0): r=-0.047, p=0.940, n=5.0
+    Fisher(t=340.0) vs Reward_Std(t=570.0): r=-0.047, p=0.940, n=5.0
+    Fisher(t=340.0) vs Reward_Std(t=580.0): r=-0.047, p=0.940, n=5.0
+    Fisher(t=340.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=340.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=350.0) vs Reward_Std(t=360.0): r=-0.006, p=0.992, n=5.0
+    Fisher(t=350.0) vs Reward_Std(t=370.0): r=-0.006, p=0.992, n=5.0
+    Fisher(t=350.0) vs Reward_Std(t=380.0): r=nan, p=nan, n=5.0
+    Fisher(t=350.0) vs Reward_Std(t=390.0): r=nan, p=nan, n=5.0
+    Fisher(t=350.0) vs Reward_Std(t=400.0): r=nan, p=nan, n=5.0
+    Fisher(t=350.0) vs Reward_Std(t=410.0): r=nan, p=nan, n=5.0
+    Fisher(t=350.0) vs Reward_Std(t=420.0): r=nan, p=nan, n=5.0
+    Fisher(t=350.0) vs Reward_Std(t=430.0): r=-0.006, p=0.992, n=5.0
+    Fisher(t=350.0) vs Reward_Std(t=440.0): r=-0.006, p=0.992, n=5.0
+    Fisher(t=350.0) vs Reward_Std(t=450.0): r=-0.006, p=0.992, n=5.0
+    Fisher(t=350.0) vs Reward_Std(t=460.0): r=-0.006, p=0.992, n=5.0
+    Fisher(t=350.0) vs Reward_Std(t=470.0): r=nan, p=nan, n=5.0
+    Fisher(t=350.0) vs Reward_Std(t=480.0): r=-0.006, p=0.992, n=5.0
+    Fisher(t=350.0) vs Reward_Std(t=490.0): r=nan, p=nan, n=5.0
+    Fisher(t=350.0) vs Reward_Std(t=500.0): r=-0.006, p=0.992, n=5.0
+    Fisher(t=350.0) vs Reward_Std(t=510.0): r=-0.006, p=0.992, n=5.0
+    Fisher(t=350.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=350.0) vs Reward_Std(t=530.0): r=-0.006, p=0.992, n=5.0
+    Fisher(t=350.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=350.0) vs Reward_Std(t=550.0): r=-0.006, p=0.992, n=5.0
+    Fisher(t=350.0) vs Reward_Std(t=560.0): r=-0.006, p=0.992, n=5.0
+    Fisher(t=350.0) vs Reward_Std(t=570.0): r=-0.006, p=0.992, n=5.0
+    Fisher(t=350.0) vs Reward_Std(t=580.0): r=-0.006, p=0.992, n=5.0
+    Fisher(t=350.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=350.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=360.0) vs Reward_Std(t=370.0): r=-0.023, p=0.971, n=5.0
+    Fisher(t=360.0) vs Reward_Std(t=380.0): r=nan, p=nan, n=5.0
+    Fisher(t=360.0) vs Reward_Std(t=390.0): r=nan, p=nan, n=5.0
+    Fisher(t=360.0) vs Reward_Std(t=400.0): r=nan, p=nan, n=5.0
+    Fisher(t=360.0) vs Reward_Std(t=410.0): r=nan, p=nan, n=5.0
+    Fisher(t=360.0) vs Reward_Std(t=420.0): r=nan, p=nan, n=5.0
+    Fisher(t=360.0) vs Reward_Std(t=430.0): r=-0.023, p=0.971, n=5.0
+    Fisher(t=360.0) vs Reward_Std(t=440.0): r=-0.023, p=0.971, n=5.0
+    Fisher(t=360.0) vs Reward_Std(t=450.0): r=-0.023, p=0.971, n=5.0
+    Fisher(t=360.0) vs Reward_Std(t=460.0): r=-0.023, p=0.971, n=5.0
+    Fisher(t=360.0) vs Reward_Std(t=470.0): r=nan, p=nan, n=5.0
+    Fisher(t=360.0) vs Reward_Std(t=480.0): r=-0.023, p=0.971, n=5.0
+    Fisher(t=360.0) vs Reward_Std(t=490.0): r=nan, p=nan, n=5.0
+    Fisher(t=360.0) vs Reward_Std(t=500.0): r=-0.023, p=0.971, n=5.0
+    Fisher(t=360.0) vs Reward_Std(t=510.0): r=-0.023, p=0.971, n=5.0
+    Fisher(t=360.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=360.0) vs Reward_Std(t=530.0): r=-0.023, p=0.971, n=5.0
+    Fisher(t=360.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=360.0) vs Reward_Std(t=550.0): r=-0.023, p=0.971, n=5.0
+    Fisher(t=360.0) vs Reward_Std(t=560.0): r=-0.023, p=0.971, n=5.0
+    Fisher(t=360.0) vs Reward_Std(t=570.0): r=-0.023, p=0.971, n=5.0
+    Fisher(t=360.0) vs Reward_Std(t=580.0): r=-0.023, p=0.971, n=5.0
+    Fisher(t=360.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=360.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=370.0) vs Reward_Std(t=380.0): r=nan, p=nan, n=5.0
+    Fisher(t=370.0) vs Reward_Std(t=390.0): r=nan, p=nan, n=5.0
+    Fisher(t=370.0) vs Reward_Std(t=400.0): r=nan, p=nan, n=5.0
+    Fisher(t=370.0) vs Reward_Std(t=410.0): r=nan, p=nan, n=5.0
+    Fisher(t=370.0) vs Reward_Std(t=420.0): r=nan, p=nan, n=5.0
+    Fisher(t=370.0) vs Reward_Std(t=430.0): r=-0.011, p=0.986, n=5.0
+    Fisher(t=370.0) vs Reward_Std(t=440.0): r=-0.011, p=0.986, n=5.0
+    Fisher(t=370.0) vs Reward_Std(t=450.0): r=-0.011, p=0.986, n=5.0
+    Fisher(t=370.0) vs Reward_Std(t=460.0): r=-0.011, p=0.986, n=5.0
+    Fisher(t=370.0) vs Reward_Std(t=470.0): r=nan, p=nan, n=5.0
+    Fisher(t=370.0) vs Reward_Std(t=480.0): r=-0.011, p=0.986, n=5.0
+    Fisher(t=370.0) vs Reward_Std(t=490.0): r=nan, p=nan, n=5.0
+    Fisher(t=370.0) vs Reward_Std(t=500.0): r=-0.011, p=0.986, n=5.0
+    Fisher(t=370.0) vs Reward_Std(t=510.0): r=-0.011, p=0.986, n=5.0
+    Fisher(t=370.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=370.0) vs Reward_Std(t=530.0): r=-0.011, p=0.986, n=5.0
+    Fisher(t=370.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=370.0) vs Reward_Std(t=550.0): r=-0.011, p=0.986, n=5.0
+    Fisher(t=370.0) vs Reward_Std(t=560.0): r=-0.011, p=0.986, n=5.0
+    Fisher(t=370.0) vs Reward_Std(t=570.0): r=-0.011, p=0.986, n=5.0
+    Fisher(t=370.0) vs Reward_Std(t=580.0): r=-0.011, p=0.986, n=5.0
+    Fisher(t=370.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=370.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=380.0) vs Reward_Std(t=390.0): r=nan, p=nan, n=5.0
+    Fisher(t=380.0) vs Reward_Std(t=400.0): r=nan, p=nan, n=5.0
+    Fisher(t=380.0) vs Reward_Std(t=410.0): r=nan, p=nan, n=5.0
+    Fisher(t=380.0) vs Reward_Std(t=420.0): r=nan, p=nan, n=5.0
+    Fisher(t=380.0) vs Reward_Std(t=430.0): r=-0.013, p=0.983, n=5.0
+    Fisher(t=380.0) vs Reward_Std(t=440.0): r=-0.013, p=0.983, n=5.0
+    Fisher(t=380.0) vs Reward_Std(t=450.0): r=-0.013, p=0.983, n=5.0
+    Fisher(t=380.0) vs Reward_Std(t=460.0): r=-0.013, p=0.983, n=5.0
+    Fisher(t=380.0) vs Reward_Std(t=470.0): r=nan, p=nan, n=5.0
+    Fisher(t=380.0) vs Reward_Std(t=480.0): r=-0.013, p=0.983, n=5.0
+    Fisher(t=380.0) vs Reward_Std(t=490.0): r=nan, p=nan, n=5.0
+    Fisher(t=380.0) vs Reward_Std(t=500.0): r=-0.013, p=0.983, n=5.0
+    Fisher(t=380.0) vs Reward_Std(t=510.0): r=-0.013, p=0.983, n=5.0
+    Fisher(t=380.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=380.0) vs Reward_Std(t=530.0): r=-0.013, p=0.983, n=5.0
+    Fisher(t=380.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=380.0) vs Reward_Std(t=550.0): r=-0.013, p=0.983, n=5.0
+    Fisher(t=380.0) vs Reward_Std(t=560.0): r=-0.013, p=0.983, n=5.0
+    Fisher(t=380.0) vs Reward_Std(t=570.0): r=-0.013, p=0.983, n=5.0
+    Fisher(t=380.0) vs Reward_Std(t=580.0): r=-0.013, p=0.983, n=5.0
+    Fisher(t=380.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=380.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=390.0) vs Reward_Std(t=400.0): r=nan, p=nan, n=5.0
+    Fisher(t=390.0) vs Reward_Std(t=410.0): r=nan, p=nan, n=5.0
+    Fisher(t=390.0) vs Reward_Std(t=420.0): r=nan, p=nan, n=5.0
+    Fisher(t=390.0) vs Reward_Std(t=430.0): r=-0.022, p=0.972, n=5.0
+    Fisher(t=390.0) vs Reward_Std(t=440.0): r=-0.022, p=0.972, n=5.0
+    Fisher(t=390.0) vs Reward_Std(t=450.0): r=-0.022, p=0.972, n=5.0
+    Fisher(t=390.0) vs Reward_Std(t=460.0): r=-0.022, p=0.972, n=5.0
+    Fisher(t=390.0) vs Reward_Std(t=470.0): r=nan, p=nan, n=5.0
+    Fisher(t=390.0) vs Reward_Std(t=480.0): r=-0.022, p=0.972, n=5.0
+    Fisher(t=390.0) vs Reward_Std(t=490.0): r=nan, p=nan, n=5.0
+    Fisher(t=390.0) vs Reward_Std(t=500.0): r=-0.022, p=0.972, n=5.0
+    Fisher(t=390.0) vs Reward_Std(t=510.0): r=-0.022, p=0.972, n=5.0
+    Fisher(t=390.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=390.0) vs Reward_Std(t=530.0): r=-0.022, p=0.972, n=5.0
+    Fisher(t=390.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=390.0) vs Reward_Std(t=550.0): r=-0.022, p=0.972, n=5.0
+    Fisher(t=390.0) vs Reward_Std(t=560.0): r=-0.022, p=0.972, n=5.0
+    Fisher(t=390.0) vs Reward_Std(t=570.0): r=-0.022, p=0.972, n=5.0
+    Fisher(t=390.0) vs Reward_Std(t=580.0): r=-0.022, p=0.972, n=5.0
+    Fisher(t=390.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=390.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=400.0) vs Reward_Std(t=410.0): r=nan, p=nan, n=5.0
+    Fisher(t=400.0) vs Reward_Std(t=420.0): r=nan, p=nan, n=5.0
+    Fisher(t=400.0) vs Reward_Std(t=430.0): r=-0.030, p=0.962, n=5.0
+    Fisher(t=400.0) vs Reward_Std(t=440.0): r=-0.030, p=0.962, n=5.0
+    Fisher(t=400.0) vs Reward_Std(t=450.0): r=-0.030, p=0.962, n=5.0
+    Fisher(t=400.0) vs Reward_Std(t=460.0): r=-0.030, p=0.962, n=5.0
+    Fisher(t=400.0) vs Reward_Std(t=470.0): r=nan, p=nan, n=5.0
+    Fisher(t=400.0) vs Reward_Std(t=480.0): r=-0.030, p=0.962, n=5.0
+    Fisher(t=400.0) vs Reward_Std(t=490.0): r=nan, p=nan, n=5.0
+    Fisher(t=400.0) vs Reward_Std(t=500.0): r=-0.030, p=0.962, n=5.0
+    Fisher(t=400.0) vs Reward_Std(t=510.0): r=-0.030, p=0.962, n=5.0
+    Fisher(t=400.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=400.0) vs Reward_Std(t=530.0): r=-0.030, p=0.962, n=5.0
+    Fisher(t=400.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=400.0) vs Reward_Std(t=550.0): r=-0.030, p=0.962, n=5.0
+    Fisher(t=400.0) vs Reward_Std(t=560.0): r=-0.030, p=0.962, n=5.0
+    Fisher(t=400.0) vs Reward_Std(t=570.0): r=-0.030, p=0.962, n=5.0
+    Fisher(t=400.0) vs Reward_Std(t=580.0): r=-0.030, p=0.962, n=5.0
+    Fisher(t=400.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=400.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=410.0) vs Reward_Std(t=420.0): r=nan, p=nan, n=5.0
+    Fisher(t=410.0) vs Reward_Std(t=430.0): r=-0.007, p=0.991, n=5.0
+    Fisher(t=410.0) vs Reward_Std(t=440.0): r=-0.007, p=0.991, n=5.0
+    Fisher(t=410.0) vs Reward_Std(t=450.0): r=-0.007, p=0.991, n=5.0
+    Fisher(t=410.0) vs Reward_Std(t=460.0): r=-0.007, p=0.991, n=5.0
+    Fisher(t=410.0) vs Reward_Std(t=470.0): r=nan, p=nan, n=5.0
+    Fisher(t=410.0) vs Reward_Std(t=480.0): r=-0.007, p=0.991, n=5.0
+    Fisher(t=410.0) vs Reward_Std(t=490.0): r=nan, p=nan, n=5.0
+    Fisher(t=410.0) vs Reward_Std(t=500.0): r=-0.007, p=0.991, n=5.0
+    Fisher(t=410.0) vs Reward_Std(t=510.0): r=-0.007, p=0.991, n=5.0
+    Fisher(t=410.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=410.0) vs Reward_Std(t=530.0): r=-0.007, p=0.991, n=5.0
+    Fisher(t=410.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=410.0) vs Reward_Std(t=550.0): r=-0.007, p=0.991, n=5.0
+    Fisher(t=410.0) vs Reward_Std(t=560.0): r=-0.007, p=0.991, n=5.0
+    Fisher(t=410.0) vs Reward_Std(t=570.0): r=-0.007, p=0.991, n=5.0
+    Fisher(t=410.0) vs Reward_Std(t=580.0): r=-0.007, p=0.991, n=5.0
+    Fisher(t=410.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=410.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=420.0) vs Reward_Std(t=430.0): r=-0.022, p=0.972, n=5.0
+    Fisher(t=420.0) vs Reward_Std(t=440.0): r=-0.022, p=0.972, n=5.0
+    Fisher(t=420.0) vs Reward_Std(t=450.0): r=-0.022, p=0.972, n=5.0
+    Fisher(t=420.0) vs Reward_Std(t=460.0): r=-0.022, p=0.972, n=5.0
+    Fisher(t=420.0) vs Reward_Std(t=470.0): r=nan, p=nan, n=5.0
+    Fisher(t=420.0) vs Reward_Std(t=480.0): r=-0.022, p=0.972, n=5.0
+    Fisher(t=420.0) vs Reward_Std(t=490.0): r=nan, p=nan, n=5.0
+    Fisher(t=420.0) vs Reward_Std(t=500.0): r=-0.022, p=0.972, n=5.0
+    Fisher(t=420.0) vs Reward_Std(t=510.0): r=-0.022, p=0.972, n=5.0
+    Fisher(t=420.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=420.0) vs Reward_Std(t=530.0): r=-0.022, p=0.972, n=5.0
+    Fisher(t=420.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=420.0) vs Reward_Std(t=550.0): r=-0.022, p=0.972, n=5.0
+    Fisher(t=420.0) vs Reward_Std(t=560.0): r=-0.022, p=0.972, n=5.0
+    Fisher(t=420.0) vs Reward_Std(t=570.0): r=-0.022, p=0.972, n=5.0
+    Fisher(t=420.0) vs Reward_Std(t=580.0): r=-0.022, p=0.972, n=5.0
+    Fisher(t=420.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=420.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=430.0) vs Reward_Std(t=440.0): r=-0.020, p=0.974, n=5.0
+    Fisher(t=430.0) vs Reward_Std(t=450.0): r=-0.020, p=0.974, n=5.0
+    Fisher(t=430.0) vs Reward_Std(t=460.0): r=-0.020, p=0.974, n=5.0
+    Fisher(t=430.0) vs Reward_Std(t=470.0): r=nan, p=nan, n=5.0
+    Fisher(t=430.0) vs Reward_Std(t=480.0): r=-0.020, p=0.974, n=5.0
+    Fisher(t=430.0) vs Reward_Std(t=490.0): r=nan, p=nan, n=5.0
+    Fisher(t=430.0) vs Reward_Std(t=500.0): r=-0.020, p=0.974, n=5.0
+    Fisher(t=430.0) vs Reward_Std(t=510.0): r=-0.020, p=0.974, n=5.0
+    Fisher(t=430.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=430.0) vs Reward_Std(t=530.0): r=-0.020, p=0.974, n=5.0
+    Fisher(t=430.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=430.0) vs Reward_Std(t=550.0): r=-0.020, p=0.974, n=5.0
+    Fisher(t=430.0) vs Reward_Std(t=560.0): r=-0.020, p=0.974, n=5.0
+    Fisher(t=430.0) vs Reward_Std(t=570.0): r=-0.020, p=0.974, n=5.0
+    Fisher(t=430.0) vs Reward_Std(t=580.0): r=-0.020, p=0.974, n=5.0
+    Fisher(t=430.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=430.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=440.0) vs Reward_Std(t=450.0): r=-0.012, p=0.985, n=5.0
+    Fisher(t=440.0) vs Reward_Std(t=460.0): r=-0.012, p=0.985, n=5.0
+    Fisher(t=440.0) vs Reward_Std(t=470.0): r=nan, p=nan, n=5.0
+    Fisher(t=440.0) vs Reward_Std(t=480.0): r=-0.012, p=0.985, n=5.0
+    Fisher(t=440.0) vs Reward_Std(t=490.0): r=nan, p=nan, n=5.0
+    Fisher(t=440.0) vs Reward_Std(t=500.0): r=-0.012, p=0.985, n=5.0
+    Fisher(t=440.0) vs Reward_Std(t=510.0): r=-0.012, p=0.985, n=5.0
+    Fisher(t=440.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=440.0) vs Reward_Std(t=530.0): r=-0.012, p=0.985, n=5.0
+    Fisher(t=440.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=440.0) vs Reward_Std(t=550.0): r=-0.012, p=0.985, n=5.0
+    Fisher(t=440.0) vs Reward_Std(t=560.0): r=-0.012, p=0.985, n=5.0
+    Fisher(t=440.0) vs Reward_Std(t=570.0): r=-0.012, p=0.985, n=5.0
+    Fisher(t=440.0) vs Reward_Std(t=580.0): r=-0.012, p=0.985, n=5.0
+    Fisher(t=440.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=440.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=450.0) vs Reward_Std(t=460.0): r=-0.024, p=0.970, n=5.0
+    Fisher(t=450.0) vs Reward_Std(t=470.0): r=nan, p=nan, n=5.0
+    Fisher(t=450.0) vs Reward_Std(t=480.0): r=-0.024, p=0.970, n=5.0
+    Fisher(t=450.0) vs Reward_Std(t=490.0): r=nan, p=nan, n=5.0
+    Fisher(t=450.0) vs Reward_Std(t=500.0): r=-0.024, p=0.970, n=5.0
+    Fisher(t=450.0) vs Reward_Std(t=510.0): r=-0.024, p=0.970, n=5.0
+    Fisher(t=450.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=450.0) vs Reward_Std(t=530.0): r=-0.024, p=0.970, n=5.0
+    Fisher(t=450.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=450.0) vs Reward_Std(t=550.0): r=-0.024, p=0.970, n=5.0
+    Fisher(t=450.0) vs Reward_Std(t=560.0): r=-0.024, p=0.970, n=5.0
+    Fisher(t=450.0) vs Reward_Std(t=570.0): r=-0.024, p=0.970, n=5.0
+    Fisher(t=450.0) vs Reward_Std(t=580.0): r=-0.024, p=0.970, n=5.0
+    Fisher(t=450.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=450.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=460.0) vs Reward_Std(t=470.0): r=nan, p=nan, n=5.0
+    Fisher(t=460.0) vs Reward_Std(t=480.0): r=-0.022, p=0.972, n=5.0
+    Fisher(t=460.0) vs Reward_Std(t=490.0): r=nan, p=nan, n=5.0
+    Fisher(t=460.0) vs Reward_Std(t=500.0): r=-0.022, p=0.972, n=5.0
+    Fisher(t=460.0) vs Reward_Std(t=510.0): r=-0.022, p=0.972, n=5.0
+    Fisher(t=460.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=460.0) vs Reward_Std(t=530.0): r=-0.022, p=0.972, n=5.0
+    Fisher(t=460.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=460.0) vs Reward_Std(t=550.0): r=-0.022, p=0.972, n=5.0
+    Fisher(t=460.0) vs Reward_Std(t=560.0): r=-0.022, p=0.972, n=5.0
+    Fisher(t=460.0) vs Reward_Std(t=570.0): r=-0.022, p=0.972, n=5.0
+    Fisher(t=460.0) vs Reward_Std(t=580.0): r=-0.022, p=0.972, n=5.0
+    Fisher(t=460.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=460.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=470.0) vs Reward_Std(t=480.0): r=-0.011, p=0.986, n=5.0
+    Fisher(t=470.0) vs Reward_Std(t=490.0): r=nan, p=nan, n=5.0
+    Fisher(t=470.0) vs Reward_Std(t=500.0): r=-0.011, p=0.986, n=5.0
+    Fisher(t=470.0) vs Reward_Std(t=510.0): r=-0.011, p=0.986, n=5.0
+    Fisher(t=470.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=470.0) vs Reward_Std(t=530.0): r=-0.011, p=0.986, n=5.0
+    Fisher(t=470.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=470.0) vs Reward_Std(t=550.0): r=-0.011, p=0.986, n=5.0
+    Fisher(t=470.0) vs Reward_Std(t=560.0): r=-0.011, p=0.986, n=5.0
+    Fisher(t=470.0) vs Reward_Std(t=570.0): r=-0.011, p=0.986, n=5.0
+    Fisher(t=470.0) vs Reward_Std(t=580.0): r=-0.011, p=0.986, n=5.0
+    Fisher(t=470.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=470.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=480.0) vs Reward_Std(t=490.0): r=nan, p=nan, n=5.0
+    Fisher(t=480.0) vs Reward_Std(t=500.0): r=-0.004, p=0.995, n=5.0
+    Fisher(t=480.0) vs Reward_Std(t=510.0): r=-0.004, p=0.995, n=5.0
+    Fisher(t=480.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=480.0) vs Reward_Std(t=530.0): r=-0.004, p=0.995, n=5.0
+    Fisher(t=480.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=480.0) vs Reward_Std(t=550.0): r=-0.004, p=0.995, n=5.0
+    Fisher(t=480.0) vs Reward_Std(t=560.0): r=-0.004, p=0.995, n=5.0
+    Fisher(t=480.0) vs Reward_Std(t=570.0): r=-0.004, p=0.995, n=5.0
+    Fisher(t=480.0) vs Reward_Std(t=580.0): r=-0.004, p=0.995, n=5.0
+    Fisher(t=480.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=480.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=490.0) vs Reward_Std(t=500.0): r=-0.017, p=0.978, n=5.0
+    Fisher(t=490.0) vs Reward_Std(t=510.0): r=-0.017, p=0.978, n=5.0
+    Fisher(t=490.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=490.0) vs Reward_Std(t=530.0): r=-0.017, p=0.978, n=5.0
+    Fisher(t=490.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=490.0) vs Reward_Std(t=550.0): r=-0.017, p=0.978, n=5.0
+    Fisher(t=490.0) vs Reward_Std(t=560.0): r=-0.017, p=0.978, n=5.0
+    Fisher(t=490.0) vs Reward_Std(t=570.0): r=-0.017, p=0.978, n=5.0
+    Fisher(t=490.0) vs Reward_Std(t=580.0): r=-0.017, p=0.978, n=5.0
+    Fisher(t=490.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=490.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=500.0) vs Reward_Std(t=510.0): r=-0.027, p=0.966, n=5.0
+    Fisher(t=500.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=500.0) vs Reward_Std(t=530.0): r=-0.027, p=0.966, n=5.0
+    Fisher(t=500.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=500.0) vs Reward_Std(t=550.0): r=-0.027, p=0.966, n=5.0
+    Fisher(t=500.0) vs Reward_Std(t=560.0): r=-0.027, p=0.966, n=5.0
+    Fisher(t=500.0) vs Reward_Std(t=570.0): r=-0.027, p=0.966, n=5.0
+    Fisher(t=500.0) vs Reward_Std(t=580.0): r=-0.027, p=0.966, n=5.0
+    Fisher(t=500.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=500.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=510.0) vs Reward_Std(t=520.0): r=nan, p=nan, n=5.0
+    Fisher(t=510.0) vs Reward_Std(t=530.0): r=-0.023, p=0.971, n=5.0
+    Fisher(t=510.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=510.0) vs Reward_Std(t=550.0): r=-0.023, p=0.971, n=5.0
+    Fisher(t=510.0) vs Reward_Std(t=560.0): r=-0.023, p=0.971, n=5.0
+    Fisher(t=510.0) vs Reward_Std(t=570.0): r=-0.023, p=0.971, n=5.0
+    Fisher(t=510.0) vs Reward_Std(t=580.0): r=-0.023, p=0.971, n=5.0
+    Fisher(t=510.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=510.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=520.0) vs Reward_Std(t=530.0): r=-0.008, p=0.990, n=5.0
+    Fisher(t=520.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=520.0) vs Reward_Std(t=550.0): r=-0.008, p=0.990, n=5.0
+    Fisher(t=520.0) vs Reward_Std(t=560.0): r=-0.008, p=0.990, n=5.0
+    Fisher(t=520.0) vs Reward_Std(t=570.0): r=-0.008, p=0.990, n=5.0
+    Fisher(t=520.0) vs Reward_Std(t=580.0): r=-0.008, p=0.990, n=5.0
+    Fisher(t=520.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=520.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=530.0) vs Reward_Std(t=540.0): r=nan, p=nan, n=5.0
+    Fisher(t=530.0) vs Reward_Std(t=550.0): r=-0.020, p=0.974, n=5.0
+    Fisher(t=530.0) vs Reward_Std(t=560.0): r=-0.020, p=0.974, n=5.0
+    Fisher(t=530.0) vs Reward_Std(t=570.0): r=-0.020, p=0.974, n=5.0
+    Fisher(t=530.0) vs Reward_Std(t=580.0): r=-0.020, p=0.974, n=5.0
+    Fisher(t=530.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=530.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=540.0) vs Reward_Std(t=550.0): r=-0.026, p=0.967, n=5.0
+    Fisher(t=540.0) vs Reward_Std(t=560.0): r=-0.026, p=0.967, n=5.0
+    Fisher(t=540.0) vs Reward_Std(t=570.0): r=-0.026, p=0.967, n=5.0
+    Fisher(t=540.0) vs Reward_Std(t=580.0): r=-0.026, p=0.967, n=5.0
+    Fisher(t=540.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=540.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=550.0) vs Reward_Std(t=560.0): r=-0.015, p=0.981, n=5.0
+    Fisher(t=550.0) vs Reward_Std(t=570.0): r=-0.015, p=0.981, n=5.0
+    Fisher(t=550.0) vs Reward_Std(t=580.0): r=-0.015, p=0.981, n=5.0
+    Fisher(t=550.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=550.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=560.0) vs Reward_Std(t=570.0): r=-0.005, p=0.994, n=5.0
+    Fisher(t=560.0) vs Reward_Std(t=580.0): r=-0.005, p=0.994, n=5.0
+    Fisher(t=560.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=560.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=570.0) vs Reward_Std(t=580.0): r=-0.020, p=0.974, n=5.0
+    Fisher(t=570.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=570.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=580.0) vs Reward_Std(t=590.0): r=nan, p=nan, n=5.0
+    Fisher(t=580.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+    Fisher(t=590.0) vs Reward_Std(t=600.0): r=nan, p=nan, n=5.0
+
+Accuracy Analysis:
+  Overall average accuracy: 0.959
+  Iteration 170 average accuracy: 0.875
+  Iteration 180 average accuracy: 0.925
+  Iteration 190 average accuracy: 0.925
+  Iteration 200 average accuracy: 0.950
+  Iteration 210 average accuracy: 0.850
+  Iteration 220 average accuracy: 0.875
+  Iteration 230 average accuracy: 0.875
+  Iteration 240 average accuracy: 0.900
+  Iteration 250 average accuracy: 0.875
+  Iteration 260 average accuracy: 0.950
+  Iteration 270 average accuracy: 1.000
+  Iteration 280 average accuracy: 1.000
+  Iteration 290 average accuracy: 0.900
+  Iteration 300 average accuracy: 0.900
+  Iteration 310 average accuracy: 0.975
+  Iteration 320 average accuracy: 1.000
+  Iteration 330 average accuracy: 0.950
+  Iteration 340 average accuracy: 0.975
+  Iteration 350 average accuracy: 1.000
+  Iteration 360 average accuracy: 0.950
+  Iteration 370 average accuracy: 0.925
+  Iteration 380 average accuracy: 1.000
+  Iteration 390 average accuracy: 1.000
+  Iteration 400 average accuracy: 1.000
+  Iteration 410 average accuracy: 1.000
+  Iteration 420 average accuracy: 1.000
+  Iteration 430 average accuracy: 0.975
+  Iteration 440 average accuracy: 0.975
+  Iteration 450 average accuracy: 0.950
+  Iteration 460 average accuracy: 0.975
+  Iteration 470 average accuracy: 1.000
+  Iteration 480 average accuracy: 0.975
+  Iteration 490 average accuracy: 1.000
+  Iteration 500 average accuracy: 0.975
+  Iteration 510 average accuracy: 0.925
+  Iteration 520 average accuracy: 1.000
+  Iteration 530 average accuracy: 0.975
+  Iteration 540 average accuracy: 1.000
+  Iteration 550 average accuracy: 0.975
+  Iteration 560 average accuracy: 0.975
+  Iteration 570 average accuracy: 0.975
+  Iteration 580 average accuracy: 0.975
+  Iteration 590 average accuracy: 1.000
+  Iteration 600 average accuracy: 1.000

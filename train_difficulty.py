@@ -3,9 +3,6 @@ import sys
 import types
 import importlib.util
 
-# -------------------------------
-# vLLM hard-import workaround
-# -------------------------------
 if "vllm" not in sys.modules:
     vllm_stub = types.ModuleType("vllm")
     vllm_stub.__spec__ = importlib.util.spec_from_loader("vllm", loader=None)
@@ -75,14 +72,13 @@ if "vllm" not in sys.modules:
             pass
     vllm_sampling_params_stub.GuidedDecodingParams = GuidedDecodingParams
 
-# -------------------------------
-# imports
-# -------------------------------
+
 import os
 import argparse
 import torch
 import numpy as np
 import wandb
+import random
 import logging
 from typing import Dict, List, Union, Any, Optional
 
@@ -174,6 +170,16 @@ class DifficultyGRPOTrainer(GRPOTrainer):
         self.step_count += 1
         logs["difficulty"] = self.difficulty
 
+        # Map per-step correctness mean to step accuracy for W&B charts
+        if "rewards/correctness_reward_func_qa/mean" in logs:
+            try:
+                logs["train/step_accuracy"] = float(logs["rewards/correctness_reward_func_qa/mean"])
+                # Also log with explicit local step to control W&B x-axis
+                if wandb.run is not None:
+                    wandb.log({"train/step_accuracy": logs["train/step_accuracy"]}, step=self.step_count)
+            except Exception:
+                pass
+
         if hasattr(self.args, 'scale_rewards'):
             if self.args.scale_rewards is True or self.args.scale_rewards == "group":
                 logs["normalization"] = "standard"
@@ -241,7 +247,7 @@ class DifficultyGRPOTrainer(GRPOTrainer):
                 'cosine/prop_negative': prop_neg,
                 'cosine/median_abs_var_diff_given_cos_pos': med_abs_diff_poscos,
                 'cosine/count_pairs': len(cos_vals) if cos_vals else 0,
-            }, step=self.state.global_step)
+            }, step=self.step_count)
 
             # clear the cache
             self._per_prompt_records = []
@@ -463,7 +469,7 @@ def parse_args():
 
     parser.add_argument('--format', type=str, default='qa', choices=['qa', 'code'])
     parser.add_argument('--num_shots', type=int, default=2)
-    parser.add_argument('--model_name', type=str, default='Qwen/Qwen2.5-Math-7B')
+    parser.add_argument('--model_name', type=str, default='Qwen/Qwen2.5-Math-1.5B')
     parser.add_argument("--num_generations", type=int, default=8)
     parser.add_argument("--learning_rate", type=float, default=1e-5)
     parser.add_argument("--kl_beta", type=float, default=0.02)
@@ -489,14 +495,120 @@ def parse_args():
     return parser.parse_args()
 
 
+def _set_deterministic_seeds(seed: int = 42):
+    """Set Python/NumPy/PyTorch seeds and enable deterministic behavior."""
+    try:
+        random.seed(seed)
+    except Exception:
+        pass
+    try:
+        np.random.seed(seed)
+    except Exception:
+        pass
+    try:
+        torch.manual_seed(seed)
+        if torch.cuda.is_available():
+            torch.cuda.manual_seed_all(seed)
+        # Ensure deterministic kernels where possible
+        torch.use_deterministic_algorithms(True, warn_only=True)
+    except Exception:
+        pass
+
+
+def _get_first_available(ex: Dict[str, Any], candidates: List[str]) -> Any:
+    for key in candidates:
+        if key in ex:
+            return ex[key]
+    raise KeyError(f"None of the keys {candidates} found in example: {list(ex.keys())}")
+
+
+def log_step0_baseline(
+    model: AutoModelForCausalLM,
+    tokenizer: AutoTokenizer,
+    dataset,
+    reward_func,
+    k: int,
+    max_new_tokens: int,
+    n_eval: int = 64,
+    seed: int = 42,
+):
+    """
+    Compute and log a deterministic step-0 baseline accuracy/pass@k so that
+    runs with different normalization settings share the same initial point.
+
+    Uses greedy decoding (do_sample=False) for determinism.
+    """
+    _set_deterministic_seeds(seed)
+    model.eval()
+
+    num_items = min(n_eval, len(dataset))
+    prompts: List[str] = []
+    final_answers: List[Any] = []
+
+    for i in range(num_items):
+        ex = dataset[i]
+        # Robustly fetch prompt and final answer
+        prompt_text = _get_first_available(ex, ["prompt", "input", "question", "query"])
+        answer_val = _get_first_available(ex, ["final_answer", "answer", "label"]) if "final_answer" in ex or "answer" in ex or "label" in ex else None
+        prompts.append(prompt_text)
+        final_answers.append(answer_val)
+
+    completions: List[str] = []
+    for p in prompts:
+        inputs = tokenizer(p, return_tensors="pt")
+        inputs = {k: v.to(model.device) for k, v in inputs.items()}
+        for _ in range(k):
+            out = model.generate(
+                **inputs,
+                do_sample=False,
+                max_new_tokens=max_new_tokens,
+                pad_token_id=tokenizer.eos_token_id,
+                eos_token_id=tokenizer.eos_token_id,
+            )
+            # Keep only the continuation, not the prompt
+            gen_ids = out[0][inputs["input_ids"].shape[1]:]
+            text = tokenizer.decode(gen_ids, skip_special_tokens=True)
+            completions.append(text)
+
+    # If no answers are available, skip logging
+    if all(a is None for a in final_answers):
+        print("Step 0 baseline skipped: no ground-truth answers present in dataset items.")
+        return
+
+    rewards = reward_func(completions, final_answer=final_answers * k)
+
+    # Compute pass@k by grouping per prompt
+    per_q_pass = []
+    for i in range(num_items):
+        start = i * k
+        end = start + k
+        per_q_pass.append(1.0 if any(r > 0 for r in rewards[start:end]) else 0.0)
+    pass_at_k = float(np.mean(per_q_pass)) if per_q_pass else 0.0
+
+    # Sample-level accuracy across all generated samples
+    accuracy = float(np.mean(rewards)) if rewards else 0.0
+
+    if wandb.run is not None:
+        wandb.log({
+            "baseline/accuracy": accuracy,
+            "baseline/pass_at_k": pass_at_k,
+            "train/step_accuracy": accuracy,
+        }, step=0)
+
+    print(f"Step 0 baseline - Acc: {accuracy:.4f}, Pass@{k}: {pass_at_k:.4f}")
+
+
 def main():
     args = parse_args()
     print(f"Arguments: {args}")
     print(f"Training on {args.difficulty} difficulty dataset")
 
+    # Ensure identical initialization across runs (normalization vs no normalization)
+    _set_deterministic_seeds(42)
+
     # Setup WandB
     if args.use_wandb:
-        run_name = args.wandb_run_name or f"grpo-final3-{args.normalization}-{args.difficulty}-{args.exp_name}"
+        run_name = args.wandb_run_name or f"grpo-efr_difficulty-{args.normalization}-{args.difficulty}-{args.exp_name}"
         wandb.init(
             project=args.wandb_project,
             name=run_name,
@@ -533,7 +645,7 @@ def main():
         return
 
     model_name = args.model_name
-    output_dir = f'outputs/iclr1_difficulty/{args.difficulty}/{args.normalization}/{model_name.split("/")[-1]}/{args.exp_name}'
+    output_dir = f'outputs/efr_difficulty/{args.difficulty}/{args.normalization}/{model_name.split("/")[-1]}/{args.exp_name}'
 
     if args.normalization == 'standard':
         scale_rewards = True
@@ -544,7 +656,7 @@ def main():
 
     training_args = GRPOConfig(
         output_dir=output_dir,
-        run_name=f'GRPO_final3_difficulty-{args.normalization}-{args.difficulty}-{args.exp_name}',
+        run_name=f'GRPO_efr_difficulty-{args.normalization}-{args.difficulty}-{args.exp_name}',
         learning_rate=args.learning_rate,
         beta=args.kl_beta,
         scale_rewards=scale_rewards,
@@ -557,7 +669,7 @@ def main():
         max_completion_length=1024,
         max_steps=args.max_steps,
         save_strategy="steps",
-        save_steps=30,
+        save_steps=50,
         save_total_limit=200,
         max_grad_norm=0.1,
         report_to=report_to,
@@ -596,6 +708,22 @@ def main():
         reward_funcs = [format_reward_func_code, correctness_reward_func_code]
     else:
         raise ValueError("Unknown format")
+
+    # Log a deterministic step-0 baseline before any training updates
+    try:
+        baseline_reward_func = correctness_reward_func_qa if args.format == 'qa' else correctness_reward_func_code
+        log_step0_baseline(
+            model=model,
+            tokenizer=tokenizer,
+            dataset=dataset,
+            reward_func=baseline_reward_func,
+            k=args.num_generations,
+            max_new_tokens=training_args.max_completion_length,
+            n_eval=min(64, len(dataset)),
+            seed=42,
+        )
+    except Exception as e:
+        print(f"Warning: step-0 baseline logging failed: {e}")
 
     trainer = DifficultyGRPOTrainer(
         model=model,

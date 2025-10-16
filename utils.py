@@ -76,7 +76,6 @@ def correctness_reward_func_qa(completions, final_answer=None, **kwargs):
                         continue
         
         rewards.append(reward)
-    
     k = 8
     if len(completions) == k:
         pass_at_k = 1.0 if any(r > 0 for r in rewards) else 0.0
@@ -97,11 +96,7 @@ def correctness_reward_func_qa(completions, final_answer=None, **kwargs):
             import wandb
             if wandb.run is not None:
                 wandb.log({
-                    "train/pass_at_k": pass_at_k,
-                    "train/batch_accuracy": accuracy,
-                    "train/cumulative_pass_at_k": cumulative_pass,
-                    "train/cumulative_accuracy": cumulative_acc,
-                    "train/questions_seen": len(pass_at_k_history),
+                    "train/step_accuracy": accuracy,
                 })
         except:
             pass

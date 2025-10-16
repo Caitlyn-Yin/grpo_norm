@@ -296,7 +296,7 @@ def main():
         max_completion_length=1024,
         max_steps=args.max_steps,
         save_strategy="steps",
-        save_steps=20,
+        save_steps=50,
         save_total_limit=200,
         max_grad_norm=0.1,
         report_to=report_to,

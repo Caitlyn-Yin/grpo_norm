@@ -1,418 +1,683 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-import re, math
-import os, glob, json, math, random, argparse, csv
-from typing import List, Dict, Any, Optional, Tuple
-from peft import AutoPeftModelForCausalLM
-import numpy as np
+import os
+import argparse
 import torch
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
 from transformers import AutoTokenizer, AutoModelForCausalLM
+from peft import PeftModel, PeftConfig
+import logging
+from typing import Dict, List, Optional, Union, Any
+from tqdm import tqdm
 
-from utils import (
-    format_reward_func_qa, correctness_reward_func_qa,
-    format_reward_func_code, correctness_reward_func_code,
-)
+from utils import correctness_reward_func_qa
+from variance_analysis import VarianceAnalyzer
+from gsm8k_difficulty import GSM8KDifficulty
+from gsm8k import GSM8K
+from complete_std_analysis import PolicyStdAnalyzer
 
-# Fallback to a plain text/JSONL file.
-def load_prompts(args) -> List[Dict[str, Any]]:
-    if args.prompts_file:
-        ext = os.path.splitext(args.prompts_file)[1].lower()
-        rows = []
-        with open(args.prompts_file, 'r', encoding='utf-8') as f:
-            if ext in ['.jsonl', '.jl']:
-                for line in f:
-                    o = json.loads(line)
-                    rows.append(o)
-            else:
-                # plain text: one prompt per line
-                for line in f:
-                    rows.append({"prompt": line.strip()})
-        return rows[:args.eval_prompts]
-    # Try dataset classes if available
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+def _enable_lora_parameter_grads(model: PeftModel) -> None:
+    """Ensure LoRA adapter parameters require gradients for backward passes."""
+    for name, param in model.named_parameters():
+        if "lora" in name.lower():
+            param.requires_grad = True
+
+def load_model_from_checkpoint(checkpoint_path):
+    """Load a model from a checkpoint directory"""
     try:
-        if args.dataset == "math":
-            from math_datasets import MATHDataset
-            ds = MATHDataset(
-                split='train',
-                include_answer=True,
-                include_reasoning=True,
-                few_shot=True,
-                num_shots=args.num_shots,
-                seed=42,
-                cot=True,
-                template=args.format,
-                subjects=None,  # all subjects
-            ).dataset
-            # The dataset items usually have 'question' or the formatted 'prompt'.
-            items = []
-            for x in ds.select(range(min(args.eval_prompts, len(ds)))):
-                # prefer the already-formatted input if present
-                if 'prompt' in x:
-                    items.append({'prompt': x['prompt']})
-                elif 'question' in x:
-                    items.append({'prompt': x['question']})
-                else:
-                    # best effort merge common fields
-                    text = x.get('question', '') + "\n" + x.get('context', '')
-                    items.append({'prompt': text.strip()})
-            return items
-        elif args.dataset == "gsm8k":
-            from gsm8k_difficulty import GSM8KDifficulty
-            ds = GSM8KDifficulty(
-                difficulty=args.difficulty, data_dir=args.data_dir,
-                split='train', include_answer=False, include_reasoning=True,
-                few_shot=True, num_shots=args.num_shots, seed=42, cot=True,
-                template=args.format, max_samples=args.eval_prompts
-            ).dataset
-            return [{'prompt': x.get('prompt', x.get('question', ''))} for x in ds]
+        # Load PEFT config
+        peft_config = PeftConfig.from_pretrained(checkpoint_path)
+        base_model_name = peft_config.base_model_name_or_path
+
+        # Load base model
+        logger.info(f"Loading base model: {base_model_name}")
+        base_model = AutoModelForCausalLM.from_pretrained(
+            base_model_name,
+            torch_dtype=torch.bfloat16,
+            device_map="auto"
+        )
+
+        # Load adapter
+        logger.info(f"Loading adapter from: {checkpoint_path}")
+        model = PeftModel.from_pretrained(base_model, checkpoint_path)
+        _enable_lora_parameter_grads(model)
+
+        # Load tokenizer
+        tokenizer = AutoTokenizer.from_pretrained(base_model_name)
+        tokenizer.pad_token = tokenizer.eos_token
+        model.config.pad_token_id = tokenizer.pad_token_id
+
+        return model, tokenizer
+
     except Exception as e:
-        print(f"[WARN] Falling back to a simple prompts file. Error: {e}")
+        logger.error(f"Error loading model: {e}")
+        raise
 
-    raise ValueError("No prompts source. Provide --prompts_file or install dataset loaders.")
+def calculate_policy_gradients(model, tokenizer, prompts, prompt_ids: Optional[List[str]] = None,
+                               device: Optional[Union[str, torch.device]] = None):
+    """Calculate policy gradients for a batch of prompts"""
+    model.train()  # Set to train mode to enable gradient computation
 
-def set_seed(seed: int):
-    random.seed(seed); np.random.seed(seed); torch.manual_seed(seed); torch.cuda.manual_seed_all(seed)
+    if device is None:
+        device = next(model.parameters()).device
 
-def load_model_and_tokenizer(model_name: str, ckpt: Optional[str], bf16: bool):
-    dtype = torch.bfloat16 if bf16 and torch.cuda.is_available() else torch.float16
+    all_gradients: Dict[str, np.ndarray] = {}
+    all_token_counts: Dict[str, int] = {}
+    all_fisher_info: Dict[str, float] = {}
 
-    # If the checkpoint is a PEFT adapter dir (has adapter_model.safetensors),
-    # AutoPeftModelForCausalLM will:
-    #  - read adapter_config.json
-    #  - load the base model it references
-    #  - attach LoRA modules
-    model = AutoPeftModelForCausalLM.from_pretrained(
-        ckpt or model_name,
-        torch_dtype=dtype,
-        device_map=None,                 # keep manual control
-        low_cpu_mem_usage=True,
-    )
+    for idx, prompt in enumerate(tqdm(prompts, desc="Processing prompts")):
+        prompt_id = prompt_ids[idx] if prompt_ids is not None else f"prompt_{idx}"
 
-    # Ensure LoRA params require grad; freeze the rest to save memory
-    for n, p in model.named_parameters():
-        if "lora" in n.lower():
-            p.requires_grad = True
-        else:
-            p.requires_grad = False
+        inputs = tokenizer(prompt, return_tensors="pt", padding=True)
+        inputs = {k: v.to(device) for k, v in inputs.items()}
 
-    tok = AutoTokenizer.from_pretrained(ckpt or model_name)
-    if tok.pad_token is None:
-        tok.pad_token = tok.eos_token
-    model.config.pad_token_id = tok.pad_token_id
+        outputs = model(**inputs, labels=inputs["input_ids"])
+        loss = outputs.loss
 
-    # We'll switch to train() just for the Fisher backward.
+        token_count = inputs["attention_mask"].sum().item()
+        all_token_counts[prompt_id] = token_count
+
+        score_functions: Dict[str, torch.Tensor] = {}
+        hooks = []
+
+        for name, param in model.named_parameters():
+            if "lora" in name.lower() and param.requires_grad:
+                def hook_factory(param_name):
+                    def hook(grad):
+                        if grad is not None:
+                            # Move to CPU in float32 to avoid cross-device concat issues
+                            score_functions[param_name] = grad.detach().to(torch.float32).cpu().clone()
+                    return hook
+
+                hooks.append(param.register_hook(hook_factory(name)))
+
+        loss.backward()
+
+        param_grads = [grad.flatten() for grad in score_functions.values()]
+
+        if param_grads:
+            all_grads = torch.cat(param_grads)
+            all_gradients[prompt_id] = all_grads.cpu().numpy()
+
+            fisher_info = torch.norm(all_grads) ** 2
+            if token_count > 0:
+                fisher_info = fisher_info / token_count
+            all_fisher_info[prompt_id] = fisher_info.item()
+
+        for hook in hooks:
+            hook.remove()
+
+        model.zero_grad(set_to_none=True)
+
+    return all_gradients, all_token_counts, all_fisher_info
+
+def calculate_reward_variance(model, tokenizer, prompts, answers: Optional[List[Optional[str]]] = None,
+                              prompt_ids: Optional[List[str]] = None, num_samples: int = 8,
+                              max_new_tokens: int = 100,
+                              device: Optional[Union[str, torch.device]] = None):
+    """Calculate reward variance and accuracy by sampling multiple completions for each prompt"""
     model.eval()
-    if torch.cuda.is_available():
-        model.to("cuda")
 
-    return model, tok
+    if device is None:
+        device = next(model.parameters()).device
 
-@torch.no_grad()
-def generate_k(model, tok, prompt_text: str, k: int, gen_kwargs: Dict[str, Any]) -> List[str]:
-    """Sample K completions for one prompt with fixed decoding cfg."""
-    inputs = tok([prompt_text], return_tensors="pt").to(model.device)
-    out = model.generate(
-        **inputs,
-        do_sample=True,
-        num_return_sequences=k,
-        **gen_kwargs
+    all_rewards: Dict[str, List[float]] = {}
+    all_reward_stds: Dict[str, float] = {}
+    all_accuracy: Dict[str, float] = {}
+
+    for idx, prompt in enumerate(tqdm(prompts, desc="Calculating reward variance")):
+        prompt_id = prompt_ids[idx] if prompt_ids is not None else f"prompt_{idx}"
+
+        target_answer = None
+        if answers is not None and idx < len(answers):
+            target_answer = answers[idx]
+
+        has_answer = target_answer is not None and str(target_answer).strip() != ""
+
+        inputs = tokenizer(prompt, return_tensors="pt")
+        inputs = {k: v.to(device) for k, v in inputs.items()}
+
+        completions: List[str] = []
+        for _ in range(num_samples):
+            with torch.no_grad():
+                outputs = model.generate(
+                    **inputs,
+                    max_new_tokens=max_new_tokens,
+                    do_sample=True,
+                    temperature=0.7,
+                    top_p=0.9
+                )
+
+            completion = tokenizer.decode(
+                outputs[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True
+            )
+            completions.append(completion)
+
+        if has_answer:
+            rewards = correctness_reward_func_qa(completions, final_answer=target_answer)
+        else:
+            rewards = [len(c) / 100.0 for c in completions]
+
+        rewards = [float(r) for r in rewards]
+
+        if rewards:
+            all_rewards[prompt_id] = rewards
+            reward_std = float(np.std(rewards))
+            all_reward_stds[prompt_id] = reward_std
+
+            if has_answer:
+                accuracy = float(np.mean(rewards))
+                all_accuracy[prompt_id] = accuracy
+
+    return all_rewards, all_reward_stds, all_accuracy
+
+def plot_random_time_correlations(analyzer, output_dir, num_pairs=500, seed=42):
+    """
+    Plot Fisher Information at random time i vs Reward Std at random time j
+    to reveal any underlying patterns independent of temporal sequence
+    """
+    np.random.seed(seed)
+    
+    # Collect all data points with their iteration information
+    all_data = []
+    
+    for prompt_id in analyzer.question_fisher:
+        for iteration in analyzer.question_fisher[prompt_id]:
+            if iteration in analyzer.question_reward_std.get(prompt_id, {}):
+                all_data.append({
+                    'prompt_id': prompt_id,
+                    'iteration': iteration,
+                    'fisher_info': analyzer.question_fisher[prompt_id][iteration],
+                    'reward_std': analyzer.question_reward_std[prompt_id][iteration]
+                })
+    
+    if len(all_data) < 2:
+        logger.warning("Not enough data for random pairing visualization")
+        return None, None, None
+    
+    # Create random pairs
+    n_points = len(all_data)
+    actual_pairs = min(num_pairs, n_points * n_points)
+    
+    fisher_indices = np.random.randint(0, n_points, size=actual_pairs)
+    reward_indices = np.random.randint(0, n_points, size=actual_pairs)
+    
+    random_fisher = np.array([all_data[i]['fisher_info'] for i in fisher_indices])
+    random_reward_std = np.array([all_data[i]['reward_std'] for i in reward_indices])
+    fisher_iterations = np.array([all_data[i]['iteration'] for i in fisher_indices])
+    reward_iterations = np.array([all_data[i]['iteration'] for i in reward_indices])
+    
+    # Calculate correlation
+    correlation, p_value = stats.pearsonr(random_fisher, random_reward_std)
+    
+    # Create figure with multiple subplots
+    fig, axes = plt.subplots(2, 2, figsize=(14, 12))
+    
+    # 1. Main scatter plot with density coloring
+    ax1 = axes[0, 0]
+    hexbin = ax1.hexbin(random_fisher, random_reward_std, gridsize=20, cmap='YlOrRd', mincnt=1)
+    ax1.set_xlabel('Fisher Information (random time i)', fontsize=11)
+    ax1.set_ylabel('Reward Std (random time j)', fontsize=11)
+    ax1.set_title(f'Random Time Pairing: Fisher(i) vs Reward Std(j)\nCorrelation: {correlation:.3f} (p={p_value:.3f})', 
+                  fontsize=12)
+    plt.colorbar(hexbin, ax=ax1, label='Point Density')
+    
+    # Add trend line if correlation is significant
+    if p_value < 0.05 and len(random_fisher) > 1:
+        z = np.polyfit(random_fisher, random_reward_std, 1)
+        p = np.poly1d(z)
+        x_trend = np.linspace(random_fisher.min(), random_fisher.max(), 100)
+        ax1.plot(x_trend, p(x_trend), "r--", alpha=0.5, label=f'Trend: y={z[0]:.3e}x+{z[1]:.3f}')
+        ax1.legend()
+    
+    # 2. Scatter with iteration difference coloring
+    ax2 = axes[0, 1]
+    iter_diff = np.abs(fisher_iterations - reward_iterations)
+    scatter2 = ax2.scatter(random_fisher, random_reward_std, 
+                          c=iter_diff, cmap='viridis', alpha=0.5, s=20)
+    ax2.set_xlabel('Fisher Information (random time i)', fontsize=11)
+    ax2.set_ylabel('Reward Std (random time j)', fontsize=11)
+    ax2.set_title('Colored by |iteration_i - iteration_j|', fontsize=12)
+    plt.colorbar(scatter2, ax=ax2, label='Iteration Difference')
+    
+    # 3. Distribution plots
+    ax3 = axes[1, 0]
+    hist2d = ax3.hist2d(random_fisher, random_reward_std, bins=25, cmap='Blues')
+    ax3.set_xlabel('Fisher Information (random time i)', fontsize=11)
+    ax3.set_ylabel('Reward Std (random time j)', fontsize=11)
+    ax3.set_title('2D Histogram of Random Pairs', fontsize=12)
+    plt.colorbar(hist2d[3], ax=ax3)
+    
+    # 4. Chaotic visualization with jitter
+    ax4 = axes[1, 1]
+    
+    # Add jitter for better visualization
+    fisher_jitter = random_fisher + np.random.normal(0, np.std(random_fisher)*0.02, size=len(random_fisher))
+    reward_jitter = random_reward_std + np.random.normal(0, np.std(random_reward_std)*0.02, size=len(random_reward_std))
+    
+    # Random colors and sizes for chaotic effect
+    colors = np.random.rand(len(random_fisher))
+    sizes = np.random.uniform(10, 50, len(random_fisher))
+    
+    scatter4 = ax4.scatter(fisher_jitter, reward_jitter, c=colors, s=sizes, alpha=0.4, cmap='twilight')
+    ax4.set_xlabel('Fisher Information + noise', fontsize=11)
+    ax4.set_ylabel('Reward Std + noise', fontsize=11)
+    ax4.set_title('Chaotic Visualization (with jitter)', fontsize=12)
+    plt.colorbar(scatter4, ax=ax4, label='Random Value')
+    
+    plt.suptitle(f'Random Time Correlation Analysis ({actual_pairs} random pairs)', 
+                 fontsize=14, y=1.02)
+    plt.tight_layout()
+    
+    # Save figure
+    save_path = os.path.join(output_dir, 'random_time_correlation.png')
+    fig.savefig(save_path, dpi=150, bbox_inches='tight')
+    logger.info(f"Saved random time correlation plot to {save_path}")
+    
+    return fig, correlation, p_value
+
+def run_variance_analysis(args):
+    """Run variance analysis on model checkpoints"""
+    analyzer = VarianceAnalyzer(save_dir=args.output_dir)
+
+    model, tokenizer = load_model_from_checkpoint(args.checkpoint_path)
+
+    if args.difficulty:
+        logger.info(f"Loading {args.difficulty} difficulty dataset")
+        dataset = GSM8KDifficulty(
+            difficulty=args.difficulty,
+            data_dir=args.data_dir,
+            split='test',
+            include_answer=False,
+            include_reasoning=True,
+            few_shot=True,
+            num_shots=2,
+            seed=42,
+            cot=True,
+            template='qa'
+        ).dataset
+    else:
+        logger.info("Loading standard GSM8K dataset")
+        dataset = GSM8K(
+            split='test',
+            include_answer=False,
+            include_reasoning=True,
+            few_shot=True,
+            num_shots=2,
+            seed=42,
+            cot=True,
+            template='qa'
+        ).dataset
+
+    prompts: List[str] = []
+    answers: List[Optional[str]] = []
+    question_texts: List[Optional[str]] = []
+    dataset_indices: List[int] = []
+
+    for idx, item in enumerate(dataset):
+        prompts.append(item["prompt"])
+        answers.append(item.get("final_answer"))
+        question_texts.append(item.get("question"))
+        dataset_indices.append(idx)
+
+    if args.max_samples:
+        prompts = prompts[:args.max_samples]
+        answers = answers[:args.max_samples]
+        question_texts = question_texts[:args.max_samples]
+        dataset_indices = dataset_indices[:args.max_samples]
+
+    if not prompts:
+        raise SystemExit("No prompts available for analysis.")
+
+    # Support selecting multiple indices
+    selected_indices = None
+    if args.focus_question_idxs is not None:
+        raw_tokens = [t.strip() for t in str(args.focus_question_idxs).split(',') if t.strip() != ""]
+        try:
+            idxs = [int(t) for t in raw_tokens]
+        except ValueError:
+            raise SystemExit(f"focus_question_idxs contains a non-integer value: {args.focus_question_idxs}")
+        for i in idxs:
+            if i < 0 or i >= len(prompts):
+                raise SystemExit(
+                    f"focus_question_idxs contains out-of-range index {i} for {len(prompts)} prompts"
+                )
+        # De-duplicate preserving order
+        seen = set()
+        selected_indices = []
+        for i in idxs:
+            if i not in seen:
+                seen.add(i)
+                selected_indices.append(i)
+    elif args.focus_question_idx is not None:
+        if args.focus_question_idx < 0 or args.focus_question_idx >= len(prompts):
+            raise SystemExit(
+                f"focus_question_idx={args.focus_question_idx} is out of range for {len(prompts)} prompts"
+            )
+        selected_indices = [args.focus_question_idx]
+
+    if selected_indices is not None:
+        original_dataset_indices = [dataset_indices[i] for i in selected_indices]
+        prompts = [prompts[i] for i in selected_indices]
+        answers = [answers[i] for i in selected_indices]
+        question_texts = [question_texts[i] for i in selected_indices]
+        dataset_indices = original_dataset_indices
+
+        logger.info(
+            f"Focusing analysis on prompt indices {selected_indices} (dataset idx {original_dataset_indices})"
+        )
+        if question_texts and question_texts[0]:
+            logger.info(f"Selected question text: {question_texts[0]}")
+
+    prompt_ids = [f"prompt_{idx}" for idx in dataset_indices]
+
+    logger.info(f"Loaded {len(prompts)} prompts for analysis")
+
+    metadata_df = pd.DataFrame({
+        'prompt_id': prompt_ids,
+        'dataset_index': dataset_indices,
+        'question': question_texts,
+        'final_answer': answers
+    })
+    metadata_df.to_csv(os.path.join(args.output_dir, "prompt_metadata.csv"), index=False)
+
+    logger.info("Calculating policy gradients...")
+    gradients, token_counts, fisher_info = calculate_policy_gradients(
+        model, tokenizer, prompts, prompt_ids=prompt_ids
     )
-    texts = tok.batch_decode(out, skip_special_tokens=True)
-    # strip the prompt prefix if needed
-    # (best effort: keep only the suffix after the original prompt length)
-    prompt_len = inputs["input_ids"].shape[1]
-    completions = []
-    for seq in out.view(k, -1):
-        comp_ids = seq[prompt_len:]
-        comps = tok.decode(comp_ids, skip_special_tokens=True)
-        completions.append(comps)
-    return completions
 
-def _canon(s: str) -> str:
-    s = s.strip()
-    # extract \boxed{...} if present
-    m = re.search(r'\\boxed\{([^{}]+)\}', s)
-    if m: s = m.group(1)
-    # remove commas and spaces
-    s = s.replace(',', '').strip()
-    # LaTeX common wraps
-    s = s.replace(r'\,', '').replace(r'\!', '')
-    return s
+    logger.info("Calculating reward variance and accuracy...")
+    _reward_samples, reward_stds, accuracies = calculate_reward_variance(
+        model,
+        tokenizer,
+        prompts,
+        answers=answers,
+        prompt_ids=prompt_ids,
+        num_samples=args.num_samples
+    )
 
-def _try_float(s: str):
-    try:
-        return float(s)
-    except Exception:
-        # try simple fractions like a/b
-        m = re.fullmatch(r'\s*(-?\d+)\s*/\s*(-?\d+)\s*', s)
-        if m:
-            b = float(m.group(1)); c = float(m.group(2))
-            if c != 0: return b / c
-        return None
+    if accuracies:
+        avg_accuracy = float(np.mean(list(accuracies.values())))
+        logger.info(f"Average empirical accuracy across prompts: {avg_accuracy:.3f}")
 
-def _match_math(pred: str, gt: str, tol=1e-4) -> bool:
-    p = _canon(pred)
-    g = _canon(gt)
-    if not p or not g: return False
-    # numeric compare if both parse
-    pf, gf = _try_float(p), _try_float(g)
-    if pf is not None and gf is not None:
-        return math.isfinite(pf) and math.isfinite(gf) and abs(pf - gf) <= tol*max(1.0, abs(gf))
-    # fallback: case-insensitive exact after canonicalization
-    return p.lower() == g.lower()
+    iteration = 0
+    for prompt_id in prompt_ids:
+        if prompt_id in gradients:
+            analyzer.record_gradient(prompt_id, iteration, gradients[prompt_id])
 
-def compute_rewards_for_completions(completions, prompt_text, fmt, gt_answer=None):
-    rewards = []
-    for c in completions:
-        ok = _match_math(c, gt_answer or "")
-        rewards.append(1.0 if ok else 0.0)
-    return rewards
+        if prompt_id in fisher_info:
+            analyzer.record_fisher_info(prompt_id, iteration, fisher_info[prompt_id])
 
-def teacher_forcing_batch(tok, prompt_text: str, completion_text: str, device):
-    """
-    Build a standard causal-LM batch:
-      input_ids = prompt + completion
-      labels    = [-100]*len(prompt) + completion
-    HF will do the 1-token shift internally, so lengths must match.
-    """
-    # tokenize separately
-    pt = tok(prompt_text, add_special_tokens=False)
-    # include eos so the model is asked to predict it
-    ct = tok(completion_text + (tok.eos_token or ""), add_special_tokens=False)
+        if prompt_id in reward_stds:
+            reward_std = reward_stds[prompt_id]
+            analyzer.record_reward_std(prompt_id, iteration, reward_std)
+            analyzer.record_variance(prompt_id, iteration, reward_std ** 2)
 
-    prompt_ids = pt["input_ids"]
-    comp_ids   = ct["input_ids"]
+        if prompt_id in accuracies:
+            analyzer.record_accuracy(prompt_id, iteration, accuracies[prompt_id])
 
-    input_ids = torch.tensor([prompt_ids + comp_ids], device=device)
-    labels    = torch.tensor([[-100]*len(prompt_ids) + comp_ids], device=device)
-    attn_mask = torch.ones_like(input_ids, device=device)
+    logger.info("Running variance analysis...")
+    analysis_results = analyzer.run_full_analysis()
 
-    return {"input_ids": input_ids, "attention_mask": attn_mask, "labels": labels}
+    if args.calculate_policy_std:
+        logger.info("Calculating policy standard deviation...")
+        std_analyzer = PolicyStdAnalyzer(tokenizer)
+        overall_std, per_question_stds = std_analyzer.compute_policy_std(model, prompts)
 
-def empirical_fisher_trace(model, tok, prompt_text, completion_text, lora_only=True):
-    device = next(model.parameters()).device
-    batch = teacher_forcing_batch(tok, prompt_text, completion_text, device)
+        logger.info(f"Overall policy std: {overall_std:.4f}")
 
-    was_training = model.training
-    model.train()                      # ensure grad graph is built
+        with open(os.path.join(args.output_dir, "policy_std_results.txt"), "w") as f:
+            f.write(f"Overall policy std: {overall_std:.4f}\n\n")
+            f.write("Per-question policy std:\n")
+            for pid, std in zip(prompt_ids, per_question_stds):
+                f.write(f"{pid}: {std:.4f}\n")
 
-    outputs = model(**batch)
-    loss = outputs.loss                # mean over supervised tokens
+    logger.info(f"Analysis complete. Results saved to {args.output_dir}/")
 
-    # zero only the params we’ll use
-    for n, p in model.named_parameters():
-        if not p.requires_grad: 
+    return analysis_results
+
+def analyze_multiple_checkpoints(args):
+    """Analyze multiple checkpoints to track changes over iterations"""
+    analyzer = VarianceAnalyzer(save_dir=args.output_dir)
+
+    checkpoint_dirs: List[str] = []
+    for root, dirs, files in os.walk(args.checkpoint_path):
+        for dir_name in dirs:
+            if dir_name.startswith("checkpoint-"):
+                checkpoint_dirs.append(os.path.join(root, dir_name))
+
+    checkpoint_dirs.sort(key=lambda x: int(x.split("-")[-1]))
+
+    if args.max_checkpoints and len(checkpoint_dirs) > args.max_checkpoints:
+        indices = np.linspace(0, len(checkpoint_dirs) - 1, args.max_checkpoints, dtype=int)
+        checkpoint_dirs = [checkpoint_dirs[i] for i in indices]
+
+    logger.info(f"Found {len(checkpoint_dirs)} checkpoints to analyze")
+
+    if args.difficulty:
+        logger.info(f"Loading {args.difficulty} difficulty dataset")
+        dataset = GSM8KDifficulty(
+            difficulty=args.difficulty,
+            data_dir=args.data_dir,
+            split='test',
+            include_answer=False,
+            include_reasoning=True,
+            few_shot=True,
+            num_shots=2,
+            seed=42,
+            cot=True,
+            template='qa'
+        ).dataset
+    else:
+        logger.info("Loading standard GSM8K dataset")
+        dataset = GSM8K(
+            split='test',
+            include_answer=False,
+            include_reasoning=True,
+            few_shot=True,
+            num_shots=2,
+            seed=42,
+            cot=True,
+            template='qa'
+        ).dataset
+
+    prompts: List[str] = []
+    answers: List[Optional[str]] = []
+    question_texts: List[Optional[str]] = []
+    dataset_indices: List[int] = []
+
+    for idx, item in enumerate(dataset):
+        prompts.append(item["prompt"])
+        answers.append(item.get("final_answer"))
+        question_texts.append(item.get("question"))
+        dataset_indices.append(idx)
+
+    if args.max_samples:
+        prompts = prompts[:args.max_samples]
+        answers = answers[:args.max_samples]
+        question_texts = question_texts[:args.max_samples]
+        dataset_indices = dataset_indices[:args.max_samples]
+
+    if not prompts:
+        raise SystemExit("No prompts available for analysis.")
+
+    # Support selecting multiple indices
+    selected_indices = None
+    if args.focus_question_idxs is not None:
+        raw_tokens = [t.strip() for t in str(args.focus_question_idxs).split(',') if t.strip() != ""]
+        try:
+            idxs = [int(t) for t in raw_tokens]
+        except ValueError:
+            raise SystemExit(f"focus_question_idxs contains a non-integer value: {args.focus_question_idxs}")
+        for i in idxs:
+            if i < 0 or i >= len(prompts):
+                raise SystemExit(
+                    f"focus_question_idxs contains out-of-range index {i} for {len(prompts)} prompts"
+                )
+        seen = set()
+        selected_indices = []
+        for i in idxs:
+            if i not in seen:
+                seen.add(i)
+                selected_indices.append(i)
+    elif args.focus_question_idx is not None:
+        if args.focus_question_idx < 0 or args.focus_question_idx >= len(prompts):
+            raise SystemExit(
+                f"focus_question_idx={args.focus_question_idx} is out of range for {len(prompts)} prompts"
+            )
+        selected_indices = [args.focus_question_idx]
+
+    if selected_indices is not None:
+        original_dataset_indices = [dataset_indices[i] for i in selected_indices]
+        prompts = [prompts[i] for i in selected_indices]
+        answers = [answers[i] for i in selected_indices]
+        question_texts = [question_texts[i] for i in selected_indices]
+        dataset_indices = original_dataset_indices
+
+        logger.info(
+            f"Focusing analysis on prompt indices {selected_indices} (dataset idx {original_dataset_indices})"
+        )
+        if question_texts and question_texts[0]:
+            logger.info(f"Selected question text: {question_texts[0]}")
+
+    prompt_ids = [f"prompt_{idx}" for idx in dataset_indices]
+
+    logger.info(f"Loaded {len(prompts)} prompts for analysis")
+
+    metadata_df = pd.DataFrame({
+        'prompt_id': prompt_ids,
+        'dataset_index': dataset_indices,
+        'question': question_texts,
+        'final_answer': answers
+    })
+    metadata_df.to_csv(os.path.join(args.output_dir, "prompt_metadata.csv"), index=False)
+
+    for i, checkpoint_dir in enumerate(checkpoint_dirs):
+        logger.info(f"Analyzing checkpoint {i + 1}/{len(checkpoint_dirs)}: {checkpoint_dir}")
+
+        model = None
+        try:
+            iteration = int(checkpoint_dir.split("-")[-1])
+
+            model, tokenizer = load_model_from_checkpoint(checkpoint_dir)
+
+            gradients, token_counts, fisher_info = calculate_policy_gradients(
+                model, tokenizer, prompts, prompt_ids=prompt_ids
+            )
+
+            _reward_samples, reward_stds, accuracies = calculate_reward_variance(
+                model,
+                tokenizer,
+                prompts,
+                answers=answers,
+                prompt_ids=prompt_ids,
+                num_samples=args.num_samples
+            )
+
+            if accuracies:
+                avg_accuracy = float(np.mean(list(accuracies.values())))
+                logger.info(f"Iteration {iteration}: mean empirical accuracy {avg_accuracy:.3f}")
+
+            for prompt_id in prompt_ids:
+                if prompt_id in gradients:
+                    analyzer.record_gradient(prompt_id, iteration, gradients[prompt_id])
+
+                if prompt_id in fisher_info:
+                    analyzer.record_fisher_info(prompt_id, iteration, fisher_info[prompt_id])
+
+                if prompt_id in reward_stds:
+                    reward_std = reward_stds[prompt_id]
+                    analyzer.record_reward_std(prompt_id, iteration, reward_std)
+                    analyzer.record_variance(prompt_id, iteration, reward_std ** 2)
+
+                if prompt_id in accuracies:
+                    analyzer.record_accuracy(prompt_id, iteration, accuracies[prompt_id])
+
+            if args.calculate_policy_std:
+                std_analyzer = PolicyStdAnalyzer(tokenizer)
+                overall_std, per_question_stds = std_analyzer.compute_policy_std(model, prompts)
+
+                std_csv_path = os.path.join(args.output_dir, "policy_std_data.csv")
+                std_df = pd.DataFrame({
+                    'iteration': [iteration] * len(per_question_stds),
+                    'question_id': prompt_ids,
+                    'policy_std': per_question_stds
+                })
+
+                if i == 0 and not os.path.exists(std_csv_path):
+                    std_df.to_csv(std_csv_path, index=False)
+                else:
+                    std_df.to_csv(std_csv_path, mode='a', header=False, index=False)
+
+        except Exception as e:
+            logger.error(f"Error analyzing checkpoint {checkpoint_dir}: {e}")
             continue
-        if lora_only and "lora" not in n.lower():
-            continue
-        if p.grad is not None:
-            p.grad.zero_()
+        finally:
+            if model is not None:
+                del model
+                torch.cuda.empty_cache()
 
-    loss.backward()                    # <- now grads exist
+    logger.info("Running final variance analysis...")
+    analysis_results = analyzer.run_full_analysis()
+    
+    # Generate random time correlation plots
+    logger.info("Generating random time correlation visualizations...")
+    fig, corr, pval = plot_random_time_correlations(analyzer, args.output_dir, num_pairs=1000)
+    if fig is not None:
+        logger.info(f"Random pairing correlation: {corr:.4f} (p={pval:.4f})")
 
-    Ti = int((batch["labels"] != -100).sum().item())
-    trace_sum = 0.0
-    flats = []
-    for n, p in model.named_parameters():
-        if not p.requires_grad:
-            continue
-        if lora_only and "lora" not in n.lower():
-            continue
-        if p.grad is None:
-            continue
-        g = p.grad.detach()
-        trace_sum += (Ti * g * g).sum().item()
-        flats.append(g.float().reshape(-1))
-    grad_vec = torch.cat(flats) if flats else torch.zeros(0, device=device)
+    logger.info(f"Analysis complete. Results saved to {args.output_dir}/")
 
-    # clean up + restore mode
-    for n, p in model.named_parameters():
-        if not p.requires_grad:
-            continue
-        if lora_only and "lora" not in n.lower():
-            continue
-        if p.grad is not None:
-            p.grad.zero_()
+    return analysis_results
 
-    if not was_training:
-        model.eval()
+def parse_args():
+    parser = argparse.ArgumentParser(description="Analyze variance and Fisher information in model checkpoints")
 
-    return float(trace_sum), grad_vec, Ti
+    parser.add_argument("--checkpoint_path", type=str, required=True,
+                       help="Path to model checkpoint or directory containing checkpoints")
+    parser.add_argument("--output_dir", type=str, default="variance_analysis_results",
+                       help="Directory to save analysis results")
+    parser.add_argument("--difficulty", type=str, default=None, choices=["easy", "medium", "hard"],
+                       help="Dataset difficulty level (if using GSM8KDifficulty)")
+    parser.add_argument("--data_dir", type=str, default="data/gsm8k_difficulty_subsets",
+                       help="Directory containing difficulty-graded datasets")
+    parser.add_argument("--max_samples", type=int, default=10,
+                       help="Maximum number of samples to analyze")
+    parser.add_argument("--num_samples", type=int, default=8,
+                       help="Number of samples to generate for reward variance calculation")
+    parser.add_argument("--focus_question_idx", type=int, default=None,
+                       help="If provided, analyze only this question index after filtering to max_samples")
+    parser.add_argument("--focus_question_idxs", type=str, default=None,
+                       help="Comma-separated list of question indices (after max_samples slicing), e.g. '0,3,7'")
+    parser.add_argument("--multiple_checkpoints", action="store_true",
+                       help="Analyze multiple checkpoints to track changes over iterations")
+    parser.add_argument("--max_checkpoints", type=int, default=5,
+                       help="Maximum number of checkpoints to analyze if multiple_checkpoints is True")
+    parser.add_argument("--calculate_policy_std", action="store_true",
+                       help="Calculate policy standard deviation using PolicyStdAnalyzer")
 
-
-def pairwise_cosine_stats(grad_vecs: List[torch.Tensor], sig2: List[float], max_pairs: int = 200):
-    idxs = list(range(len(grad_vecs)))
-    pairs = []
-    seen = set()
-    while len(pairs) < min(max_pairs, len(idxs)*(len(idxs)-1)//2):
-        i, j = sorted(random.sample(idxs, 2))
-        if (i, j) in seen: continue
-        seen.add((i, j)); pairs.append((i, j))
-    cos_vals = []; pos_var_diffs = []
-    for i, j in pairs:
-        gi, gj = grad_vecs[i], grad_vecs[j]
-        if gi.numel() == 0 or gj.numel() == 0: continue
-        cos = torch.dot(gi, gj) / ((gi.norm()+1e-12)*(gj.norm()+1e-12))
-        cv = float(cos.item())
-        cos_vals.append(cv)
-        if cv > 0.0:
-            pos_var_diffs.append(abs(sig2[i]-sig2[j]))
-    prop_neg = float(np.mean([c < 0.0 for c in cos_vals])) if cos_vals else None
-    med_abs_diff_poscos = float(np.median(pos_var_diffs)) if pos_var_diffs else None
-    return cos_vals, prop_neg, med_abs_diff_poscos
-
-def spearman_kendall(x: List[float], y: List[float]) -> Tuple[Optional[float], Optional[float]]:
-    try:
-        import scipy.stats as ss
-        s = ss.spearmanr(x, y).correlation
-        k = ss.kendalltau(x, y).correlation
-        return float(s), float(k)
-    except Exception:
-        return None, None
-
-def analyze_checkpoint(
-    ckpt_path: str,
-    model_name: str,
-    bf16: bool,
-    prompts: List[Dict[str, Any]],
-    fmt: str,
-    K: int,
-    gen_kwargs: Dict[str, Any],
-    lora_only: bool,
-    cosine_pairs: int,
-    out_dir: str,
-    seed: int
-):
-    print(f"\n=== Analyzing checkpoint: {ckpt_path} ===")
-    set_seed(seed)
-    model, tok = load_model_and_tokenizer(model_name, ckpt_path, bf16)
-
-    # Select a fixed completion to define pseudo-targets for curvature (use first sample)
-    per_prompt_rows = []
-    grad_vecs = []
-    sig2s = []
-    kappas = []
-
-    for idx, row in enumerate(prompts):
-        prompt_text = row['prompt']
-        gt_answer = row.get('answer', '')
-        # 1) Generate K completions & rewards
-        completions = generate_k(model, tok, prompt_text, K, gen_kwargs)
-        rewards = compute_rewards_for_completions(completions, prompt_text, fmt)
-        pi_hat = float(np.mean(rewards))
-        sigma2 = float(np.var(rewards))
-        sig2s.append(sigma2)
-
-        # 2) empirical Fisher (method 2) using the first completion as pseudo-target
-        completion_text = completions[0]
-        kappa, grad_vec, Ti = empirical_fisher_trace(model, tok, prompt_text, completion_text, lora_only=lora_only)
-        grad_vecs.append(grad_vec.detach().cpu())
-        kappas.append(kappa)
-
-        per_prompt_rows.append({
-            "checkpoint": ckpt_path,
-            "prompt_index": idx,
-            "prompt_hash": hash(prompt_text),
-            "pi_hat": pi_hat,
-            "sigma2": sigma2,
-            "kappa": kappa,
-            "Ti": Ti,
-        })
-
-    # 3) Correlations
-    spear, kend = spearman_kendall(sig2s, kappas)
-
-    # 4) Cosine stats
-    cos_vals, prop_neg, med_abs_diff_poscos = pairwise_cosine_stats(grad_vecs, sig2s, max_pairs=cosine_pairs)
-
-    # 5) bar_sigma (ingredient of C(n,T))
-    bar_sigma = float(np.mean([math.sqrt(max(0.0, s)) for s in sig2s])) if sig2s else None
-
-    # 6) Save CSVs
-    os.makedirs(out_dir, exist_ok=True)
-    # per-prompt file
-    pp_csv = os.path.join(out_dir, f"per_prompt_{os.path.basename(ckpt_path).replace('/', '_')}.csv")
-    with open(pp_csv, 'w', newline='', encoding='utf-8') as f:
-        w = csv.DictWriter(f, fieldnames=list(per_prompt_rows[0].keys()))
-        w.writeheader(); w.writerows(per_prompt_rows)
-
-    # summary row
-    summary_row = {
-        "checkpoint": ckpt_path,
-        "num_prompts": len(prompts),
-        "K": K,
-        "spearman_sigma2_kappa": spear,
-        "kendall_sigma2_kappa": kend,
-        "bar_sigma": bar_sigma,
-        "cosine_prop_negative": prop_neg,
-        "cosine_median_abs_var_diff_given_pos": med_abs_diff_poscos,
-        "cosine_count_pairs": len(cos_vals) if cos_vals else 0,
-    }
-    sum_csv = os.path.join(out_dir, "summary.csv")
-    write_header = not os.path.exists(sum_csv)
-    with open(sum_csv, 'a', newline='', encoding='utf-8') as f:
-        w = csv.DictWriter(f, fieldnames=list(summary_row.keys()))
-        if write_header: w.writeheader()
-        w.writerow(summary_row)
-
-    print(f"Saved per-prompt CSV  -> {pp_csv}")
-    print(f"Appended summary row  -> {sum_csv}")
-    return pp_csv, sum_csv
+    return parser.parse_args()
 
 def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--checkpoints_glob", type=str, required=True,
-                    help="Glob for checkpoints, e.g. 'outputs/.../checkpoint-*'")
-    ap.add_argument("--model_name", type=str, default=None,
-                    help="(Optional) base model name; if None, we load from checkpoint path")
-    ap.add_argument("--bf16", action="store_true")
-    ap.add_argument("--dataset", type=str, default="math", choices=["math","gsm8k","file"])
-    ap.add_argument("--prompts_file", type=str, default=None,
-                    help="If provided, read prompts from this txt|jsonl file (one per line or jsonl with 'prompt')")
-    ap.add_argument("--format", type=str, default="qa", choices=["qa","code"])
-    ap.add_argument("--difficulty", type=str, default="easy",
-                    help="used only if dataset=gsm8k")
-    ap.add_argument("--data_dir", type=str, default="data/gsm8k_difficulty_subsets")
-    ap.add_argument("--num_shots", type=int, default=2)
-    ap.add_argument("--eval_prompts", type=int, default=256, help="number of prompts to analyze per checkpoint")
-    ap.add_argument("--K", type=int, default=8, help="samples per prompt")
-    # decoding config
-    ap.add_argument("--temperature", type=float, default=0.7)
-    ap.add_argument("--top_p", type=float, default=0.9)
-    ap.add_argument("--max_new_tokens", type=int, default=256)
-    ap.add_argument("--lora_only_fisher", action="store_true")
-    ap.add_argument("--cosine_pairs", type=int, default=200)
-    ap.add_argument("--seed", type=int, default=1234)
-    ap.add_argument("--out_dir", type=str, default="analysis_outputs")
-    args = ap.parse_args()
+    args = parse_args()
 
-    set_seed(args.seed)
-    prompts = load_prompts(args)
-    gen_kwargs = dict(
-        temperature=args.temperature,
-        top_p=args.top_p,
-        max_new_tokens=args.max_new_tokens,
-        pad_token_id=0,
-    )
+    # Create output directory
+    os.makedirs(args.output_dir, exist_ok=True)
 
-    ckpts = sorted(glob.glob(args.checkpoints_glob))
-    if not ckpts:
-        raise SystemExit(f"No checkpoints matched: {args.checkpoints_glob}")
+    logger.info(f"Starting variance analysis with args: {args}")
 
-    for ck in ckpts:
-        analyze_checkpoint(
-            ckpt_path=ck,
-            model_name=args.model_name or ck,
-            bf16=args.bf16,
-            prompts=prompts,
-            fmt=args.format,
-            K=args.K,
-            gen_kwargs=gen_kwargs,
-            lora_only=args.lora_only_fisher,
-            cosine_pairs=args.cosine_pairs,
-            out_dir=args.out_dir,
-            seed=args.seed
-        )
+    if args.multiple_checkpoints:
+        analysis_results = analyze_multiple_checkpoints(args)
+    else:
+        analysis_results = run_variance_analysis(args)
+
+    logger.info("Analysis complete!")
 
 if __name__ == "__main__":
     main()
+
